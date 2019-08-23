@@ -1,10 +1,10 @@
 import React from 'react';
-import Init from './pages/init'
+import Routes from './routes';
 
 function App() {
 
   return (
-    <Init></Init>
+    <Routes/>
   )
 }
 

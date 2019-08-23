@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./init.css";
 import video from '../assets/protests.mp4';
 import logo from '../assets/logo.png';
 
-export default function Init() {
+export default function Init(props) {
 
-    function handleSubmit() {
-        console.log("teste")
+    const history = props.history;
+
+    const[politician, setPolitician] = useState('');
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        if(politician && politician !== ""){
+            history.push(`/politicians/${politician}`);
+        }
     }
 
     return (
@@ -16,6 +23,8 @@ export default function Init() {
                     <img src={logo} alt="logo" />
                     <input
                         placeholder="Insira o nome de um parlamentar"
+                        value = {politician}
+                        onChange = {e => {setPolitician(e.target.value)}}
                     />
                     <button type="submit">
                         Enviar
