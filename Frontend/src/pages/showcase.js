@@ -28,7 +28,18 @@ export default function Showcase({ match }) {
 
                     </div>
                     <div className="to-do">
-
+                        <div className="twitter">
+                            Teste twitter
+                        </div>
+                        <div className="google-search">
+                            Teste google-search
+                        </div>
+                        <div className="last-votes">
+                            Teste last-votes
+                        </div>
+                        <div className="law-projects">
+                            teste law-projects
+                        </div>
                     </div>
                 </div>
             ) : (
