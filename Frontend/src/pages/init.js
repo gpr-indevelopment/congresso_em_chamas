@@ -3,6 +3,9 @@ import "./init.css";
 import video from '../assets/protests.mp4';
 import logo from '../assets/logo.png';
 
+//TODO: Separate methods into responsibilities.
+//TODO: Handle backend sending more than 1 politician.
+//TODO: Complete all the information screens for politician.
 export default function Init(props) {
 
     const history = props.history;

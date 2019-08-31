@@ -2,6 +2,7 @@ Procedimento para server node.js:
 1 - Criar uma pasta backend.
 2 - Com o chocolatey e yarn instalados, executar o comando yarn init -y.
 3 - Instalar as dependencias do express e nodemon.
+4 - yarn nodemon ./src/server.js
 
 Procedimento para frontend react:
 1 - Utilizar o comando yarn create react-app (nome do projeto) dentro da pasta de Frontend.

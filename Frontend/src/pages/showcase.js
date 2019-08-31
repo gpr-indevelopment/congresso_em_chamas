@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import {retrievePoliticians} from '../services';
 import './showcase.css';
 
-export default function Showcase({ match }) {
+export default function Showcase(props) {
 
     const [politicians, setPoliticians] = useState({ picture: "" });
 
+    const params = {
+        politicianId: props.match.params.key,
+        history: props.history
+    }
+
     useEffect(() => {
-        async function getData() {
-            const response = await axios.post("http://localhost:3000/getPolitician", null, {
-                headers: {
-                    politician: match.params.key
+        async function getData(params) {
+            const politicianId = params.politicianId;
+            const history = params.history;
+            if(!(politicians.length > 0)){
+                const response = await retrievePoliticians(politicianId);
+                if(response.length > 0){
+                    setPoliticians(response);
                 }
-            });
-            console.log(response.data);
-            setPoliticians(response.data);
+                else{
+                    history.push('/');
+                }
+            }
         }
-        getData();
-    }, [match.params.key])
+        getData(params);
+    }, [params, politicians])
 
     return (
         <div className="global-container">
