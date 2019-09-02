@@ -6,6 +6,11 @@ const PoliticianSchema = new Schema({
         required: true,
         unique: true,
     },
+    camaraId:{
+        type: Number,
+        required: true,
+        unique: true,
+    },
     picture:{
         type: String,
         required: true

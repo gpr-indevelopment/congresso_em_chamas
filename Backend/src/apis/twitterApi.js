@@ -9,7 +9,6 @@ async function searchTwitterUser(searchQuery){
         q: searchQuery,
         count: 20,
     });
-    console.log(response.data[0].screen_name);
     return response.data[0].screen_name;
 }
 

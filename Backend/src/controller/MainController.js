@@ -24,10 +24,11 @@ module.exports = {
 }
 
 async function appendTwitterUserInfo(politician) {
-    const { name, picture, partyInitials } = politician;
+    const { name, picture, partyInitials, id } = politician;
     const twitterUsername = await searchTwitterUser(name);
     const completedPolitician = {
         name: name,
+        camaraId: id,
         picture: picture,
         partyInitials: partyInitials,
         twitterUsername: twitterUsername
