@@ -36,10 +36,10 @@ html, body, #root, .global-container{
 }
 
 .to-do div {
+    overflow: scroll;
     border: 1px solid;
     display: flex;
-    justify-content: center;
-    align-items: center;   
+    justify-content: center; 
     font-weight: bold;
     font-size: 24px; 
 }

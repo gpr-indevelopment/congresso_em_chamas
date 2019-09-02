@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {retrievePoliticians} from '../services';
+import { retrievePoliticians } from '../services';
+import { Timeline } from 'react-twitter-widgets';
 import './showcase.css';
 
 export default function Showcase(props) {
@@ -15,12 +16,12 @@ export default function Showcase(props) {
         async function getData(params) {
             const politicianId = params.politicianId;
             const history = params.history;
-            if(!(politicians.length > 0)){
+            if (!(politicians.length > 0)) {
                 const response = await retrievePoliticians(politicianId);
-                if(response.length > 0){
+                if (response.length > 0) {
                     setPoliticians(response);
                 }
-                else{
+                else {
                     history.push('/');
                 }
             }
@@ -37,9 +38,10 @@ export default function Showcase(props) {
 
                     </div>
                     <div className="to-do">
-                        <div className="twitter">
-                            Teste twitter
-                        </div>
+                            <Timeline dataSource={{
+                                sourceType: 'profile',
+                                screenName: politicians[0].twitterUsername
+                            }} className="twitter" />
                         <div className="google-search">
                             Teste google-search
                         </div>
