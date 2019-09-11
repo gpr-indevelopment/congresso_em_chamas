@@ -1,38 +1,11 @@
-const getPoliticiansFromCamara = require('../apis/camaraApi.js');
-const searchTwitterUser = require('../apis/twitterApi.js');
-const { politicianExists, savePolitician } = require('../dao/dao.js');
+const politicianProcessor = require("../processor/politicianProcessor.js");
 
 //TODO: Improve organization and separation fo responsibilities. Make business logic clearer.
 module.exports = {
     async getPolitician(req, res) {
-        const { politician } = req.headers;
-        const response = await getPoliticiansFromCamara(politician);
-        var responseArray = [];
-        for (var politicianFromCamara of response) {
-            const foundPolitician = await politicianExists(politicianFromCamara);
-            if (foundPolitician) {
-                responseArray.push(foundPolitician);
-            }
-            else {
-                const completedPolitician = await appendTwitterUserInfo(politicianFromCamara);
-                const savedPolitician = await savePolitician(completedPolitician);
-                responseArray.push(savedPolitician);
-            }
-        }
-        return res.json(responseArray);
+        const inputName = req.headers.politician;
+        return res.json(await politicianProcessor.processPoliticianFromInput(inputName));
     },
-}
-
-async function appendTwitterUserInfo(politician) {
-    const { name, picture, partyInitials } = politician;
-    const twitterUsername = await searchTwitterUser(name);
-    const completedPolitician = {
-        name: name,
-        picture: picture,
-        partyInitials: partyInitials,
-        twitterUsername: twitterUsername
-    }
-    return completedPolitician;
 }
 
 

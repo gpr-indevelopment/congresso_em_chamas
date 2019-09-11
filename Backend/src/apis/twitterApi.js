@@ -1,17 +1,14 @@
 const Twit = require('twit');
-const config = require('./twitterApiConfig.js');
+const config = require('./config/twitterApiConfig.js');
 
-async function searchTwitterUser(searchQuery){
-
-    var T = new Twit(config);
-
-    const response = await T.get('users/search', {
-        q: searchQuery,
-        count: 20,
-    });
-    console.log(response.data[0].screen_name);
-    return response.data[0].screen_name;
+module.exports = {
+    async getTwitterAccountByName(searchQuery) {
+        var T = new Twit(config);
+        const response = await T.get('users/search', {
+            q: searchQuery,
+            count: 20,
+        });
+        return response.data[0].screen_name;
+    },
 }
-
-module.exports = searchTwitterUser;
 

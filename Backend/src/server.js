@@ -7,6 +7,8 @@ mongoose.connect('mongodb://pimentgabriel:pimentgabriel@congressoemchamas-shard-
     useNewUrlParser: true
 });
 
+mongoose.set('useCreateIndex', true);
+
 const app = express();
 
 app.use(cors());
