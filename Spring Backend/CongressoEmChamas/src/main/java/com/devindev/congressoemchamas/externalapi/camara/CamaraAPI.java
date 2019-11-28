@@ -21,16 +21,10 @@ public class CamaraAPI {
 
     private String baseUrl = "https://dadosabertos.camara.leg.br/api/v2";
 
-    public List<Politician> requestByName(String name){
-        try{
+    public List<Politician> requestByName(String name) {
+        try {
             return executeGetDeputados(name);
-        }
-        catch (IOException statusCodeError){
-            LOGGER.error(statusCodeError.getMessage());
-            LOGGER.error("Returning empty politicians list.");
-            return new ArrayList<>();
-        }
-        catch (Exception exception){
+        } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Returning empty politicians list.");
             return new ArrayList<>();
@@ -38,7 +32,7 @@ public class CamaraAPI {
     }
 
     private List<Politician> executeGetDeputados(String name) throws IOException {
-        String path = String.format("%s/sssdeputados?nome=%s", baseUrl, name);
+        String path = String.format("%s/deputados?nome=%s", baseUrl, name);
         return Request.Get(path).execute().handleResponse(responseHandler);
     }
 }

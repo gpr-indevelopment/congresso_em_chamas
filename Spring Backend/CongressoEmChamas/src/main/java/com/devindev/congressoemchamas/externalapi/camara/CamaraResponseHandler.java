@@ -37,7 +37,7 @@ public class CamaraResponseHandler implements ResponseHandler<List<Politician>> 
 
     private Politician buildPolitician(JsonObject data) {
             Politician politician = new Politician();
-            politician.setCamaraId(data.get("id").getAsLong());
+            politician.setId(data.get("id").getAsLong());
             politician.setName(retrieveStringFromMember(data, "nome"));
             politician.setParty(retrieveStringFromMember(data, "siglaPartido"));
             politician.setPicture(retrieveStringFromMember(data, "urlFoto"));

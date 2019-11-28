@@ -8,4 +8,13 @@ public class PoliticianRepository {
 
     @Autowired
     private PoliticianDAO dao;
+
+    public Politician findById(Long id){
+        return dao.findById(id).orElse(null);
+    }
+
+    public Politician save(Politician politician){
+        return dao.save(politician);
+    }
+
 }
