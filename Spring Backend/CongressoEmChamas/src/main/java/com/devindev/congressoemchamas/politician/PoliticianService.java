@@ -21,15 +21,13 @@ public class PoliticianService {
     @Autowired
     private TwitterAPI twitterAPI;
 
-    // TODO: 27/11/2019 Optimize this arquitecture and query to gain performance. 
     public List<Politician> findByName(String name){
-        List<Politician> foundPoliticians = camaraAPI.requestByName(name);
         List<Politician> returnPoliticians = new ArrayList<>();
-        foundPoliticians.forEach(foundPolitician -> {
-            Politician builtPolitician = repository.findById(foundPolitician.getId());
+        camaraAPI.requestIdsByName(name).parallelStream().forEach(foundPoliticianId -> {
+            Politician builtPolitician = repository.findById(foundPoliticianId);
             if(Objects.isNull(builtPolitician)){
-                foundPolitician.setTwitterUsername(twitterAPI.searchUsername(foundPolitician.getName()));
-                builtPolitician = foundPolitician;
+                builtPolitician = camaraAPI.requestPoliticianById(foundPoliticianId);
+                builtPolitician.setTwitterUsername(twitterAPI.searchUsername(builtPolitician.getName()));
                 repository.save(builtPolitician);
             }
             returnPoliticians.add(builtPolitician);

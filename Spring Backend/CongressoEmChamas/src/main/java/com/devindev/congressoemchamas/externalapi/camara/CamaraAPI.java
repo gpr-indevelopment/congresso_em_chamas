@@ -15,15 +15,18 @@ import java.util.List;
 public class CamaraAPI {
 
     @Autowired
-    private CamaraResponseHandler responseHandler;
+    private GetPoliticiansByNameRH getPoliticiansByNameRH;
+
+    @Autowired
+    private GetPoliticianByIdRH getPoliticianByIdRH;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
     private String baseUrl = "https://dadosabertos.camara.leg.br/api/v2";
 
-    public List<Politician> requestByName(String name) {
+    public List<Long> requestIdsByName(String name) {
         try {
-            return executeGetDeputados(name);
+            return retrievePoliticianIdsByName(name);
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Returning empty politicians list.");
@@ -31,8 +34,23 @@ public class CamaraAPI {
         }
     }
 
-    private List<Politician> executeGetDeputados(String name) throws IOException {
+    public Politician requestPoliticianById(Long id){
+        try {
+            return retrievePoliticianById(id);
+        } catch (IOException exception) {
+            LOGGER.error(exception.getMessage());
+            LOGGER.error("Returning null instead of a new Politician.");
+            return null;
+        }
+    }
+
+    private Politician retrievePoliticianById(Long id) throws IOException{
+        String path = String.format("%s/deputados/%d", baseUrl, id);
+        return Request.Get(path).execute().handleResponse(getPoliticianByIdRH);
+    }
+
+    private List<Long> retrievePoliticianIdsByName(String name) throws IOException {
         String path = String.format("%s/deputados?nome=%s", baseUrl, name);
-        return Request.Get(path).execute().handleResponse(responseHandler);
+        return Request.Get(path).execute().handleResponse(getPoliticiansByNameRH);
     }
 }
