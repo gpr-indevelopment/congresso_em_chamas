@@ -1,6 +1,6 @@
 package com.devindev.congressoemchamas.politician;
 
-import com.devindev.congressoemchamas.externalapi.CamaraAPI;
+import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
