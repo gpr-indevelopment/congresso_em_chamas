@@ -33,14 +33,14 @@ export default function Showcase(props) {
         <div className="global-container">
             {politicians.length > 0 ? (
                 <div className="main-container">
-                    <img src={politicians[0].picture} className="politician-image" alt="politician_image" />
+                    <img src={politicians[1].picture} className="politician-image" alt="politician_image" />
                     <div className="description">
 
                     </div>
                     <div className="to-do">
                             <Timeline dataSource={{
                                 sourceType: 'profile',
-                                screenName: politicians[0].twitterUsername
+                                screenName: politicians[1].twitterUsername
                             }} className="twitter" />
                         <div className="google-search">
                             Teste google-search

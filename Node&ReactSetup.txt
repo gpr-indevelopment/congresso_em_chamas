@@ -7,3 +7,4 @@ Procedimento para server node.js:
 Procedimento para frontend react:
 1 - Utilizar o comando yarn create react-app (nome do projeto) dentro da pasta de Frontend.
 2 - Limpar os arquivos do react.
+3 - yarn start
