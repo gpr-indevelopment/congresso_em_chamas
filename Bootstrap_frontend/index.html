@@ -1,30 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>Frontpage</title>
     <style>
         body {
+            /* Deve assumir posição absoluta na pagina tomando tamanho inteiro
+            Assim, os filhos podem fazer posicionamento relativo e tomar 50% da tela.
+             */
+            position: absolute;
+            height: 100%;
+            width: 100%;
             margin: 0px;
+            /* Todo o overflow vai ficar escondido na tela */
             overflow: hidden;
             background-color: black;
         }
 
         video {
-            width: 100%;
+            /* Coloca em posição absoluta, desvinculado de todos os parents. */
+            position: absolute;
+            /* Os heights e widths minimos fazem com que o video se ajuste ao tamanho da tela. */
+            min-height: 100%;
+            min-width: 100%;
+            /* Coloca em background na tela */
+            z-index: -100;
             -webkit-filter: blur(5px);
             -moz-filter: blur(5px);
             -o-filter: blur(5px);
             -ms-filter: blur(5px);
         }
+
+        .form-container {
+            height: 100%;
+            width: 100%;
+            /* Alinha os filhos no centro horizontalmente, desde que seja um bloco */
+            text-align: center;
+        }
+
+        .form-container>form {
+            /* Deve assumir posição relativa ao pai, se posicionando em 30% do topo */
+            position: relative;
+            top: 25%;
+            background-color: white;
+            /* O filho tem que virar um bloco inline para não ocupar a largura toda. */
+            display: inline-block;
+        }
+
+        form > input {
+            min-width: 300px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        form > button {
+            width: 100%;
+            background: url("../assets/stars.jpg");
+        }
+
+        form > img {
+            height: 150px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
+
 <body>
     <video autoplay loop muted>
         <source src="assets/protests_240.mp4" type="video/mp4">
         <source src="assets/protests_144.mp4" type="video/mp4">
         This video is not available.
     </video>
+    <div class="form-container">
+        <form class="shadow p-3 mb-5 bg-black rounded border">
+            <img src="assets/logo.png" alt="">
+            <input class="form-control" placeholder="Insira o nome de um parlamentar">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
 </body>
+
 </html>
