@@ -52,18 +52,23 @@
             display: inline-block;
         }
 
-        form > input {
+        form {
+            border: 15px solid;
+            border-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66)) 1;
+        }
+
+        form>input {
             min-width: 300px;
             text-align: center;
             margin-bottom: 15px;
         }
 
-        form > button {
+        form>button {
             width: 100%;
             background: url("../assets/stars.jpg");
         }
 
-        form > img {
+        form>img {
             height: 150px;
             margin-bottom: 5px;
         }
@@ -77,12 +82,35 @@
         This video is not available.
     </video>
     <div class="form-container">
-        <form class="shadow p-3 mb-5 bg-black rounded border">
+        <form class="shadow p-3 mb-5 bg-black">
             <img src="assets/logo.png" alt="">
-            <input class="form-control" placeholder="Insira o nome de um parlamentar">
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <input class="form-control" placeholder="Insira o nome de um parlamentar" politicianInput>
+            <button class="btn btn-primary" politicianButton>Enviar</button>
         </form>
     </div>
+
+    <script>
+        const button = document.querySelector('[politicianButton]');
+        const politicianInput = document.querySelector('[politicianInput]');
+        button.onclick = e => {
+            e.preventDefault();
+            if(politicianInput.value){
+                window.location.href+=`politicians.html?politician=${politicianInput.value}`;
+            }
+            else {
+                politicianInput.classList.add("is-invalid");
+            }
+        }
+        politicianInput.oninput = e => {
+            if(politicianInput.value){
+                politicianInput.classList.remove("is-invalid");
+                politicianInput.classList.add("is-valid");
+            }
+            else{
+                politicianInput.classList.remove("is-valid");
+            }
+        }
+    </script>
 </body>
 
 </html>
