@@ -1,14 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>Politicians</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: auto auto 250px;
+            grid-template-rows: auto 62px;
+            grid-template-areas:
+                'main main aside'
+                'footer footer footer'
+        }
+
+        aside {
+            grid-area: aside;
+        }
+
+        main {
+            grid-area: main;
+        }
+
+        main > #nav-tabContent {
+            padding: 10px;
+        }
+
+        footer {
+            grid-area: footer;
+            border: 6px solid;
+            border-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66)) 1;
+            display: flex;
+            /* O alinhamento pra direita se dá com flex-end e não right */
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+    </style>
 </head>
+
 <body>
-   <script>
-       const politician = new URLSearchParams(window.location.search).get("politician");
-       document.querySelector('body').innerHTML = politician;
-   </script>
+    <aside class="border"></aside>
+    <main>
+        <!-- O bootstrap cria uma div de navegação e outra de conteúdo, e amarra as duas coisas pelas classes e aria-controls -->
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-twitter-tab" data-toggle="tab" href="#nav-twitter" role="tab"
+                aria-controls="nav-twitter" aria-selected="true">Twitter</a>
+            <a class="nav-item nav-link" id="nav-noticias-tab" data-toggle="tab" href="#nav-noticias" role="tab"
+                aria-controls="nav-noticias" aria-selected="false">Notícias</a>
+            <a class="nav-item nav-link" id="nav-propostas-tab" data-toggle="tab" href="#nav-propostas" role="tab"
+                aria-controls="nav-propostas" aria-selected="false">Propostas</a>
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-twitter" role="tabpanel" aria-labelledby="nav-twitter-tab">Twitter</div>
+            <div class="tab-pane fade" id="nav-noticias" role="tabpanel" aria-labelledby="nav-noticias-tab">Noticias</div>
+            <div class="tab-pane fade" id="nav-propostas" role="tabpanel" aria-labelledby="nav-propostas-tab">Propostas</div>
+        </div>
+    </main>
+    <footer>
+        <img src="assets/perfil.png" width="48px" height="48px">
+    </footer>
+    <script>
+        // const politician = new URLSearchParams(window.location.search).get("politician");
+        // document.querySelector('body').innerHTML = politician;
+    </script>
 </body>
+
 </html>
