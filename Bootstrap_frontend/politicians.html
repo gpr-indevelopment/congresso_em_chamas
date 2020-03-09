@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <title>Politicians</title>
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -31,10 +30,19 @@
 
         main {
             grid-area: main;
+            display: grid;
+            grid-template-columns: auto;
+            grid-template-rows: 42px auto;
         }
 
-        main > #nav-tabContent {
+        main>#nav-tabContent {
+            height: auto;
             padding: 10px;
+        }
+
+        #nav-tab {
+            min-height: 42px;
+            min-width: 280px;
         }
 
         footer {
@@ -47,6 +55,9 @@
             align-items: center;
         }
 
+        #nav-twitter {
+            height: 100%;
+        }
     </style>
 </head>
 
@@ -63,9 +74,25 @@
                 aria-controls="nav-propostas" aria-selected="false">Propostas</a>
         </div>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-twitter" role="tabpanel" aria-labelledby="nav-twitter-tab">Twitter</div>
-            <div class="tab-pane fade" id="nav-noticias" role="tabpanel" aria-labelledby="nav-noticias-tab">Noticias</div>
-            <div class="tab-pane fade" id="nav-propostas" role="tabpanel" aria-labelledby="nav-propostas-tab">Propostas</div>
+            <div class="tab-pane fade show active" id="nav-twitter" role="tabpanel" aria-labelledby="nav-twitter-tab">
+                <div class="twitter-feed">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Twitter Embed Code -->
+                                <a class="twitter-timeline" href="https://twitter.com/jairbolsonaro"
+                                    data-chrome="nofooter" data-tweet-limit="5" dnt="true">Tweets by Bolsonaro</a>
+                                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                <!-- / Twitter Embed Code -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-noticias" role="tabpanel" aria-labelledby="nav-noticias-tab">Noticias
+            </div>
+            <div class="tab-pane fade" id="nav-propostas" role="tabpanel" aria-labelledby="nav-propostas-tab">Propostas
+            </div>
         </div>
     </main>
     <footer>
@@ -74,6 +101,28 @@
     <script>
         // const politician = new URLSearchParams(window.location.search).get("politician");
         // document.querySelector('body').innerHTML = politician;
+        // Twitter Overrides -----------------------------------------------------------------------------
+        $('.twitter-feed').delegate('#twitter-widget-0', 'DOMSubtreeModified propertychange', function () {
+            customizeTweetMedia();
+        });
+
+        var customizeTweetMedia = function () {
+            // CSS Overrides
+            $('.twitter-feed').find('.twitter-timeline').contents().find('.timeline-Tweet-media').css('max-width', '500px');
+            $('.twitter-feed').find('.twitter-timeline').contents().find('img.Avatar').css('display', 'none');
+            $('.twitter-feed').find('.twitter-timeline').contents().find('span.TweetAuthor-avatar.Identity-avatar').remove();
+            $('.twitter-feed').find('.twitter-timeline').contents().find('span.TweetAuthor-screenName').css('font-size', '16px');
+            $('.twitter-feed').find('.twitter-timeline').contents().find('span.TweetAuthor-screenName').css('font-family', 'Raleway');
+            //$('.twitter-feed').find('.twitter-timeline').contents().find('p.timeline-tweet-text').css('font-family', 'Libre Baskerville');
+            $('.twitter-feed').find('.twitter-timeline').contents().find('p.timeline-tweet-text').css('font-size', '16px');
+            $('.twitter-feed').find('.twitter-timeline').contents().find('p.timeline-tweet-text').css('line-height', '1.6');
+            $('.twitter-feed').find('.twitter-timeline').contents().find('ul.timeline-tweet-actions').css('display', 'none');
+
+            // Call the function on dynamic updates in addition to page load
+            $('.twitter-feed').find('.twitter-timeline').contents().find('.timeline-TweetList').bind('DOMSubtreeModified propertychange', function () {
+                customizeTweetMedia(this);
+            });
+        }
     </script>
 </body>
 
