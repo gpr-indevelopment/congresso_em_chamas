@@ -7,6 +7,7 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
     <title>Politicians</title>
     <style>
         * {
@@ -17,11 +18,11 @@
         body {
             min-height: 100vh;
             display: grid;
-            grid-template-columns: auto auto 250px;
+            grid-template-columns: auto 250px;
             grid-template-rows: auto 62px;
             grid-template-areas:
-                'main main aside'
-                'footer footer footer'
+                'main aside'
+                'footer footer'
         }
 
         aside {
@@ -31,18 +32,49 @@
         main {
             grid-area: main;
             display: grid;
+            grid-template-columns: 400px auto;
+            grid-template-rows: auto auto;
+        }
+
+        main>.twitter {
+            grid-row-start: 1;
+            grid-row-end: 3;
+            display: grid;
             grid-template-columns: auto;
-            grid-template-rows: 42px auto;
+            grid-template-rows: 70px auto;
         }
 
-        main>#nav-tabContent {
-            height: auto;
-            padding: 10px;
+        .twitter>header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("../assets/stars_transparent_less.png");
         }
 
-        #nav-tab {
-            min-height: 42px;
-            min-width: 280px;
+        main>.news {
+            display: grid;
+            grid-template-columns: auto;
+            grid-template-rows: 70px auto;
+        }
+
+        .news>header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("../assets/stars_transparent_less.png");
+        }
+
+        main>.law-projects {
+            display: grid;
+            grid-template-columns: auto;
+            grid-template-rows: 70px auto;
+        }
+
+        .law-projects>header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("../assets/stars_transparent_less.png");
         }
 
         footer {
@@ -55,8 +87,18 @@
             align-items: center;
         }
 
-        #nav-twitter {
-            height: 100%;
+        .fa-twitter {
+            color: #00aced;
+        }
+
+        .google-logo {
+            height: 35px;
+            width: 35px;
+        }
+
+        .congresso-logo {
+            height: 70px;
+            width: 70px;
         }
     </style>
 </head>
@@ -64,35 +106,25 @@
 <body>
     <aside class="border"></aside>
     <main>
-        <!-- O bootstrap cria uma div de navegação e outra de conteúdo, e amarra as duas coisas pelas classes e aria-controls -->
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-twitter-tab" data-toggle="tab" href="#nav-twitter" role="tab"
-                aria-controls="nav-twitter" aria-selected="true">Twitter</a>
-            <a class="nav-item nav-link" id="nav-noticias-tab" data-toggle="tab" href="#nav-noticias" role="tab"
-                aria-controls="nav-noticias" aria-selected="false">Notícias</a>
-            <a class="nav-item nav-link" id="nav-propostas-tab" data-toggle="tab" href="#nav-propostas" role="tab"
-                aria-controls="nav-propostas" aria-selected="false">Propostas</a>
+        <div class="twitter border">
+            <header>
+                <i class="fab fa-twitter fa-2x"></i>
+            </header>
+            <section>
+                <a class="twitter-timeline" href="https://twitter.com/jairbolsonaro" data-height="100%"
+                    data-chrome="nofooter noheader"></a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </section>
         </div>
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-twitter" role="tabpanel" aria-labelledby="nav-twitter-tab">
-                <div class="twitter-feed">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- Twitter Embed Code -->
-                                <a class="twitter-timeline" href="https://twitter.com/jairbolsonaro"
-                                    data-chrome="nofooter" data-tweet-limit="5" dnt="true">Tweets by Bolsonaro</a>
-                                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-                                <!-- / Twitter Embed Code -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="nav-noticias" role="tabpanel" aria-labelledby="nav-noticias-tab">Noticias
-            </div>
-            <div class="tab-pane fade" id="nav-propostas" role="tabpanel" aria-labelledby="nav-propostas-tab">Propostas
-            </div>
+        <div class="news border">
+            <header>
+                <img src="assets/google_logo.png" class="google-logo">
+            </header>
+        </div>
+        <div class="law-projects border">
+            <header>
+                <img src="assets/congresso_icon.png" class="congresso-logo">
+            </header>
         </div>
     </main>
     <footer>
@@ -101,28 +133,6 @@
     <script>
         // const politician = new URLSearchParams(window.location.search).get("politician");
         // document.querySelector('body').innerHTML = politician;
-        // Twitter Overrides -----------------------------------------------------------------------------
-        $('.twitter-feed').delegate('#twitter-widget-0', 'DOMSubtreeModified propertychange', function () {
-            customizeTweetMedia();
-        });
-
-        var customizeTweetMedia = function () {
-            // CSS Overrides
-            $('.twitter-feed').find('.twitter-timeline').contents().find('.timeline-Tweet-media').css('max-width', '500px');
-            $('.twitter-feed').find('.twitter-timeline').contents().find('img.Avatar').css('display', 'none');
-            $('.twitter-feed').find('.twitter-timeline').contents().find('span.TweetAuthor-avatar.Identity-avatar').remove();
-            $('.twitter-feed').find('.twitter-timeline').contents().find('span.TweetAuthor-screenName').css('font-size', '16px');
-            $('.twitter-feed').find('.twitter-timeline').contents().find('span.TweetAuthor-screenName').css('font-family', 'Raleway');
-            //$('.twitter-feed').find('.twitter-timeline').contents().find('p.timeline-tweet-text').css('font-family', 'Libre Baskerville');
-            $('.twitter-feed').find('.twitter-timeline').contents().find('p.timeline-tweet-text').css('font-size', '16px');
-            $('.twitter-feed').find('.twitter-timeline').contents().find('p.timeline-tweet-text').css('line-height', '1.6');
-            $('.twitter-feed').find('.twitter-timeline').contents().find('ul.timeline-tweet-actions').css('display', 'none');
-
-            // Call the function on dynamic updates in addition to page load
-            $('.twitter-feed').find('.twitter-timeline').contents().find('.timeline-TweetList').bind('DOMSubtreeModified propertychange', function () {
-                customizeTweetMedia(this);
-            });
-        }
     </script>
 </body>
 
