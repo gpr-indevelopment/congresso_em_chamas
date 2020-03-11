@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
+import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.politician.Politician;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
@@ -50,6 +51,7 @@ public class CamaraAPI {
     }
 
     private List<Long> retrievePoliticianIdsByName(String name) throws IOException {
+        name = APIUtils.convertToQueryString(name);
         String path = String.format("%s/deputados?nome=%s", baseUrl, name);
         return Request.Get(path).execute().handleResponse(getPoliticiansByNameRH);
     }

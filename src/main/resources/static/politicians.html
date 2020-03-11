@@ -8,6 +8,7 @@
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <title>Politicians</title>
     <style>
         * {
@@ -100,6 +101,7 @@
             height: 70px;
             width: 70px;
         }
+
     </style>
 </head>
 
@@ -110,10 +112,8 @@
             <header>
                 <i class="fab fa-twitter fa-2x"></i>
             </header>
-            <section>
-                <a class="twitter-timeline" href="https://twitter.com/jairbolsonaro" data-height="100%"
-                    data-chrome="nofooter noheader"></a>
-                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <section id="twitter-timeline" class="d-flex justify-content-center align-items-center">
+                <div class="spinner-border text-warning" role="status" id="twitter-timeline-spinner"></div>
             </section>
         </div>
         <div class="news border">
@@ -131,8 +131,26 @@
         <img src="assets/perfil.png" width="48px" height="48px">
     </footer>
     <script>
-        // const politician = new URLSearchParams(window.location.search).get("politician");
-        // document.querySelector('body').innerHTML = politician;
+        const politician = new URLSearchParams(window.location.search).get("politician");
+        const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
+        $.post("politicians", {
+            queryString: politician
+        }).done(data => {
+            twitterTimelineSpinner.style.display = "none";
+
+            twttr.widgets.createTimeline(
+                {
+                    sourceType: "profile",
+                    screenName: data[0].twitterUsername
+                },
+                document.getElementById("twitter-timeline"),
+                {
+                    chrome: "nofooter noheader",
+                    height: "100%"
+                }
+            );
+            console.log(data[0].twitterUsername);
+        })
     </script>
 </body>
 
