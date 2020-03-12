@@ -8,12 +8,12 @@
 		<version>2.2.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<packaging>war</packaging>
 	<groupId>com.devindev</groupId>
 	<artifactId>CongressoEmChamas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CongressoEmChamas</name>
 	<description>Demo project for Spring Boot</description>
+
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -76,11 +76,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>2.0.16</version>
-			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
