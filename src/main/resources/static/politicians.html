@@ -11,19 +11,15 @@
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <title>Politicians</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
 
         body {
             min-height: 100vh;
             display: grid;
-            grid-template-columns: auto 250px;
-            grid-template-rows: auto 62px;
+            grid-template-columns: minmax(400px, 1fr) 250px;
+            grid-template-rows: 62px auto;
             grid-template-areas:
+                'header header'
                 'main aside'
-                'footer footer'
         }
 
         aside {
@@ -31,55 +27,33 @@
         }
 
         main {
+            padding: 15px;
             grid-area: main;
-            display: grid;
-            grid-template-columns: 400px auto;
-            grid-template-rows: auto auto;
         }
 
-        main>.twitter {
-            grid-row-start: 1;
-            grid-row-end: 3;
-            display: grid;
-            grid-template-columns: auto;
-            grid-template-rows: 70px auto;
+        .card-deck{
+            min-width: 400px;
         }
 
-        .twitter>header {
+        .card{
+            margin-top: 15px;
+            min-width: 350px;
+            max-width: 400px;
+        }
+
+        .card-header {
             display: flex;
             justify-content: center;
             align-items: center;
             background: url("../assets/stars_transparent_less.png");
         }
 
-        main>.news {
-            display: grid;
-            grid-template-columns: auto;
-            grid-template-rows: 70px auto;
+        .card-body{
+            padding: 0;
         }
 
-        .news>header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: url("../assets/stars_transparent_less.png");
-        }
-
-        main>.law-projects {
-            display: grid;
-            grid-template-columns: auto;
-            grid-template-rows: 70px auto;
-        }
-
-        .law-projects>header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: url("../assets/stars_transparent_less.png");
-        }
-
-        footer {
-            grid-area: footer;
+        body>header {
+            grid-area: header;
             border: 6px solid;
             border-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66)) 1;
             display: flex;
@@ -98,46 +72,63 @@
         }
 
         .congresso-logo {
-            height: 70px;
-            width: 70px;
+            height: 36px;
+            width: 42px;
         }
 
+        #news-card, #law-projects-card {
+            height: 150px;
+        }
+        
+        #twitter-timeline {
+            height: calc(100% - 20px);
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
 <body>
     <aside class="border"></aside>
     <main>
-        <div class="twitter border">
-            <header>
-                <i class="fab fa-twitter fa-2x"></i>
-            </header>
-            <section id="twitter-timeline" class="d-flex justify-content-center align-items-center">
-                <div class="spinner-border text-warning" role="status" id="twitter-timeline-spinner"></div>
-            </section>
-        </div>
-        <div class="news border">
-            <header>
-                <img src="assets/google_logo.png" class="google-logo">
-            </header>
-        </div>
-        <div class="law-projects border">
-            <header>
-                <img src="assets/congresso_icon.png" class="congresso-logo">
-            </header>
+        <div class="card-deck d-flex justify-content-center">
+            <div class="card shadow">
+                <div class="card-header" id="twitter-card">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </div>
+                <div class="card-body">
+                    <section id="twitter-timeline" class="d-flex justify-content-center align-items-center">
+                        <div class="spinner-border text-warning" role="status" id="twitter-timeline-spinner"></div>
+                    </section>
+                </div>
+            </div>
+            <div class="card shadow" id="news-card">
+                <div class="card-header">
+                    <img src="assets/google_logo.png" class="google-logo">
+                </div>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <p>Work in progress!</p>
+                </div>
+            </div>
+            <div class="card shadow" id="law-projects-card">
+                <div class="card-header">
+                    <img src="assets/congresso_icon.png" class="congresso-logo">
+                </div>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <p>Work in progress!</p>
+                </div>
+            </div>
         </div>
     </main>
-    <footer>
+    <header>
         <img src="assets/perfil.png" width="48px" height="48px">
-    </footer>
+    </header>
     <script>
         const politician = new URLSearchParams(window.location.search).get("politician");
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
         $.post("politicians", {
             queryString: politician
         }).done(data => {
-            twitterTimelineSpinner.style.display = "none";
-
             twttr.widgets.createTimeline(
                 {
                     sourceType: "profile",
@@ -146,10 +137,10 @@
                 document.getElementById("twitter-timeline"),
                 {
                     chrome: "nofooter noheader",
-                    height: "100%"
+                    height: "700"
                 }
             );
-            console.log(data[0].twitterUsername);
+            twitterTimelineSpinner.style.display = "none";
         })
     </script>
 </body>
