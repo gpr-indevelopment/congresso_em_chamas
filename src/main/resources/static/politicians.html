@@ -11,7 +11,6 @@
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <title>Politicians</title>
     <style>
-
         body {
             min-height: 100vh;
             display: grid;
@@ -31,11 +30,11 @@
             grid-area: main;
         }
 
-        .card-deck{
+        .card-deck {
             min-width: 400px;
         }
 
-        .card{
+        .card {
             margin-top: 15px;
             min-width: 350px;
             max-width: 400px;
@@ -48,7 +47,7 @@
             background: url("../assets/stars_transparent_less.png");
         }
 
-        .card-body{
+        .card-body {
             padding: 0;
         }
 
@@ -66,6 +65,12 @@
             color: #00aced;
         }
 
+        .fa-exclamation-triangle {
+            color: orangered;
+            display: none;
+            margin-bottom: 10px;
+        }
+
         .google-logo {
             height: 35px;
             width: 35px;
@@ -76,14 +81,19 @@
             width: 42px;
         }
 
-        #news-card, #law-projects-card {
+        #news-card,
+        #law-projects-card {
             height: 150px;
         }
-        
+
         #twitter-timeline {
             height: calc(100% - 20px);
             margin-top: 10px;
             margin-bottom: 10px;
+        }
+
+        .error-text{
+            display: none;
         }
     </style>
 </head>
@@ -97,8 +107,10 @@
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
                 <div class="card-body">
-                    <section id="twitter-timeline" class="d-flex justify-content-center align-items-center">
+                    <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center">
                         <div class="spinner-border text-warning" role="status" id="twitter-timeline-spinner"></div>
+                        <i class="fas fa-exclamation-triangle fa-2x" id="twitter-timeline-error"></i>
+                        <div id="twitter-error-text" class="error-text">Nenhum político foi encontrado.</div>
                     </section>
                 </div>
             </div>
@@ -126,20 +138,28 @@
     <script>
         const politician = new URLSearchParams(window.location.search).get("politician");
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
+        const twitterTimelineError = document.getElementById("twitter-timeline-error");
+        const twitterTimelineText = document.getElementById("twitter-error-text");
         $.post("politicians", {
             queryString: politician
         }).done(data => {
-            twttr.widgets.createTimeline(
-                {
-                    sourceType: "profile",
-                    screenName: data[0].twitterUsername
-                },
-                document.getElementById("twitter-timeline"),
-                {
-                    chrome: "nofooter noheader",
-                    height: "700"
-                }
-            );
+            if (data.length > 0) {
+                twttr.widgets.createTimeline(
+                    {
+                        sourceType: "profile",
+                        screenName: data[0].twitterUsername
+                    },
+                    document.getElementById("twitter-timeline"),
+                    {
+                        chrome: "nofooter noheader",
+                        height: "700"
+                    }
+                );
+            }
+            else {
+                twitterTimelineError.style.display = "inline-block";
+                twitterTimelineText.style.display = "inline-block";
+            }
             twitterTimelineSpinner.style.display = "none";
         })
     </script>
