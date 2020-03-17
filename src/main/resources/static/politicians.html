@@ -171,7 +171,7 @@
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
         const twitterTimelineError = document.getElementById("twitter-timeline-error");
         const twitterTimelineText = document.getElementById("twitter-error-text");
-        $.post("http://localhost:8080/politicians", {
+        $.post("politicians", {
             queryString: politician
         }).done(data => {
             if (data.length > 0) {
