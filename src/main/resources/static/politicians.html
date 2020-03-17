@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script src="../node_modules/wordcloud/src/wordcloud2.js"></script>
     <title>Politicians</title>
     <style>
         body {
@@ -88,7 +89,6 @@
 
         #twitter-timeline {
             height: calc(100% - 20px);
-            margin-top: 10px;
             margin-bottom: 10px;
         }
 
@@ -108,8 +108,8 @@
                 </div>
                 <div class="card-body">
                     <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center">
-                        <div class="spinner-border text-warning" role="status" id="twitter-timeline-spinner"></div>
-                        <i class="fas fa-exclamation-triangle fa-2x" id="twitter-timeline-error"></i>
+                        <div class="spinner-border text-warning mt-3" role="status" id="twitter-timeline-spinner"></div>
+                        <i class="fas fa-exclamation-triangle fa-2x mt-3" id="twitter-timeline-error"></i>
                         <div id="twitter-error-text" class="error-text">Nenhum político foi encontrado.</div>
                     </section>
                 </div>
@@ -118,8 +118,7 @@
                 <div class="card-header">
                     <img src="assets/google_logo.png" class="google-logo">
                 </div>
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <p>Work in progress!</p>
+                <div class="card-body d-flex justify-content-center align-items-center" id="test-canvas">
                 </div>
             </div>
             <div class="card shadow" id="law-projects-card">
@@ -136,11 +135,43 @@
         <img src="assets/perfil.png" width="48px" height="48px">
     </header>
     <script>
+        WordCloud(document.getElementById("test-canvas"), { 
+            list: [['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
+            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"]],
+            click: (item, dimension, event) => {
+                window.location.href = item[2];
+            } 
+        });
         const politician = new URLSearchParams(window.location.search).get("politician");
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
         const twitterTimelineError = document.getElementById("twitter-timeline-error");
         const twitterTimelineText = document.getElementById("twitter-error-text");
-        $.post("politicians", {
+        $.post("http://localhost:8080/politicians", {
             queryString: politician
         }).done(data => {
             if (data.length > 0) {
