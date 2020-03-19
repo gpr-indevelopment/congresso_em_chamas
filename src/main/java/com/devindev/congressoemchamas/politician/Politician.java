@@ -5,7 +5,11 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
 
+// TODO: 18-Mar-20 Consider removing lombok
 @Entity
 @Getter @Setter
 public class Politician implements Comparable<Politician> {
@@ -20,6 +24,13 @@ public class Politician implements Comparable<Politician> {
     private String party;
 
     private String twitterUsername;
+
+    @Transient
+    private List<News> news = new ArrayList<>();
+
+    public void setNews(List<News> news) {
+        this.news = news;
+    }
 
     @Override
     public int compareTo(Politician o) {

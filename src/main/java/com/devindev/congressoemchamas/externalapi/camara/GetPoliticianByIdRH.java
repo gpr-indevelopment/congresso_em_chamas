@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// TODO: 18-Mar-20 Put the validateResponse on an abstract class to make it obligatory
 @Component
 public class GetPoliticianByIdRH implements ResponseHandler<Politician> {
 

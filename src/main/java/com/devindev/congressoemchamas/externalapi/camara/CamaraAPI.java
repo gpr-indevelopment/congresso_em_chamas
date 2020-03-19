@@ -21,9 +21,10 @@ public class CamaraAPI {
     @Autowired
     private GetPoliticianByIdRH getPoliticianByIdRH;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
+    @Autowired
+    private CamaraConfig camaraConfig;
 
-    private String baseUrl = "https://dadosabertos.camara.leg.br/api/v2";
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
     public List<Long> requestIdsByName(String name) {
         try {
@@ -46,13 +47,13 @@ public class CamaraAPI {
     }
 
     private Politician retrievePoliticianById(Long id) throws IOException{
-        String path = String.format("%s/deputados/%d", baseUrl, id);
+        String path = String.format("%s/deputados/%d", camaraConfig.getBaseUrl(), id);
         return Request.Get(path).execute().handleResponse(getPoliticianByIdRH);
     }
 
     private List<Long> retrievePoliticianIdsByName(String name) throws IOException {
         name = APIUtils.convertToQueryString(name);
-        String path = String.format("%s/deputados?nome=%s", baseUrl, name);
+        String path = String.format("%s/deputados?nome=%s", camaraConfig.getBaseUrl(), name);
         return Request.Get(path).execute().handleResponse(getPoliticiansByNameRH);
     }
 }

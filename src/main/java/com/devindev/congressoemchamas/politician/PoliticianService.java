@@ -1,6 +1,7 @@
 package com.devindev.congressoemchamas.politician;
 
 import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
+import com.devindev.congressoemchamas.externalapi.google.GoogleSearchAPI;
 import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class PoliticianService {
 
     @Autowired
     private TwitterAPI twitterAPI;
+
+    @Autowired
+    private GoogleSearchAPI googleSearchAPI;
 
     public List<Politician> findByName(String name){
         List<Politician> returnPoliticians = new ArrayList<>();
