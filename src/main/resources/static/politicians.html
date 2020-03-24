@@ -145,11 +145,11 @@
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
         const twitterTimelineError = document.getElementById("twitter-timeline-error");
         const twitterTimelineText = document.getElementById("twitter-error-text");
-        $.post("http://localhost:8080/politicians", {
+        $.post("politicians", {
             queryString: politician
         }).done(politicians => {
             if (politicians.length > 0) {
-                $.post("http://localhost:8080/news", politicians[0]).done(selectedPolitician => {
+                $.post("news", politicians[0]).done(selectedPolitician => {
                     const newsList = document.getElementById("news-list");
                     selectedPolitician.news.forEach(news => {
                         newsList.insertAdjacentHTML("beforeend", 
