@@ -1,6 +1,7 @@
 package com.devindev.congressoemchamas;
 
 import com.devindev.congressoemchamas.externalapi.google.GoogleSearchAPI;
+import com.devindev.congressoemchamas.politician.News;
 import com.devindev.congressoemchamas.politician.Politician;
 import com.devindev.congressoemchamas.politician.PoliticianService;
 import com.devindev.congressoemchamas.requests.PoliticiansRequest;
@@ -21,9 +22,13 @@ public class MainController {
     @RequestMapping(path = "/politicians", method = RequestMethod.POST)
     public List<Politician> getPoliticians(PoliticiansRequest request){
         List<Politician> politicians = politicianService.findByName(request.getQueryString());
-        for (Politician politician : politicians) {
-            googleSearchAPI.getNews(politician);
-        }
         return politicians;
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/news", method = RequestMethod.POST)
+    public Politician getNews(Politician politician){
+        googleSearchAPI.appendNews(politician);
+        return politician;
     }
 }

@@ -23,9 +23,6 @@ public class PoliticianService {
     @Autowired
     private TwitterAPI twitterAPI;
 
-    @Autowired
-    private GoogleSearchAPI googleSearchAPI;
-
     public List<Politician> findByName(String name){
         List<Politician> returnPoliticians = new ArrayList<>();
         camaraAPI.requestIdsByName(name).parallelStream().forEach(foundPoliticianId -> {

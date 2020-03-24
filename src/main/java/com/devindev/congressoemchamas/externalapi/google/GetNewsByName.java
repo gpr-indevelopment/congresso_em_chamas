@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.externalapi.google;
 
+import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.politician.News;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -29,7 +30,8 @@ public class GetNewsByName implements ResponseHandler<List<News>> {
             JsonObject jsonObject = dataArray.get(i).getAsJsonObject();
             String title = jsonObject.get("title").getAsString();
             String link = jsonObject.get("link").getAsString();
-            news.add(new News(title, link, dataArray.size()-i));
+            String description = APIUtils.convertLineJumpsToSpace(jsonObject.get("snippet").getAsString());
+            news.add(new News(title, link, description));
         }
         return news;
     }

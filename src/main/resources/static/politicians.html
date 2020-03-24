@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <script src="../node_modules/wordcloud/src/wordcloud2.js"></script>
     <title>Politicians</title>
     <style>
         body {
@@ -82,17 +81,25 @@
             width: 42px;
         }
 
-        #news-card,
-        #law-projects-card {
+        #law-projects-card{
             height: 150px;
         }
 
-        #twitter-timeline {
-            height: calc(100% - 20px);
-            margin-bottom: 10px;
+        #twitter-card{
+            height: 700px;
         }
 
-        .error-text{
+        #twitter-timeline {
+            height: 100%;
+        }
+        
+        #news-list {
+            height: 900px;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+
+        .error-text {
             display: none;
         }
     </style>
@@ -102,8 +109,8 @@
     <aside class="border"></aside>
     <main>
         <div class="card-deck d-flex justify-content-center">
-            <div class="card shadow">
-                <div class="card-header" id="twitter-card">
+            <div class="card shadow" id="twitter-card">
+                <div class="card-header">
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
                 <div class="card-body">
@@ -118,8 +125,7 @@
                 <div class="card-header">
                     <img src="assets/google_logo.png" class="google-logo">
                 </div>
-                <div class="card-body d-flex justify-content-center align-items-center" id="test-canvas">
-                </div>
+                <ul class="list-group" id="news-list"></ul>
             </div>
             <div class="card shadow" id="law-projects-card">
                 <div class="card-header">
@@ -135,50 +141,29 @@
         <img src="assets/perfil.png" width="48px" height="48px">
     </header>
     <script>
-        WordCloud(document.getElementById("test-canvas"), { 
-            list: [['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"],
-            ['foo', 12, "http://google.com?q=foo"], ['bar', 12, "http://google.com?q=foo"]],
-            click: (item, dimension, event) => {
-                window.location.href = item[2];
-            } 
-        });
         const politician = new URLSearchParams(window.location.search).get("politician");
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
         const twitterTimelineError = document.getElementById("twitter-timeline-error");
         const twitterTimelineText = document.getElementById("twitter-error-text");
-        $.post("politicians", {
+        $.post("http://localhost:8080/politicians", {
             queryString: politician
-        }).done(data => {
-            if (data.length > 0) {
+        }).done(politicians => {
+            if (politicians.length > 0) {
+                $.post("http://localhost:8080/news", politicians[0]).done(selectedPolitician => {
+                    const newsList = document.getElementById("news-list");
+                    selectedPolitician.news.forEach(news => {
+                        newsList.insertAdjacentHTML("beforeend", 
+                        `<li class="list-group-item">
+                            <h5 class="mb-1">${news.title}</h5>
+                            <p class="mb-1">${news.description}</p>
+                            <small>${news.link}</small>
+                        </li>`)
+                    });
+                })
                 twttr.widgets.createTimeline(
                     {
                         sourceType: "profile",
-                        screenName: data[0].twitterUsername
+                        screenName: politicians[0].twitterUsername
                     },
                     document.getElementById("twitter-timeline"),
                     {

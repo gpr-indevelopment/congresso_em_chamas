@@ -1,14 +1,10 @@
 package com.devindev.congressoemchamas.requests;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class PoliticiansRequest {
 
     private String queryString;
-
-    public String getQueryString() {
-        return queryString;
-    }
-
-    public void setQueryString(String queryString) {
-        this.queryString = queryString;
-    }
 }

@@ -28,10 +28,6 @@ public class Politician implements Comparable<Politician> {
     @Transient
     private List<News> news = new ArrayList<>();
 
-    public void setNews(List<News> news) {
-        this.news = news;
-    }
-
     @Override
     public int compareTo(Politician o) {
         return this.name.compareTo(o.getName());
