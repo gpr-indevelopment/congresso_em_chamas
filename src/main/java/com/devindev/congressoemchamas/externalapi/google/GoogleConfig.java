@@ -19,6 +19,6 @@ public class GoogleConfig {
     private String engineId;
 
     public String getURL(){
-        return String.format("%s?key=%s&cx=%s", url, apiKey, engineId);
+        return String.format("%s?key=%s&cx=%s&&sort=date", url, apiKey, engineId);
     }
 }

@@ -37,7 +37,6 @@
         .card {
             margin-top: 15px;
             min-width: 350px;
-            max-width: 400px;
         }
 
         .card-header {
@@ -89,6 +88,10 @@
             height: 700px;
         }
 
+        #news-card{
+            width: 800px;
+        }
+
         #twitter-timeline {
             height: 100%;
         }
@@ -99,8 +102,18 @@
             overflow-y: scroll;
         }
 
+        #news-list {
+            height: 900px;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+
         .error-text {
             display: none;
+        }
+
+        .news-list-item > a {
+
         }
     </style>
 </head>
@@ -153,10 +166,11 @@
                     const newsList = document.getElementById("news-list");
                     selectedPolitician.news.forEach(news => {
                         newsList.insertAdjacentHTML("beforeend", 
-                        `<li class="list-group-item">
+                        `<li class="list-group-item news-list-item">
                             <h5 class="mb-1">${news.title}</h5>
                             <p class="mb-1">${news.description}</p>
-                            <small>${news.link}</small>
+                            <h6 class="mb-1">${news.dateString}</h6>
+                            <a href="${news.link}" target="_blank">${news.mediaOutlet}</a>
                         </li>`)
                     });
                 })

@@ -14,9 +14,15 @@ public class News implements Serializable {
 
     private String description;
 
-    public News(String title, String link, String description) {
+    private String dateString;
+
+    private NewsMediaOutlet mediaOutlet;
+
+    public News(String title, String link, String description, String dateString, NewsMediaOutlet mediaOutlet) {
         this.title = title;
         this.link = link;
         this.description = description;
+        this.dateString = dateString;
+        this.mediaOutlet = mediaOutlet;
     }
 }

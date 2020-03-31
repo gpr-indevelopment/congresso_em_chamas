@@ -2,6 +2,7 @@ package com.devindev.congressoemchamas.externalapi.google;
 
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.politician.News;
+import com.devindev.congressoemchamas.politician.NewsMediaOutlet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -9,14 +10,18 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Component
 public class GetNewsByName implements ResponseHandler<List<News>> {
+
+    private final String DATE_SEPARATOR_REGEX = "^(.+\\.\\.\\.\\s)";
 
     @Override
     public List<News> handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
@@ -30,8 +35,10 @@ public class GetNewsByName implements ResponseHandler<List<News>> {
             JsonObject jsonObject = dataArray.get(i).getAsJsonObject();
             String title = jsonObject.get("title").getAsString();
             String link = jsonObject.get("link").getAsString();
-            String description = APIUtils.convertLineJumpsToSpace(jsonObject.get("snippet").getAsString());
-            news.add(new News(title, link, description));
+            String dateString = StringUtils.capitalize(jsonObject.get("htmlSnippet").getAsString().split("<b>")[0]);
+            String description = APIUtils.convertLineJumpsToSpace(jsonObject.get("snippet").getAsString()).split(DATE_SEPARATOR_REGEX)[1];
+            NewsMediaOutlet newsMediaOutlet = NewsMediaOutlet.fromUrl(jsonObject.get("displayLink").getAsString());
+            news.add(new News(title, link, description, dateString, newsMediaOutlet));
         }
         return news;
     }
