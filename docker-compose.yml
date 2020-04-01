@@ -1,0 +1,21 @@
+version: "3.7"
+services: 
+    postgres:
+        image: postgres
+        environment:
+            - POSTGRES_PASSWORD=password
+        ports: 
+            - "5432:5432"
+    pgadmin:
+        image: dpage/pgadmin4
+        environment: 
+            - PGADMIN_DEFAULT_EMAIL=username
+            - PGADMIN_DEFAULT_PASSWORD=password
+        ports: 
+            - "5050:80"
+
+# Log in pgadmin using localhost:5050, and create postgres server with:
+# host: postgres
+# port: 5432
+# username: postgres
+# password: password
