@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.politician;
+package com.devindev.congressoemchamas.data.politician;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,5 +16,4 @@ public class PoliticianRepository {
     public Politician save(Politician politician){
         return dao.save(politician);
     }
-
 }

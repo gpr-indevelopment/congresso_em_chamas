@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.externalapi.twitter;
 
+import com.devindev.congressoemchamas.data.politician.Politician;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ public class TwitterAPI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterAPI.class);
 
-    public String searchUsername(String name) {
+    public String searchTwitterUsername(Politician politician) {
         try {
-            ResponseList<User> usersFound = twitterConfig.getTwitter().searchUsers(name, 0);
+            ResponseList<User> usersFound = twitterConfig.getTwitter().searchUsers(politician.getName(), 0);
             if(!usersFound.isEmpty()) {
                 return usersFound.get(0).getScreenName();
             }

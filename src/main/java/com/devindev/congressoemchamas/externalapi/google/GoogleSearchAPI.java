@@ -1,14 +1,16 @@
 package com.devindev.congressoemchamas.externalapi.google;
 
-import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
-import com.devindev.congressoemchamas.politician.Politician;
+import com.devindev.congressoemchamas.data.news.News;
+import com.devindev.congressoemchamas.data.politician.Politician;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class GoogleSearchAPI {
@@ -22,14 +24,17 @@ public class GoogleSearchAPI {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleSearchAPI.class);
 
     // TODO: 18-Mar-20 Take a look at this try catch. Its empty. 
-    public void appendNews(Politician politician) {
+    public List<News> searchNews(Politician politician) {
         try {
             String url = String.format("%s&q=%s", googleConfig.getURL(), APIUtils.convertToQueryString(politician.getName()));
-            politician.setNews(Request.Get(url).execute().handleResponse(getNewsByName));
+            List<News> foundNews = Request.Get(url).execute().handleResponse(getNewsByName);
+            foundNews.forEach(news -> news.setPolitician(politician));
+            return foundNews;
         } catch (IOException exception) {
             exception.printStackTrace();
             LOGGER.error(exception.getMessage());
-            LOGGER.error("Returning politician without appending news.");
+            LOGGER.error("Returning empty list of news.");
+            return new ArrayList<>();
         }
     }
 }

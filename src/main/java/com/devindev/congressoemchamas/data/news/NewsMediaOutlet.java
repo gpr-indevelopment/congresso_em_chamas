@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.politician;
+package com.devindev.congressoemchamas.data.news;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

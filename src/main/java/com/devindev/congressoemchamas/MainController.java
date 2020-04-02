@@ -1,9 +1,8 @@
 package com.devindev.congressoemchamas;
 
 import com.devindev.congressoemchamas.externalapi.google.GoogleSearchAPI;
-import com.devindev.congressoemchamas.politician.News;
-import com.devindev.congressoemchamas.politician.Politician;
-import com.devindev.congressoemchamas.politician.PoliticianService;
+import com.devindev.congressoemchamas.data.politician.Politician;
+import com.devindev.congressoemchamas.data.politician.PoliticianService;
 import com.devindev.congressoemchamas.requests.PoliticiansRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,7 @@ public class MainController {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/news", method = RequestMethod.POST)
     public Politician getNews(Politician politician){
-        googleSearchAPI.appendNews(politician);
+        //googleSearchAPI.appendNews(politician);
         return politician;
     }
 }

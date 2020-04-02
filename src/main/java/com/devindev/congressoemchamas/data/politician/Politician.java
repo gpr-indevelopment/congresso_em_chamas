@@ -1,15 +1,13 @@
-package com.devindev.congressoemchamas.politician;
+package com.devindev.congressoemchamas.data.politician;
 
+import com.devindev.congressoemchamas.data.news.News;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: 18-Mar-20 Consider removing lombok
 @Entity
 @Getter @Setter
 public class Politician implements Comparable<Politician> {
@@ -25,7 +23,8 @@ public class Politician implements Comparable<Politician> {
 
     private String twitterUsername;
 
-    @Transient
+    @OneToMany(mappedBy = "politician", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<News> news = new ArrayList<>();
 
     @Override

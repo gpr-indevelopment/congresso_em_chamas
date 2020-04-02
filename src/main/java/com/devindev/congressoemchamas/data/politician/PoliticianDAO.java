@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.politician;
+package com.devindev.congressoemchamas.data.politician;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

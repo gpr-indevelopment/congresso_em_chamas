@@ -1,7 +1,7 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
-import com.devindev.congressoemchamas.politician.Politician;
+import com.devindev.congressoemchamas.data.politician.Politician;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

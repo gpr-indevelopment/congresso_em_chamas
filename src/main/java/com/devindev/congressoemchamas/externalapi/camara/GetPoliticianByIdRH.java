@@ -1,6 +1,6 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
-import com.devindev.congressoemchamas.politician.Politician;
+import com.devindev.congressoemchamas.data.politician.Politician;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.http.HttpResponse;
