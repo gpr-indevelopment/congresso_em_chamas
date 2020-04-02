@@ -1,8 +1,5 @@
 package com.devindev.congressoemchamas.data.politician;
 
-import com.devindev.congressoemchamas.data.news.News;
-import com.devindev.congressoemchamas.data.news.NewsDAO;
-import com.devindev.congressoemchamas.data.news.NewsRepository;
 import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import com.devindev.congressoemchamas.externalapi.google.GoogleSearchAPI;
 import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
