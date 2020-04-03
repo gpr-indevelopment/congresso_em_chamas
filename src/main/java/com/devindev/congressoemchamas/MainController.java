@@ -23,11 +23,4 @@ public class MainController {
         List<Politician> politicians = politicianService.findByName(request.getQueryString());
         return politicians;
     }
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/news", method = RequestMethod.POST)
-    public Politician getNews(Politician politician){
-        //googleSearchAPI.appendNews(politician);
-        return politician;
-    }
 }

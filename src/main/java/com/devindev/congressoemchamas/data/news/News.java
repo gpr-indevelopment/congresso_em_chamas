@@ -45,4 +45,13 @@ public class News {
 
     public News() {
     }
+
+    public void update(News news){
+        this.title = news.title;
+        this.link = news.link;
+        this.description = news.description;
+        this.dateString = news.dateString;
+        this.mediaOutlet = news.mediaOutlet;
+        this.timestamp = Timestamp.valueOf(LocalDateTime.now());
+    }
 }

@@ -162,17 +162,15 @@
             queryString: politician
         }).done(politicians => {
             if (politicians.length > 0) {
-                $.post("news", politicians[0]).done(selectedPolitician => {
+                politicians[0].news.forEach(news => {
                     const newsList = document.getElementById("news-list");
-                    selectedPolitician.news.forEach(news => {
-                        newsList.insertAdjacentHTML("beforeend", 
+                    newsList.insertAdjacentHTML("beforeend", 
                         `<li class="list-group-item news-list-item">
                             <h5 class="mb-1">${news.title}</h5>
                             <p class="mb-1">${news.description}</p>
                             <h6 class="mb-1">${news.dateString}</h6>
                             <a href="${news.link}" target="_blank">${news.mediaOutlet}</a>
                         </li>`)
-                    });
                 })
                 twttr.widgets.createTimeline(
                     {
