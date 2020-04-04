@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.externalapi.google;
+package com.devindev.congressoemchamas.externalapi.google.functions;
 
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.data.news.News;
@@ -17,7 +17,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class GetNewsByName implements ResponseHandler<List<News>> {
 
     private final String DATE_SEPARATOR_REGEX = "^(.+\\.\\.\\.\\s)";

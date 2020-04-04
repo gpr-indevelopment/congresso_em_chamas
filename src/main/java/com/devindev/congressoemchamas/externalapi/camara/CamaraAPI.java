@@ -1,5 +1,7 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
+import com.devindev.congressoemchamas.externalapi.camara.functions.GetPoliticianById;
+import com.devindev.congressoemchamas.externalapi.camara.functions.GetPoliticiansByName;
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import org.apache.http.client.fluent.Request;
@@ -14,12 +16,6 @@ import java.util.List;
 
 @Component
 public class CamaraAPI {
-
-    @Autowired
-    private GetPoliticiansByNameRH getPoliticiansByNameRH;
-
-    @Autowired
-    private GetPoliticianByIdRH getPoliticianByIdRH;
 
     @Autowired
     private CamaraConfig camaraConfig;
@@ -48,12 +44,14 @@ public class CamaraAPI {
 
     private Politician retrievePoliticianById(Long id) throws IOException{
         String path = String.format("%s/deputados/%d", camaraConfig.getBaseUrl(), id);
-        return Request.Get(path).execute().handleResponse(getPoliticianByIdRH);
+        GetPoliticianById apiFunctionHandler = new GetPoliticianById();
+        return Request.Get(path).execute().handleResponse(apiFunctionHandler);
     }
 
     private List<Long> retrievePoliticianIdsByName(String name) throws IOException {
         name = APIUtils.convertToQueryString(name);
-        String path = String.format("%s/deputados?nome=%s", camaraConfig.getBaseUrl(), name);
-        return Request.Get(path).execute().handleResponse(getPoliticiansByNameRH);
+        String path = String.format("%s/deputados?nome=%s&idLegislatura=%d", camaraConfig.getBaseUrl(), name, camaraConfig.getCurrentLegislatureId());
+        GetPoliticiansByName apiFunctionHandler = new GetPoliticiansByName();
+        return Request.Get(path).execute().handleResponse(apiFunctionHandler);
     }
 }

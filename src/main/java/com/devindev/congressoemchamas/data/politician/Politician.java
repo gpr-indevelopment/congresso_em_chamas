@@ -21,6 +21,8 @@ public class Politician implements Comparable<Politician> {
 
     private String party;
 
+    private Long legislatureId;
+
     private String twitterUsername;
 
     @OneToMany(mappedBy = "politician", cascade = CascadeType.ALL)

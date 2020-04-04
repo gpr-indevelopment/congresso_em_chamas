@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.externalapi.google;
 
+import com.devindev.congressoemchamas.externalapi.google.functions.GetNewsByName;
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.politician.Politician;
@@ -18,16 +19,14 @@ public class GoogleSearchAPI {
     @Autowired
     private GoogleConfig googleConfig;
 
-    @Autowired
-    private GetNewsByName getNewsByName;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleSearchAPI.class);
 
     // TODO: 18-Mar-20 Take a look at this try catch. Its empty. 
     public List<News> searchNews(Politician politician) {
         try {
             String url = String.format("%s&q=%s", googleConfig.getURL(), APIUtils.convertToQueryString(politician.getName()));
-            List<News> foundNews = Request.Get(url).execute().handleResponse(getNewsByName);
+            GetNewsByName apiFunctionHandler = new GetNewsByName();
+            List<News> foundNews = Request.Get(url).execute().handleResponse(apiFunctionHandler);
             foundNews.forEach(news -> news.setPolitician(politician));
             return foundNews;
         } catch (IOException exception) {

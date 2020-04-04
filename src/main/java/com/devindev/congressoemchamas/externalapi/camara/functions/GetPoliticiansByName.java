@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.externalapi.camara;
+package com.devindev.congressoemchamas.externalapi.camara.functions;
 
 import com.google.gson.JsonParser;
 import org.apache.http.HttpResponse;
@@ -10,8 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class GetPoliticiansByNameRH implements ResponseHandler<List<Long>> {
+public class GetPoliticiansByName implements ResponseHandler<List<Long>> {
 
     @Override
     public List<Long> handleResponse(HttpResponse response) throws IOException {

@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.externalapi.camara;
+package com.devindev.congressoemchamas.externalapi.camara.functions;
 
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.google.gson.JsonObject;
@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 // TODO: 18-Mar-20 Put the validateResponse on an abstract class to make it obligatory
-@Component
-public class GetPoliticianByIdRH implements ResponseHandler<Politician> {
+public class GetPoliticianById implements ResponseHandler<Politician> {
 
     @Override
     public Politician handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
@@ -28,6 +27,7 @@ public class GetPoliticianByIdRH implements ResponseHandler<Politician> {
     private Politician buildPolitician(JsonObject data) {
         Politician politician = new Politician();
         politician.setId(data.get("id").getAsLong());
+        politician.setLegislatureId(data.get("idLegislatura").getAsLong());
         politician.setName(retrieveStringFromMember(data, "nome"));
         politician.setParty(retrieveStringFromMember(data, "siglaPartido"));
         politician.setPicture(retrieveStringFromMember(data, "urlFoto"));
