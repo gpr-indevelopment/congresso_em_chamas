@@ -54,10 +54,10 @@ public class PoliticianService {
 
     private Long getCurrentLegislatureId(){
         if(Objects.isNull(currentLegislatureId)){
+            currentLegislatureId = camaraAPI.requestCurrentLegislatureId();
             return currentLegislatureId;
         }
         else{
-            currentLegislatureId = camaraAPI.requestCurrentLegislatureId();
             return currentLegislatureId;
         }
     }
