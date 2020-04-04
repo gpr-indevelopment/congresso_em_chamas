@@ -19,23 +19,6 @@ public class CamaraConfig {
     @Value("${camara.url}")
     private String baseUrl;
 
-    @Getter
-    private Long currentLegislatureId;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CamaraConfig.class);
-
-    @PostConstruct
-    private void checkCurrentLegislature() throws IOException{
-        try {
-            String path = String.format("%s/legislaturas?ordem=DESC&ordenarPor=id", this.getBaseUrl());
-            GetCurrentLegislature apiFunctionHandler = new GetCurrentLegislature();
-            this.currentLegislatureId = Request.Get(path).execute().handleResponse(apiFunctionHandler);
-        } catch (IOException e) {
-            LOGGER.error("Unable to retrieve the current legislature ID from CamaraAPI.");
-            throw e;
-        }
-    }
-
     public String getBaseUrl() {
         return baseUrl;
     }

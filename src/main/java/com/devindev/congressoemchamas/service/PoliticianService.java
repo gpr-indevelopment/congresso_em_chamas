@@ -1,7 +1,9 @@
-package com.devindev.congressoemchamas.data.politician;
+package com.devindev.congressoemchamas.service;
 
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.news.NewsRepository;
+import com.devindev.congressoemchamas.data.politician.Politician;
+import com.devindev.congressoemchamas.data.politician.PoliticianRepository;
 import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import com.devindev.congressoemchamas.externalapi.google.GoogleSearchAPI;
 import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
@@ -32,9 +34,11 @@ public class PoliticianService {
     @Value("${congresso.news.cache-expiration-minutes}")
     private Integer cacheExpirationMinutes;
 
+    private Long currentLegislatureId;
+
     public List<Politician> findByName(String name){
         List<Politician> returnPoliticians = new ArrayList<>();
-        camaraAPI.requestIdsByName(name).parallelStream().forEach(camaraPoliticianId -> {
+        camaraAPI.requestIdsByName(name, getCurrentLegislatureId()).parallelStream().forEach(camaraPoliticianId -> {
             Politician builtPolitician = repository.findById(camaraPoliticianId);
             if(Objects.isNull(builtPolitician)){
                 builtPolitician = buildNewPoliticianAndSave(camaraPoliticianId);
@@ -46,6 +50,16 @@ public class PoliticianService {
         });
         Collections.sort(returnPoliticians);
         return returnPoliticians;
+    }
+
+    private Long getCurrentLegislatureId(){
+        if(Objects.isNull(currentLegislatureId)){
+            return currentLegislatureId;
+        }
+        else{
+            currentLegislatureId = camaraAPI.requestCurrentLegislatureId();
+            return currentLegislatureId;
+        }
     }
 
     private boolean anyNewsExpired(Politician politician){
