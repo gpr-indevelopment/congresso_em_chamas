@@ -1,8 +1,10 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
+import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.camara.functions.GetCurrentLegislature;
 import com.devindev.congressoemchamas.externalapi.camara.functions.GetPoliticianById;
 import com.devindev.congressoemchamas.externalapi.camara.functions.GetPoliticiansByName;
+import com.devindev.congressoemchamas.externalapi.camara.functions.GetPropositionsByPoliticianId;
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import org.apache.http.client.fluent.Request;
@@ -23,9 +25,12 @@ public class CamaraAPI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
-    public List<Long> requestIdsByName(String name, Long legislatureId) {
+    public List<Long> requestIdsByNameAndLegislatureId(String name, Long legislatureId) {
         try {
-            return retrievePoliticianIdsByName(name, legislatureId);
+            name = APIUtils.convertToQueryString(name);
+            String path = String.format("%s/deputados?nome=%s&idLegislatura=%d", camaraConfig.getBaseUrl(), name, legislatureId);
+            GetPoliticiansByName apiFunctionHandler = new GetPoliticiansByName();
+            return Request.Get(path).execute().handleResponse(apiFunctionHandler);
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve ids by name on CamaraAPI.");
@@ -36,7 +41,9 @@ public class CamaraAPI {
 
     public Politician requestPoliticianById(Long id){
         try {
-            return retrievePoliticianById(id);
+            String path = String.format("%s/deputados/%d", camaraConfig.getBaseUrl(), id);
+            GetPoliticianById apiFunctionHandler = new GetPoliticianById();
+            return Request.Get(path).execute().handleResponse(apiFunctionHandler);
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve politician by id on CamaraAPI.");
@@ -58,16 +65,18 @@ public class CamaraAPI {
         }
     }
 
-    private Politician retrievePoliticianById(Long id) throws IOException{
-        String path = String.format("%s/deputados/%d", camaraConfig.getBaseUrl(), id);
-        GetPoliticianById apiFunctionHandler = new GetPoliticianById();
-        return Request.Get(path).execute().handleResponse(apiFunctionHandler);
-    }
-
-    private List<Long> retrievePoliticianIdsByName(String name, Long legislatureId) throws IOException {
-        name = APIUtils.convertToQueryString(name);
-        String path = String.format("%s/deputados?nome=%s&idLegislatura=%d", camaraConfig.getBaseUrl(), name, legislatureId);
-        GetPoliticiansByName apiFunctionHandler = new GetPoliticiansByName();
-        return Request.Get(path).execute().handleResponse(apiFunctionHandler);
+    public List<Proposition> retrievePropositionsByPolitician(Politician politician) {
+        try {
+            String path = String.format("%s/proposicoes?idDeputadoAutor=%d&ordem=DESC&ordenarPor=id", camaraConfig.getBaseUrl(), politician.getId());
+            GetPropositionsByPoliticianId apiFunctionHandler = new GetPropositionsByPoliticianId();
+            List<Proposition> propositions = Request.Get(path).execute().handleResponse(apiFunctionHandler);
+            propositions.forEach(proposition -> proposition.getPoliticians().add(politician));
+            return propositions;
+        } catch (IOException exception) {
+            LOGGER.error(exception.getMessage());
+            LOGGER.error("Unable to retrieve propositions from CamaraAPI.");
+            LOGGER.error("Returning an empty propositions list.");
+            return new ArrayList<>();
+        }
     }
 }

@@ -22,7 +22,7 @@ public class GoogleSearchAPI {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleSearchAPI.class);
 
     // TODO: 18-Mar-20 Take a look at this try catch. Its empty. 
-    public List<News> searchNews(Politician politician) {
+    public List<News> searchNewsByPolitician(Politician politician) {
         try {
             String url = String.format("%s&q=%s", googleConfig.getURL(), APIUtils.convertToQueryString(politician.getName()));
             GetNewsByName apiFunctionHandler = new GetNewsByName();

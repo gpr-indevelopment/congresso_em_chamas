@@ -14,6 +14,7 @@ public class GetCurrentLegislature implements ResponseHandler<Long> {
 
     @Override
     public Long handleResponse(HttpResponse httpResponse) throws ClientProtocolException, IOException {
+        validateResponse(httpResponse);
         return JsonParser.parseReader(new InputStreamReader(httpResponse.getEntity().getContent()))
                 .getAsJsonObject()
                 .get("dados")

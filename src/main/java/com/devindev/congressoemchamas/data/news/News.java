@@ -29,6 +29,7 @@ public class News {
 
     private String dateString;
 
+    // TODO: 4/4/2020 persiste news media outlet with its toString(), and not ordinal.
     private NewsMediaOutlet mediaOutlet;
 
     // TODO: 01-Apr-20 Is this the right way of persisting a timestamp? Should I include timezone?

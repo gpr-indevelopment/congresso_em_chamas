@@ -38,7 +38,7 @@ public class PoliticianService {
 
     public List<Politician> findByName(String name){
         List<Politician> returnPoliticians = new ArrayList<>();
-        camaraAPI.requestIdsByName(name, getCurrentLegislatureId()).parallelStream().forEach(camaraPoliticianId -> {
+        camaraAPI.requestIdsByNameAndLegislatureId(name, getCurrentLegislatureId()).parallelStream().forEach(camaraPoliticianId -> {
             Politician builtPolitician = repository.findById(camaraPoliticianId);
             if(Objects.isNull(builtPolitician)){
                 builtPolitician = buildNewPoliticianAndSave(camaraPoliticianId);
@@ -74,7 +74,7 @@ public class PoliticianService {
     private Politician updateNewsAndSave(Politician politician){
         List<Long> newsIdsToRemove = new ArrayList<>();
         politician.getNews().forEach(news -> newsIdsToRemove.add(news.getId()));
-        politician.setNews(googleSearchAPI.searchNews(politician));
+        politician.setNews(googleSearchAPI.searchNewsByPolitician(politician));
         newsIdsToRemove.forEach(newsId -> newsRepository.delete(newsId));
         return repository.save(politician);
     }
@@ -82,7 +82,8 @@ public class PoliticianService {
     private Politician buildNewPoliticianAndSave(Long camaraPoliticianId){
         Politician politician = camaraAPI.requestPoliticianById(camaraPoliticianId);
         politician.setTwitterUsername(twitterAPI.searchTwitterUsername(politician));
-        politician.setNews(googleSearchAPI.searchNews(politician));
-        return  repository.save(politician);
+        politician.setNews(googleSearchAPI.searchNewsByPolitician(politician));
+        politician.setPropositions(camaraAPI.retrievePropositionsByPolitician(politician));
+        return repository.save(politician);
     }
 }
