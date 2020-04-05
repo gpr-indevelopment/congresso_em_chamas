@@ -58,6 +58,7 @@ public class PoliticianService {
     private void retrievePropositions(Politician politician){
         List<Long> propositionIds = camaraAPI.retrievePropositionIdsByPolitician(politician);
         propositionIds.forEach(propositionId -> politician.getPropositions().add(camaraAPI.retrievePropositionFromId(propositionId)));
+        politician.getPropositions().forEach(proposition -> proposition.setPoliticians(politician));
     }
 
     private Long getCurrentLegislatureId(){

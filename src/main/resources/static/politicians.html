@@ -80,8 +80,8 @@
             width: 42px;
         }
 
-        #law-projects-card{
-            height: 150px;
+        #propositions-card{
+            min-width: 60%;
         }
 
         #twitter-card{
@@ -89,7 +89,7 @@
         }
 
         #news-card{
-            width: 800px;
+            min-width: 60%;
         }
 
         #twitter-timeline {
@@ -97,13 +97,13 @@
         }
         
         #news-list {
-            height: 900px;
+            height: 638px;
             overflow: hidden;
             overflow-y: scroll;
         }
 
-        #news-list {
-            height: 900px;
+        #propositions-list {
+            height: 500px;
             overflow: hidden;
             overflow-y: scroll;
         }
@@ -112,9 +112,6 @@
             display: none;
         }
 
-        .news-list-item > a {
-
-        }
     </style>
 </head>
 
@@ -140,13 +137,11 @@
                 </div>
                 <ul class="list-group" id="news-list"></ul>
             </div>
-            <div class="card shadow" id="law-projects-card">
+            <div class="card shadow" id="propositions-card">
                 <div class="card-header">
                     <img src="assets/congresso_icon.png" class="congresso-logo">
                 </div>
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <p>Work in progress!</p>
-                </div>
+                <ul class="list-group" id="propositions-list"></ul>
             </div>
         </div>
     </main>
@@ -158,7 +153,7 @@
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
         const twitterTimelineError = document.getElementById("twitter-timeline-error");
         const twitterTimelineText = document.getElementById("twitter-error-text");
-        $.post("http://localhost:8080/politicians", {
+        $.post("politicians", {
             queryString: politician
         }).done(politicians => {
             if (politicians.length > 0) {
@@ -170,6 +165,14 @@
                             <p class="mb-1">${news.description}</p>
                             <h6 class="mb-1">${news.dateString}</h6>
                             <a href="${news.link}" target="_blank">${news.mediaOutlet}</a>
+                        </li>`)
+                })
+                politicians[0].propositions.forEach(proposition => {
+                    const propositionsList = document.getElementById("propositions-list");
+                    propositionsList.insertAdjacentHTML("beforeend", 
+                        `<li class="list-group-item propositions-list-item">
+                            <h5 class="mb-1">${proposition.title}</h5>
+                            <a href="${proposition.link}" target="_blank">${proposition.typeDescription}</a>
                         </li>`)
                 })
                 twttr.widgets.createTimeline(
