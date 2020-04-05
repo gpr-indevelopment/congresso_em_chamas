@@ -1,24 +1,14 @@
 package com.devindev.congressoemchamas.externalapi.camara.functions;
 
 import com.devindev.congressoemchamas.data.politician.Politician;
+import com.devindev.congressoemchamas.externalapi.CongressoResponseHandler;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.springframework.stereotype.Component;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
-// TODO: 18-Mar-20 Put the validateResponse on an abstract class to make it obligatory
-public class GetPoliticianById implements ResponseHandler<Politician> {
+public class GetPoliticianById extends CongressoResponseHandler<Politician> {
 
     @Override
-    public Politician handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
-        validateResponse(response);
-        return buildPolitician(JsonParser.parseReader(new InputStreamReader(response.getEntity().getContent()))
-                .getAsJsonObject()
-                .get("dados")
+    protected Politician handleResponse(JsonObject jsonObject) {
+        return buildPolitician(jsonObject.get("dados")
                 .getAsJsonObject()
                 .get("ultimoStatus")
                 .getAsJsonObject());
@@ -39,11 +29,5 @@ public class GetPoliticianById implements ResponseHandler<Politician> {
             return dataObject.get(memberName).getAsString();
         }
         return null;
-    }
-
-    private void validateResponse(HttpResponse response) throws IOException{
-        if(response.getStatusLine().getStatusCode() != 200){
-            throw new IOException(String.format("HTTP request error. Status code: %d.", response.getStatusLine().getStatusCode()));
-        }
     }
 }

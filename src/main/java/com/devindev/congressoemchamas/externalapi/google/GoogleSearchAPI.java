@@ -1,6 +1,6 @@
 package com.devindev.congressoemchamas.externalapi.google;
 
-import com.devindev.congressoemchamas.externalapi.google.functions.GetNewsByName;
+import com.devindev.congressoemchamas.externalapi.google.functions.GetNewsByPoliticianName;
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.politician.Politician;
@@ -25,7 +25,7 @@ public class GoogleSearchAPI {
     public List<News> searchNewsByPolitician(Politician politician) {
         try {
             String url = String.format("%s&q=%s", googleConfig.getURL(), APIUtils.convertToQueryString(politician.getName()));
-            GetNewsByName apiFunctionHandler = new GetNewsByName();
+            GetNewsByPoliticianName apiFunctionHandler = new GetNewsByPoliticianName();
             List<News> foundNews = Request.Get(url).execute().handleResponse(apiFunctionHandler);
             foundNews.forEach(news -> news.setPolitician(politician));
             return foundNews;

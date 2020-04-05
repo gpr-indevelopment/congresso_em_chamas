@@ -1,10 +1,7 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
 import com.devindev.congressoemchamas.data.proposition.Proposition;
-import com.devindev.congressoemchamas.externalapi.camara.functions.GetCurrentLegislature;
-import com.devindev.congressoemchamas.externalapi.camara.functions.GetPoliticianById;
-import com.devindev.congressoemchamas.externalapi.camara.functions.GetPoliticiansByName;
-import com.devindev.congressoemchamas.externalapi.camara.functions.GetPropositionsByPoliticianId;
+import com.devindev.congressoemchamas.externalapi.camara.functions.*;
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import org.apache.http.client.fluent.Request;
@@ -65,18 +62,30 @@ public class CamaraAPI {
         }
     }
 
-    public List<Proposition> retrievePropositionsByPolitician(Politician politician) {
+    public List<Long> retrievePropositionIdsByPolitician(Politician politician) {
         try {
             String path = String.format("%s/proposicoes?idDeputadoAutor=%d&ordem=DESC&ordenarPor=id", camaraConfig.getBaseUrl(), politician.getId());
-            GetPropositionsByPoliticianId apiFunctionHandler = new GetPropositionsByPoliticianId();
-            List<Proposition> propositions = Request.Get(path).execute().handleResponse(apiFunctionHandler);
-            propositions.forEach(proposition -> proposition.getPoliticians().add(politician));
-            return propositions;
+            GetPropositionsIdsByPoliticianId apiFunctionHandler = new GetPropositionsIdsByPoliticianId();
+            List<Long> propositionIds = Request.Get(path).execute().handleResponse(apiFunctionHandler);
+            return propositionIds;
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
-            LOGGER.error("Unable to retrieve propositions from CamaraAPI.");
-            LOGGER.error("Returning an empty propositions list.");
+            LOGGER.error("Unable to retrieve propositionIds from CamaraAPI.");
+            LOGGER.error("Returning an empty propositions IDs list.");
             return new ArrayList<>();
+        }
+    }
+
+    public Proposition retrievePropositionFromId(Long propositionId){
+        try {
+            String path = String.format("%s/proposicoes/%d", camaraConfig.getBaseUrl(), propositionId);
+            GetPropositionById apiFunctionHandler = new GetPropositionById();
+            return Request.Get(path).execute().handleResponse(apiFunctionHandler);
+        } catch (IOException exception) {
+            LOGGER.error(exception.getMessage());
+            LOGGER.error("Unable to retrieve a proposition from CamaraAPI.");
+            LOGGER.error("Returning a null proposition.");
+            return null;
         }
     }
 }

@@ -5,14 +5,14 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetPoliticiansByName extends CongressoResponseHandler<List<Long>> {
+public class GetPropositionsIdsByPoliticianId extends CongressoResponseHandler<List<Long>> {
 
     @Override
     protected List<Long> handleResponse(JsonObject jsonObject) {
-        List<Long> politicianIds = new ArrayList<>();
+        List<Long> propositionIds = new ArrayList<>();
         jsonObject.get("dados")
                 .getAsJsonArray()
-                .forEach(data -> politicianIds.add(data.getAsJsonObject().get("id").getAsLong()));
-        return politicianIds;
+                .forEach(dataElement -> propositionIds.add(dataElement.getAsJsonObject().get("id").getAsLong()));
+        return propositionIds;
     }
 }

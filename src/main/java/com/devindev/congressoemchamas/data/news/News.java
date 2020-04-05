@@ -34,25 +34,4 @@ public class News {
 
     // TODO: 01-Apr-20 Is this the right way of persisting a timestamp? Should I include timezone?
     private Timestamp timestamp;
-
-    public News(String title, String link, String description, String dateString, NewsMediaOutlet mediaOutlet) {
-        this.title = title;
-        this.link = link;
-        this.description = description;
-        this.dateString = dateString;
-        this.mediaOutlet = mediaOutlet;
-        this.timestamp = Timestamp.valueOf(LocalDateTime.now());
-    }
-
-    public News() {
-    }
-
-    public void update(News news){
-        this.title = news.title;
-        this.link = news.link;
-        this.description = news.description;
-        this.dateString = news.dateString;
-        this.mediaOutlet = news.mediaOutlet;
-        this.timestamp = Timestamp.valueOf(LocalDateTime.now());
-    }
 }

@@ -83,7 +83,8 @@ public class PoliticianService {
         Politician politician = camaraAPI.requestPoliticianById(camaraPoliticianId);
         politician.setTwitterUsername(twitterAPI.searchTwitterUsername(politician));
         politician.setNews(googleSearchAPI.searchNewsByPolitician(politician));
-        politician.setPropositions(camaraAPI.retrievePropositionsByPolitician(politician));
+        List<Long> propositionIds = camaraAPI.retrievePropositionIdsByPolitician(politician);
+        propositionIds.forEach(propositionId -> politician.getPropositions().add(camaraAPI.retrievePropositionFromId(propositionId)));
         return repository.save(politician);
     }
 }

@@ -3,8 +3,6 @@ package com.devindev.congressoemchamas.data.proposition;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -27,6 +25,4 @@ public class Proposition {
     @ManyToMany(mappedBy = "propositions")
     private List<Politician> politicians = new ArrayList<>();
 
-    public Proposition() {
-    }
 }
