@@ -3,7 +3,6 @@ package com.devindev.congressoemchamas.externalapi.camara.functions;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.CongressoResponseHandler;
 import com.google.gson.JsonObject;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +21,7 @@ public class GetPropositionById extends CongressoResponseHandler<Proposition> {
         JsonObject propositionResponse = jsonObject.get("dados").getAsJsonObject();
         proposition.setTypeDescription(propositionResponse.get("descricaoTipo").getAsString());
         proposition.setLink(propositionResponse.get("urlInteiroTeor").getAsString());
-        proposition.setTitle(StringUtils.abbreviate(propositionResponse.get("ementa").getAsString(), 255));
+        proposition.setTitle(propositionResponse.get("ementa").getAsString());
         proposition.setId(propositionResponse.get("id").getAsLong());
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");

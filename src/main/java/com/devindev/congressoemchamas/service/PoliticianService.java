@@ -61,6 +61,8 @@ public class PoliticianService {
         propositionIds.forEach(propositionId -> {
             Proposition proposition = camaraAPI.retrievePropositionFromId(propositionId);
             proposition.setAuthors(camaraAPI.retrieveAuthorsFromProposition(proposition));
+            proposition.setProcessingHistory(camaraAPI.retrieveProcessingHistoryFromProposition(proposition));
+            Collections.sort(proposition.getProcessingHistory());
             politician.getPropositions().add(proposition);
         });
     }

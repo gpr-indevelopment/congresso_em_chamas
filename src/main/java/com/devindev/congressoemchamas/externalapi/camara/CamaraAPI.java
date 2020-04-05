@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
+import com.devindev.congressoemchamas.data.processing.Processing;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.camara.functions.*;
 import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
@@ -98,6 +99,19 @@ public class CamaraAPI {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the authors list of a proposition from CamaraAPI.");
             LOGGER.error("Returning an empty authors list.");
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Processing> retrieveProcessingHistoryFromProposition(Proposition proposition){
+        try {
+            String path = String.format("%s/proposicoes/%d/tramitacoes", camaraConfig.getBaseUrl(), proposition.getId());
+            GetProcessingHistoryByPropisitionId apiFunctionHandler = new GetProcessingHistoryByPropisitionId();
+            return Request.Get(path).execute().handleResponse(apiFunctionHandler);
+        } catch (IOException exception) {
+            LOGGER.error(exception.getMessage());
+            LOGGER.error("Unable to retrieve the processing list of a proposition from CamaraAPI.");
+            LOGGER.error("Returning an empty processing list.");
             return new ArrayList<>();
         }
     }
