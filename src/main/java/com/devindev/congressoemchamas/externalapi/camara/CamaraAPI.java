@@ -88,4 +88,17 @@ public class CamaraAPI {
             return null;
         }
     }
+
+    public List<String> retrieveAuthorsFromProposition(Proposition proposition){
+        try {
+            String path = String.format("%s/proposicoes/%d/autores", camaraConfig.getBaseUrl(), proposition.getId());
+            GetAuthorsByPropositionId apiFunctionHandler = new GetAuthorsByPropositionId();
+            return Request.Get(path).execute().handleResponse(apiFunctionHandler);
+        } catch (IOException exception) {
+            LOGGER.error(exception.getMessage());
+            LOGGER.error("Unable to retrieve the authors list of a proposition from CamaraAPI.");
+            LOGGER.error("Returning an empty authors list.");
+            return new ArrayList<>();
+        }
+    }
 }

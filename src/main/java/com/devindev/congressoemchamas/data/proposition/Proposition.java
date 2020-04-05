@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.Id;
+import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +22,7 @@ public class Proposition {
 
     private String link;
 
-    @JsonBackReference
-    private Politician politicians;
+    private Timestamp presentationTimestamp;
+
+    private List<String> authors;
 }

@@ -4,6 +4,7 @@ import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.news.NewsRepository;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.politician.PoliticianRepository;
+import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import com.devindev.congressoemchamas.externalapi.google.GoogleSearchAPI;
 import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
@@ -57,8 +58,11 @@ public class PoliticianService {
 
     private void retrievePropositions(Politician politician){
         List<Long> propositionIds = camaraAPI.retrievePropositionIdsByPolitician(politician);
-        propositionIds.forEach(propositionId -> politician.getPropositions().add(camaraAPI.retrievePropositionFromId(propositionId)));
-        politician.getPropositions().forEach(proposition -> proposition.setPoliticians(politician));
+        propositionIds.forEach(propositionId -> {
+            Proposition proposition = camaraAPI.retrievePropositionFromId(propositionId);
+            proposition.setAuthors(camaraAPI.retrieveAuthorsFromProposition(proposition));
+            politician.getPropositions().add(proposition);
+        });
     }
 
     private Long getCurrentLegislatureId(){
