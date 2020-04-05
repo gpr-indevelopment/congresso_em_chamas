@@ -43,13 +43,21 @@ public class PoliticianService {
             if(Objects.isNull(builtPolitician)){
                 builtPolitician = buildNewPoliticianAndSave(camaraPoliticianId);
             }
-            else if(anyNewsExpired(builtPolitician)) {
-                builtPolitician = updateNewsAndSave(builtPolitician);
+            else {
+                if(anyNewsExpired(builtPolitician)) {
+                    builtPolitician = updateNewsAndSave(builtPolitician);
+                }
+                retrievePropositions(builtPolitician);
             }
             returnPoliticians.add(builtPolitician);
         });
         Collections.sort(returnPoliticians);
         return returnPoliticians;
+    }
+
+    private void retrievePropositions(Politician politician){
+        List<Long> propositionIds = camaraAPI.retrievePropositionIdsByPolitician(politician);
+        propositionIds.forEach(propositionId -> politician.getPropositions().add(camaraAPI.retrievePropositionFromId(propositionId)));
     }
 
     private Long getCurrentLegislatureId(){
@@ -83,8 +91,8 @@ public class PoliticianService {
         Politician politician = camaraAPI.requestPoliticianById(camaraPoliticianId);
         politician.setTwitterUsername(twitterAPI.searchTwitterUsername(politician));
         politician.setNews(googleSearchAPI.searchNewsByPolitician(politician));
-        List<Long> propositionIds = camaraAPI.retrievePropositionIdsByPolitician(politician);
-        propositionIds.forEach(propositionId -> politician.getPropositions().add(camaraAPI.retrievePropositionFromId(propositionId)));
-        return repository.save(politician);
+        politician = repository.save(politician);
+        retrievePropositions(politician);
+        return politician;
     }
 }

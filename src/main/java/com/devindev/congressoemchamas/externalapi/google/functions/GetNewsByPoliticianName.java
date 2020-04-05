@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class GetNewsByPoliticianName extends CongressoResponseHandler<List<News>
         news.setDateString(StringUtils.capitalize(jsonObject.get("htmlSnippet").getAsString().split("<b>")[0]));
         news.setDescription(APIUtils.convertLineJumpsToSpace(jsonObject.get("snippet").getAsString()).split(DATE_SEPARATOR_REGEX)[1]);
         news.setMediaOutlet(NewsMediaOutlet.fromUrl(jsonObject.get("displayLink").getAsString()));
+        news.setTimestamp(new Timestamp(System.currentTimeMillis()));
         return news;
     }
 }

@@ -34,12 +34,7 @@ public class Politician implements Comparable<Politician> {
     @JsonManagedReference
     private List<News> news = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(
-            name = "politician_proposition",
-            joinColumns = @JoinColumn(name = "politician_id"),
-            inverseJoinColumns = @JoinColumn(name = "proposition_id"))
+    @Transient
     @JsonManagedReference
     private List<Proposition> propositions = new ArrayList<>();
 
