@@ -160,12 +160,16 @@
                 politicians[0].news.forEach(news => {
                     const newsList = document.getElementById("news-list");
                     newsList.insertAdjacentHTML("beforeend", 
-                        `<li class="list-group-item news-list-item">
-                            <h5 class="mb-1">${news.title}</h5>
+                        `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action" style="border-color: ${news.mediaOutlet.themeColor}">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">${news.title}</h5>
+                                <small>${news.dateString}</small>
+                            </div>
                             <p class="mb-1">${news.description}</p>
-                            <h6 class="mb-1">${news.dateString}</h6>
-                            <a href="${news.link}" target="_blank">${news.mediaOutlet}</a>
-                        </li>`)
+                            <div style="background-color: ${news.mediaOutlet.themeColor}; margin: 0px -20px -12px -20px">
+                                <h6 style="color:#FFFFFF; margin:0px 0px 0px 20px">${news.mediaOutlet.name}</h6>
+                            </div>
+                        </a>`)
                 })
                 politicians[0].propositions.forEach(proposition => {
                     const propositionsList = document.getElementById("propositions-list");

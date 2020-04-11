@@ -1,41 +1,56 @@
 package com.devindev.congressoemchamas.data.news;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+@JsonFormat(shape= JsonFormat.Shape.OBJECT)
 public enum NewsMediaOutlet {
-    YAHOO ("br.noticias.yahoo.com") {
+    YAHOO ("br.noticias.yahoo.com", "#324fe1") {
         @Override
-        @JsonValue
         public String toString() {
             return "Yahoo";
         }
     },
-    ESTADAO ("politica.estadao.com.br") {
+    ESTADAO ("politica.estadao.com.br", "#a6a6a6") {
         @Override
-        @JsonValue
         public String toString() {
             return "Estadão";
         }
     },
-    FOLHA ("folha.uol.com.br") {
+    FOLHA ("folha.uol.com.br", "#000000") {
         @Override
-        @JsonValue
         public String toString() {
-            return "Folha";
+            return "Folha de S. Paulo";
         }
     },
-    G1 ("g1.globo.com") {
+    G1 ("g1.globo.com", "#C4170C") {
         @Override
-        @JsonValue
         public String toString() {
             return "G1";
         }
+
     };
+
+    NewsMediaOutlet(String baseLink, String themeColor) {
+        this.themeColor = themeColor;
+        this.baseLink = baseLink;
+    }
 
     private String baseLink;
 
-    NewsMediaOutlet(String baseLink) {
-        this.baseLink = baseLink;
+    private String themeColor;
+
+    private String name;
+
+    public String getBaseLink() {
+        return baseLink;
+    }
+
+    public String getThemeColor() {
+        return themeColor;
+    }
+
+    public String getName() {
+        return this.toString();
     }
 
     public static NewsMediaOutlet fromUrl(String url){
