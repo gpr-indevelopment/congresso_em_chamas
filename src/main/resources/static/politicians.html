@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script src="./js/newsComponents.js"></script>
+    <script src="./js/propositionsComponents.js"></script>
+    <script src="./js/twitterComponents.js"></script>
     <title>Politicians</title>
     <style>
         body {
@@ -126,7 +129,7 @@
                 <div class="card-body">
                     <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center">
                         <div class="spinner-border text-warning mt-3" role="status" id="twitter-timeline-spinner"></div>
-                        <i class="fas fa-exclamation-triangle fa-2x mt-3" id="twitter-timeline-error"></i>
+                        <i class="fas fa-exclamation-triangle fa-2x mt-3" id="twitter-timeline-error-icon"></i>
                         <div id="twitter-error-text" class="error-text">Nenhum político foi encontrado.</div>
                     </section>
                 </div>
@@ -151,49 +154,19 @@
     <script>
         const politician = new URLSearchParams(window.location.search).get("politician");
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
-        const twitterTimelineError = document.getElementById("twitter-timeline-error");
-        const twitterTimelineText = document.getElementById("twitter-error-text");
-        $.post("politicians", {
+        const twitterTimelineErrorIcon = document.getElementById("twitter-timeline-error-icon");
+        const twitterTimelineErrorText = document.getElementById("twitter-error-text");
+        $.post("http://localhost:8080/politicians", {
             queryString: politician
         }).done(politicians => {
             if (politicians.length > 0) {
-                politicians[0].news.forEach(news => {
-                    const newsList = document.getElementById("news-list");
-                    newsList.insertAdjacentHTML("beforeend", 
-                        `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action" style="border-color: ${news.mediaOutlet.themeColor}">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">${news.title}</h5>
-                                <small>${news.dateString}</small>
-                            </div>
-                            <p class="mb-1">${news.description}</p>
-                            <div style="background-color: ${news.mediaOutlet.themeColor}; margin: 0px -20px -12px -20px">
-                                <h6 style="color:#FFFFFF; margin:0px 0px 0px 20px">${news.mediaOutlet.name}</h6>
-                            </div>
-                        </a>`)
-                })
-                politicians[0].propositions.forEach(proposition => {
-                    const propositionsList = document.getElementById("propositions-list");
-                    propositionsList.insertAdjacentHTML("beforeend", 
-                        `<li class="list-group-item propositions-list-item">
-                            <h5 class="mb-1">${proposition.title}</h5>
-                            <a href="${proposition.link}" target="_blank">${proposition.typeDescription}</a>
-                        </li>`)
-                })
-                twttr.widgets.createTimeline(
-                    {
-                        sourceType: "profile",
-                        screenName: politicians[0].twitterUsername
-                    },
-                    document.getElementById("twitter-timeline"),
-                    {
-                        chrome: "nofooter noheader",
-                        height: "700"
-                    }
-                );
+                renderNews(politicians[0].news, document.getElementById("news-list"));
+                renderPropositions(politicians[0].propositions, document.getElementById("propositions-list"));
+                renderTwitterTimeline(politicians[0], twttr, document.getElementById("twitter-timeline"));
             }
             else {
-                twitterTimelineError.style.display = "inline-block";
-                twitterTimelineText.style.display = "inline-block";
+                twitterTimelineErrorIcon.style.display = "inline-block";
+                twitterTimelineErrorText.style.display = "inline-block";
             }
             twitterTimelineSpinner.style.display = "none";
         })
