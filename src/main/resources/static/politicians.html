@@ -156,13 +156,23 @@
         const twitterTimelineSpinner = document.getElementById("twitter-timeline-spinner");
         const twitterTimelineErrorIcon = document.getElementById("twitter-timeline-error-icon");
         const twitterTimelineErrorText = document.getElementById("twitter-error-text");
-        $.post("http://localhost:8080/politicians", {
-            queryString: politician
-        }).done(politicians => {
+        let baseUrl = ""
+        $.post(`${baseUrl}getPoliticianIds?queryString=${politician}`)
+        .done(politicians => {
             if (politicians.length > 0) {
-                renderNews(politicians[0].news, document.getElementById("news-list"));
-                renderPropositions(politicians[0].propositions, document.getElementById("propositions-list"));
-                renderTwitterTimeline(politicians[0], twttr, document.getElementById("twitter-timeline"));
+                let politicianId = politicians[0];
+                $.post(`${baseUrl}getTwitterUsername?politicianId=${politicianId}`)
+                .done(twitterUsername => {
+                    renderTwitterTimeline(twitterUsername, twttr, document.getElementById("twitter-timeline"));
+                })
+                $.post(`${baseUrl}getNews?politicianId=${politicianId}`)
+                .done(newsList => {
+                    renderNews(newsList, document.getElementById("news-list"));
+                })
+                $.post(`${baseUrl}getPropositions?politicianId=${politicianId}`)
+                .done(propositionsList => {
+                    renderPropositions(propositionsList, document.getElementById("propositions-list"));
+                })                
             }
             else {
                 twitterTimelineErrorIcon.style.display = "inline-block";
@@ -170,6 +180,7 @@
             }
             twitterTimelineSpinner.style.display = "none";
         })
+
     </script>
 </body>
 

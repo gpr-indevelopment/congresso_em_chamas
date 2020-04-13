@@ -63,9 +63,9 @@ public class CamaraAPI {
         }
     }
 
-    public List<Long> retrievePropositionIdsByPolitician(Politician politician) {
+    public List<Long> retrievePropositionIdsByPolitician(Long politicianId) {
         try {
-            String path = String.format("%s/proposicoes?idDeputadoAutor=%d&ordem=DESC&ordenarPor=id", camaraConfig.getBaseUrl(), politician.getId());
+            String path = String.format("%s/proposicoes?idDeputadoAutor=%d&ordem=DESC&ordenarPor=id", camaraConfig.getBaseUrl(), politicianId);
             GetPropositionsIdsByPoliticianId apiFunctionHandler = new GetPropositionsIdsByPoliticianId();
             List<Long> propositionIds = Request.Get(path).execute().handleResponse(apiFunctionHandler);
             return propositionIds;

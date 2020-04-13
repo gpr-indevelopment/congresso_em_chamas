@@ -1,8 +1,8 @@
-async function renderTwitterTimeline(politician, twttr, timelineSection){
+async function renderTwitterTimeline(twitterUsername, twttr, timelineSection){
     twttr.widgets.createTimeline(
         {
             sourceType: "profile",
-            screenName: politician.twitterUsername
+            screenName: twitterUsername
         },
         timelineSection,
         {

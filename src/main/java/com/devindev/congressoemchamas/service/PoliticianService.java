@@ -37,6 +37,24 @@ public class PoliticianService {
 
     private Long currentLegislatureId;
 
+    public List<Long> findIdsByName(String name){
+        return camaraAPI.requestIdsByNameAndLegislatureId(name, getCurrentLegislatureId());
+    }
+
+    public String findTwitterUsername(Long politicianId){
+        Politician politician = camaraAPI.requestPoliticianById(politicianId);
+        return twitterAPI.searchTwitterUsername(politician);
+    }
+
+    public List<Proposition> findPropositions(Long politicianId){
+        return retrievePropositions(politicianId);
+    }
+
+    public List<News> findNews(Long politicianId){
+        Politician politician = camaraAPI.requestPoliticianById(politicianId);
+        return googleSearchAPI.searchNewsByPolitician(politician);
+    }
+
     public List<Politician> findByName(String name){
         List<Politician> returnPoliticians = new ArrayList<>();
         camaraAPI.requestIdsByNameAndLegislatureId(name, getCurrentLegislatureId()).parallelStream().forEach(camaraPoliticianId -> {
@@ -48,7 +66,7 @@ public class PoliticianService {
                 if(anyNewsExpired(builtPolitician)) {
                     builtPolitician = updateNewsAndSave(builtPolitician);
                 }
-                retrievePropositions(builtPolitician);
+                builtPolitician.getPropositions().addAll(retrievePropositions(builtPolitician.getId()));
             }
             returnPoliticians.add(builtPolitician);
         });
@@ -56,15 +74,17 @@ public class PoliticianService {
         return returnPoliticians;
     }
 
-    private void retrievePropositions(Politician politician){
-        List<Long> propositionIds = camaraAPI.retrievePropositionIdsByPolitician(politician);
+    private List<Proposition> retrievePropositions(Long politicianId){
+        List<Long> propositionIds = camaraAPI.retrievePropositionIdsByPolitician(politicianId);
+        List<Proposition> propositions = new ArrayList<>();
         propositionIds.forEach(propositionId -> {
             Proposition proposition = camaraAPI.retrievePropositionFromId(propositionId);
             proposition.setAuthors(camaraAPI.retrieveAuthorsFromProposition(proposition));
             proposition.setProcessingHistory(camaraAPI.retrieveProcessingHistoryFromProposition(proposition));
             Collections.sort(proposition.getProcessingHistory());
-            politician.getPropositions().add(proposition);
+            propositions.add(proposition);
         });
+        return propositions;
     }
 
     private Long getCurrentLegislatureId(){
@@ -99,7 +119,7 @@ public class PoliticianService {
         politician.setTwitterUsername(twitterAPI.searchTwitterUsername(politician));
         politician.setNews(googleSearchAPI.searchNewsByPolitician(politician));
         politician = repository.save(politician);
-        retrievePropositions(politician);
+        politician.getPropositions().addAll(retrievePropositions(politician.getId()));
         return politician;
     }
 }
