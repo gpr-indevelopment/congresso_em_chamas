@@ -1,7 +1,6 @@
 package com.devindev.congressoemchamas.service;
 
 import com.devindev.congressoemchamas.data.news.News;
-import com.devindev.congressoemchamas.data.news.NewsRepository;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.politician.PoliticianRepository;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
@@ -18,10 +17,7 @@ import java.util.*;
 public class PoliticianService {
 
     @Autowired
-    private PoliticianRepository repository;
-
-    @Autowired
-    private NewsRepository newsRepository;
+    private PoliticianRepository politiciansRepository;
 
     @Autowired
     private CamaraAPI camaraAPI;
@@ -37,50 +33,28 @@ public class PoliticianService {
 
     private Long currentLegislatureId;
 
-    public List<Long> findIdsByName(String name){
-        return camaraAPI.requestIdsByNameAndLegislatureId(name, getCurrentLegislatureId());
+    public List<Long> findPoliticianIdsByName(String name){
+        return camaraAPI.requestPoliticianIdsByNameAndLegislatureId(name, getCurrentLegislatureId());
     }
 
-    public String findTwitterUsername(Long politicianId){
-        Politician politician = camaraAPI.requestPoliticianById(politicianId);
-        return twitterAPI.searchTwitterUsername(politician);
+    public Politician findPolitician(Long politicianId){
+        Politician politician = politiciansRepository.findById(politicianId);
+        if(Objects.isNull(politician)){
+            politician = buildNewPoliticianAndSave(politicianId);
+        }
+        else if(newsInvalid(politician)){
+            politician = updateNewsAndSave(politician);
+        }
+        return politician;
     }
 
-    public List<Proposition> findPropositions(Long politicianId){
-        return retrievePropositions(politicianId);
-    }
-
-    public List<News> findNews(Long politicianId){
-        Politician politician = camaraAPI.requestPoliticianById(politicianId);
-        return googleSearchAPI.searchNewsByPolitician(politician);
-    }
-
-    public List<Politician> findByName(String name){
-        List<Politician> returnPoliticians = new ArrayList<>();
-        camaraAPI.requestIdsByNameAndLegislatureId(name, getCurrentLegislatureId()).parallelStream().forEach(camaraPoliticianId -> {
-            Politician builtPolitician = repository.findById(camaraPoliticianId);
-            if(Objects.isNull(builtPolitician)){
-                builtPolitician = buildNewPoliticianAndSave(camaraPoliticianId);
-            }
-            else {
-                if(anyNewsExpired(builtPolitician)) {
-                    builtPolitician = updateNewsAndSave(builtPolitician);
-                }
-                builtPolitician.getPropositions().addAll(retrievePropositions(builtPolitician.getId()));
-            }
-            returnPoliticians.add(builtPolitician);
-        });
-        Collections.sort(returnPoliticians);
-        return returnPoliticians;
-    }
-
-    private List<Proposition> retrievePropositions(Long politicianId){
-        List<Long> propositionIds = camaraAPI.retrievePropositionIdsByPolitician(politicianId);
+    public List<Proposition> findPropositionsByPoliticianId(Long politicianId){
+        List<Long> propositionIds = camaraAPI.requestPropositionIdsByPoliticianId(politicianId);
         List<Proposition> propositions = new ArrayList<>();
         propositionIds.forEach(propositionId -> {
-            Proposition proposition = camaraAPI.retrievePropositionFromId(propositionId);
-            proposition.setAuthors(camaraAPI.retrieveAuthorsFromProposition(proposition));
-            proposition.setProcessingHistory(camaraAPI.retrieveProcessingHistoryFromProposition(proposition));
+            Proposition proposition = camaraAPI.requestPropositionFromId(propositionId);
+            proposition.setAuthors(camaraAPI.requestAuthorsFromPropositionId(propositionId));
+            proposition.setProcessingHistory(camaraAPI.requestProcessingHistoryFromPropositionId(propositionId));
             Collections.sort(proposition.getProcessingHistory());
             propositions.add(proposition);
         });
@@ -97,29 +71,31 @@ public class PoliticianService {
         }
     }
 
-    private boolean anyNewsExpired(Politician politician){
+    private Politician buildNewPoliticianAndSave(Long camaraPoliticianId){
+        Politician politician = camaraAPI.requestPoliticianById(camaraPoliticianId);
+        politician.setTwitterUsername(twitterAPI.requestTwitterUsernameByName(politician.getName()));
+        politician.setNews(googleSearchAPI.searchNewsByPoliticianName(politician.getName()));
+        for (News news : politician.getNews()) {
+            news.setPolitician(politician);
+        }
+        return politiciansRepository.save(politician);
+    }
+
+    private boolean newsInvalid(Politician politician){
         List<News> politicianNews = politician.getNews();
         return Objects.isNull(politicianNews) || politicianNews.isEmpty() || politicianNews.stream().anyMatch(news -> {
             Calendar now = Calendar.getInstance();
             now.add(Calendar.MINUTE, - cacheExpirationMinutes);
-            return news.getTimestamp().before(now.getTime());
+            return news.getRequestTimestamp().before(now.getTime());
         });
     }
 
     private Politician updateNewsAndSave(Politician politician){
-        List<Long> newsIdsToRemove = new ArrayList<>();
-        politician.getNews().forEach(news -> newsIdsToRemove.add(news.getId()));
-        politician.setNews(googleSearchAPI.searchNewsByPolitician(politician));
-        newsIdsToRemove.forEach(newsId -> newsRepository.delete(newsId));
-        return repository.save(politician);
-    }
-
-    private Politician buildNewPoliticianAndSave(Long camaraPoliticianId){
-        Politician politician = camaraAPI.requestPoliticianById(camaraPoliticianId);
-        politician.setTwitterUsername(twitterAPI.searchTwitterUsername(politician));
-        politician.setNews(googleSearchAPI.searchNewsByPolitician(politician));
-        politician = repository.save(politician);
-        politician.getPropositions().addAll(retrievePropositions(politician.getId()));
-        return politician;
+        List<News> requestedNews = googleSearchAPI.searchNewsByPoliticianName(politician.getName());
+        for (int i=0;i<politician.getNews().size();i++){
+            requestedNews.get(i).setId(politician.getNews().get(i).getId());
+        }
+        politician.setNews(requestedNews);
+        return politiciansRepository.save(politician);
     }
 }

@@ -33,5 +33,5 @@ public class News {
     private NewsMediaOutlet mediaOutlet;
 
     // TODO: 01-Apr-20 Is this the right way of persisting a timestamp? Should I include timezone?
-    private Timestamp timestamp;
+    private Timestamp requestTimestamp;
 }

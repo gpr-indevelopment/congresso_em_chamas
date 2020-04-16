@@ -157,19 +157,16 @@
         const twitterTimelineErrorIcon = document.getElementById("twitter-timeline-error-icon");
         const twitterTimelineErrorText = document.getElementById("twitter-error-text");
         let baseUrl = ""
-        $.post(`${baseUrl}getPoliticianIds?queryString=${politician}`)
-        .done(politicians => {
-            if (politicians.length > 0) {
-                let politicianId = politicians[0];
-                $.post(`${baseUrl}getTwitterUsername?politicianId=${politicianId}`)
-                .done(twitterUsername => {
-                    renderTwitterTimeline(twitterUsername, twttr, document.getElementById("twitter-timeline"));
+        $.get(`${baseUrl}politicians?name=${politician}`)
+        .done(politicianIds => {
+            if (politicianIds.length > 0) {
+                let politicianId = politicianIds[0];
+                $.get(`${baseUrl}politicians/${politicianId}`)
+                .done(politician => {
+                    renderTwitterTimeline(politician.twitterUsername, twttr, document.getElementById("twitter-timeline"));
+                    renderNews(politician.news, document.getElementById("news-list"));
                 })
-                $.post(`${baseUrl}getNews?politicianId=${politicianId}`)
-                .done(newsList => {
-                    renderNews(newsList, document.getElementById("news-list"));
-                })
-                $.post(`${baseUrl}getPropositions?politicianId=${politicianId}`)
+                $.get(`${baseUrl}politicians/${politicianId}/propositions`)
                 .done(propositionsList => {
                     renderPropositions(propositionsList, document.getElementById("propositions-list"));
                 })                

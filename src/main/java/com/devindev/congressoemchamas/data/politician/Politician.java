@@ -29,7 +29,7 @@ public class Politician implements Comparable<Politician> {
 
     private String twitterUsername;
 
-    @OneToMany(mappedBy = "politician", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "politician", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
     @JsonManagedReference
     private List<News> news = new ArrayList<>();

@@ -18,7 +18,15 @@ public class GoogleConfig {
     @Value("${cse.id}")
     private String engineId;
 
-    public String getURL(){
-        return String.format("%s?key=%s&cx=%s&&sort=date", url, apiKey, engineId);
+    public String getUrl(){
+        return url;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public String getEngineId() {
+        return engineId;
     }
 }

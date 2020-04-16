@@ -1,10 +1,9 @@
 package com.devindev.congressoemchamas.externalapi.google;
 
 import com.devindev.congressoemchamas.externalapi.google.functions.GetNewsByPoliticianName;
-import com.devindev.congressoemchamas.externalapi.utils.APIUtils;
 import com.devindev.congressoemchamas.data.news.News;
-import com.devindev.congressoemchamas.data.politician.Politician;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +21,17 @@ public class GoogleSearchAPI {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleSearchAPI.class);
 
     // TODO: 18-Mar-20 Take a look at this try catch. Its empty. 
-    public List<News> searchNewsByPolitician(Politician politician) {
+    public List<News> searchNewsByPoliticianName(String politicianName) {
         try {
-            String url = String.format("%s&q=%s", googleConfig.getURL(), APIUtils.convertToQueryString(politician.getName()));
+            URIBuilder builder = new URIBuilder();
+            builder.setScheme("https").setHost(googleConfig.getUrl())
+                    .addParameter("key", googleConfig.getApiKey())
+                    .addParameter("cx", googleConfig.getEngineId())
+                    .addParameter("sort", "date")
+                    .addParameter("q", politicianName);
             GetNewsByPoliticianName apiFunctionHandler = new GetNewsByPoliticianName();
-            List<News> foundNews = Request.Get(url).execute().handleResponse(apiFunctionHandler);
-            foundNews.forEach(news -> news.setPolitician(politician));
-            return foundNews;
-        } catch (IOException exception) {
+            return Request.Get(builder.build()).execute().handleResponse(apiFunctionHandler);
+        } catch (Exception exception) {
             exception.printStackTrace();
             LOGGER.error(exception.getMessage());
             LOGGER.error("Returning empty list of news.");

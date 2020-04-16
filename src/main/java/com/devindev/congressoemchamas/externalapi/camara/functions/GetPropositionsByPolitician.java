@@ -11,9 +11,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class GetPropositionById extends CongressoResponseHandler<Proposition> {
+public class GetPropositionsByPolitician extends CongressoResponseHandler<Proposition> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GetPropositionById.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GetPropositionsByPolitician.class);
 
     @Override
     protected Proposition handleResponse(JsonObject jsonObject) {

@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetPoliticiansByName extends CongressoResponseHandler<List<Long>> {
+public class GetPoliticianIdsByName extends CongressoResponseHandler<List<Long>> {
 
     @Override
     protected List<Long> handleResponse(JsonObject jsonObject) {
