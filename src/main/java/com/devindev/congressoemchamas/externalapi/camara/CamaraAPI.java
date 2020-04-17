@@ -9,6 +9,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class CamaraAPI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
+    @Cacheable(cacheNames = "politicianIdsByNameAndLegislatureId")
     public List<Long> requestPoliticianIdsByNameAndLegislatureId(String name, Long legislatureId){
         try {
             URIBuilder builder = new URIBuilder();
@@ -40,6 +42,7 @@ public class CamaraAPI {
         }
     }
 
+    @Cacheable(cacheNames = "politicianById")
     public Politician requestPoliticianById(Long id){
         try {
             URIBuilder builder = new URIBuilder();
@@ -72,6 +75,7 @@ public class CamaraAPI {
         }
     }
 
+    @Cacheable(cacheNames = "propositionIdsByPoliticianId")
     public List<Long> requestPropositionIdsByPoliticianId(Long politicianId) {
         try {
             URIBuilder builder = new URIBuilder();
@@ -90,7 +94,8 @@ public class CamaraAPI {
         }
     }
 
-    public Proposition requestPropositionFromId(Long propositionId){
+    @Cacheable(cacheNames = "propositionById")
+    public Proposition requestPropositionById(Long propositionId){
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
@@ -105,7 +110,8 @@ public class CamaraAPI {
         }
     }
 
-    public List<String> requestAuthorsFromPropositionId(Long propositionId){
+    @Cacheable(cacheNames = "authorsByPropositionId")
+    public List<String> requestAuthorsByPropositionId(Long propositionId){
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
@@ -120,7 +126,8 @@ public class CamaraAPI {
         }
     }
 
-    public List<Processing> requestProcessingHistoryFromPropositionId(Long propositionId){
+    @Cacheable(cacheNames = "processingHistoryByPropositionId")
+    public List<Processing> requestProcessingHistoryByPropositionId(Long propositionId){
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())

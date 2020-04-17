@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class PoliticianService {
+public class PoliticiansService {
 
     @Autowired
     private PoliticianRepository politiciansRepository;
@@ -52,9 +52,9 @@ public class PoliticianService {
         List<Long> propositionIds = camaraAPI.requestPropositionIdsByPoliticianId(politicianId);
         List<Proposition> propositions = new ArrayList<>();
         propositionIds.forEach(propositionId -> {
-            Proposition proposition = camaraAPI.requestPropositionFromId(propositionId);
-            proposition.setAuthors(camaraAPI.requestAuthorsFromPropositionId(propositionId));
-            proposition.setProcessingHistory(camaraAPI.requestProcessingHistoryFromPropositionId(propositionId));
+            Proposition proposition = camaraAPI.requestPropositionById(propositionId);
+            proposition.setAuthors(camaraAPI.requestAuthorsByPropositionId(propositionId));
+            proposition.setProcessingHistory(camaraAPI.requestProcessingHistoryByPropositionId(propositionId));
             Collections.sort(proposition.getProcessingHistory());
             propositions.add(proposition);
         });
@@ -84,9 +84,9 @@ public class PoliticianService {
     private boolean newsInvalid(Politician politician){
         List<News> politicianNews = politician.getNews();
         return Objects.isNull(politicianNews) || politicianNews.isEmpty() || politicianNews.stream().anyMatch(news -> {
-            Calendar now = Calendar.getInstance();
-            now.add(Calendar.MINUTE, - cacheExpirationMinutes);
-            return news.getRequestTimestamp().before(now.getTime());
+            Calendar someTimeAgo = Calendar.getInstance();
+            someTimeAgo.add(Calendar.MINUTE, - cacheExpirationMinutes);
+            return news.getRequestTimestamp().before(someTimeAgo.getTime());
         });
     }
 
