@@ -64,6 +64,10 @@
             align-items: center;
         }
 
+        .bandeira-background{
+            background-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66));
+        }
+
         .fa-twitter {
             color: #00aced;
         }
@@ -86,6 +90,7 @@
 
         #propositions-card{
             min-width: 60%;
+            max-width: 70%;
         }
 
         #twitter-card{
@@ -166,7 +171,7 @@
     </header>
     <script>
         const politician = new URLSearchParams(window.location.search).get("politician");
-        let baseUrl = "http://localhost:8080/"
+        let baseUrl = ""
         $.get(`${baseUrl}politicians?name=${politician}`)
         .done(politicianIds => {
             if (politicianIds.length > 0) {
