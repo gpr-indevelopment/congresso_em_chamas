@@ -2,6 +2,7 @@ async function renderNews(news, newsList){
     news.forEach(newsItem => {
         newsList.insertAdjacentHTML("beforeend", chooseContent(newsItem));
     });
+    document.getElementById("news-list-spinner").style.display = "none";
     return;
 }
 

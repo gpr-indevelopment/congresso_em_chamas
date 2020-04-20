@@ -2,7 +2,7 @@ async function renderPropositions(propositions, propositionsList) {
     propositions.forEach(proposition => {
         let innerHtml = `<div class="list-group-item">    
                             <h5 class="mb-1">${proposition.title}</h5>                               
-                            <div class="bandeira-background border d-flex justify-content-between align-items-center mt-3 p-2 rounded-top">
+                            <div class="bg-bandeira border d-flex justify-content-between align-items-center mt-3 p-2 rounded-top">
                                 <div></div>
                                 <h6>${proposition.typeDescription}</h6>
                                 <a class="btn btn-primary" href="${proposition.link}" target="_blank" role="button">
