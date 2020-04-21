@@ -1,6 +1,7 @@
 package com.devindev.congressoemchamas.data.politician;
 
 import com.devindev.congressoemchamas.data.news.News;
+import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -14,18 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class Politician implements Comparable<Politician> {
-
-    @Id
-    private Long id;
-
-    private String name;
-
-    private String picture;
-
-    private String party;
-
-    private Long legislatureId;
+public class Politician extends Profile implements Comparable<Politician>  {
 
     private String twitterUsername;
 
@@ -40,13 +30,13 @@ public class Politician implements Comparable<Politician> {
 
     @Override
     public int compareTo(Politician o) {
-        return this.name.compareTo(o.getName());
+        return this.getName().compareTo(o.getName());
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Politician){
-            return this.name.equals(((Politician) obj).getName());
+            return this.getName().equals(((Politician) obj).getName());
         }
         else return super.equals(obj);
     }

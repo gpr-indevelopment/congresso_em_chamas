@@ -31,12 +31,6 @@ public class PoliticiansService {
     @Value("${congresso.news.cache-expiration-minutes}")
     private Integer cacheExpirationMinutes;
 
-    private Long currentLegislatureId;
-
-    public List<Long> findPoliticianIdsByName(String name){
-        return camaraAPI.requestPoliticianIdsByNameAndLegislatureId(name, getCurrentLegislatureId());
-    }
-
     public Politician findPolitician(Long politicianId){
         Politician politician = politiciansRepository.findById(politicianId);
         if(Objects.isNull(politician)){
@@ -59,16 +53,6 @@ public class PoliticiansService {
             propositions.add(proposition);
         });
         return propositions;
-    }
-
-    private Long getCurrentLegislatureId(){
-        if(Objects.isNull(currentLegislatureId)){
-            currentLegislatureId = camaraAPI.requestCurrentLegislatureId();
-            return currentLegislatureId;
-        }
-        else{
-            return currentLegislatureId;
-        }
     }
 
     private Politician buildNewPoliticianAndSave(Long camaraPoliticianId){

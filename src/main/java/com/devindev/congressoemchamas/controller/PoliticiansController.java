@@ -1,6 +1,7 @@
 package com.devindev.congressoemchamas.controller;
 
 import com.devindev.congressoemchamas.data.politician.Politician;
+import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.service.PoliticiansService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,6 @@ public class PoliticiansController {
 
     @Autowired
     private PoliticiansService politiciansService;
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/politicians", method = RequestMethod.GET)
-    public List<Long> getPoliticiansByName(@RequestParam String name){
-        return politiciansService.findPoliticianIdsByName(name);
-    }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/politicians/{politicianId}", method = RequestMethod.GET)

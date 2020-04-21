@@ -163,13 +163,13 @@
         var twitterTimeline = document.getElementById("twitter-timeline");
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
-        let baseUrl = ""
+        let baseUrl = "http://localhost:8080/"
         enterLoadingState();
-        $.get(`${baseUrl}politicians?name=${politician}`)
-            .done(politicianIds => {
-                if (politicianIds.length > 0) {
-                    globalPoliticianIds = politicianIds;
-                    renderPageWithPoliticianId(politicianIds[0]);
+        $.get(`${baseUrl}profiles?name=${politician}`)
+            .done(profiles => {
+                if (profiles.length > 0) {
+                    globalPoliticianIds = profiles;
+                    renderPageWithPoliticianId(profiles[0].id);
                 }
                 else {
                     fireError();

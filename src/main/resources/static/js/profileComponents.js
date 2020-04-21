@@ -15,7 +15,7 @@ function renderProfile(element, politician) {
     document.getElementById("backward-button").onclick = e => {
         currentIdIndex--;
         if (currentIdIndex >= 0) {
-            renderPageWithPoliticianId(globalPoliticianIds[currentIdIndex]);
+            renderPageWithPoliticianId(globalPoliticianIds[currentIdIndex].id);
         }
         else {
             currentIdIndex++;
@@ -24,7 +24,7 @@ function renderProfile(element, politician) {
     document.getElementById("forward-button").onclick = e => {
         currentIdIndex++;
         if (globalPoliticianIds[currentIdIndex]) {
-            renderPageWithPoliticianId(globalPoliticianIds[currentIdIndex]);
+            renderPageWithPoliticianId(globalPoliticianIds[currentIdIndex].id);
         }
         else {
             currentIdIndex--;

@@ -1,9 +1,12 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
 import com.devindev.congressoemchamas.data.processing.Processing;
+import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.camara.functions.*;
 import com.devindev.congressoemchamas.data.politician.Politician;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +26,25 @@ public class CamaraAPI {
     @Autowired
     private CamaraConfig camaraConfig;
 
+    @Getter
+    private Long currentLegislatureId;
+
+    @PostConstruct
+    private void init(){
+        this.currentLegislatureId = requestCurrentLegislatureId();
+    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
     @Cacheable(cacheNames = "politicianIdsByNameAndLegislatureId")
-    public List<Long> requestPoliticianIdsByNameAndLegislatureId(String name, Long legislatureId){
+    public List<Profile> requestProfilesByNameAndLegislatureId(String name, Long legislatureId){
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
                     .setPath("deputados")
                     .addParameter("nome", name)
                     .addParameter("idLegislatura", legislatureId.toString());
-            GetPoliticianIdsByName apiFunctionHandler = new GetPoliticianIdsByName();
+            GetProfilesByName apiFunctionHandler = new GetProfilesByName();
             return Request.Get(builder.build()).execute().handleResponse(apiFunctionHandler);
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
