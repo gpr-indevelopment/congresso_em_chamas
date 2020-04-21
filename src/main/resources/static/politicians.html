@@ -120,6 +120,16 @@
             overflow-y: scroll;
         }
 
+        #profiles-selector {
+            max-height: 400px;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+
+        #profiles-aside {
+            min-height: 30%;
+        }
+
         .error {
             display: none;
         }
@@ -127,7 +137,14 @@
 </head>
 
 <body>
-    <aside class="d-flex flex-column border-bandeira rounded" id="profiles-aside"></aside>
+    <aside class="d-flex flex-column border-bandeira rounded">
+        <div id="profiles-aside">
+
+        </div>
+        <ul class="list-group m-3" id="profiles-selector"></ul>
+
+        </div>
+    </aside>
     <main class="pt-0">
         <div class="card-deck d-flex justify-content-center">
             <div class="card shadow" id="twitter-card">
@@ -156,19 +173,19 @@
         <img src="assets/perfil.png" width="48px" height="48px">
     </footer>
     <script>
-        var globalPoliticianIds;
-        var currentIdIndex = 0;
-        const politician = new URLSearchParams(window.location.search).get("politician");
+        var globalProfiles;
         var profilesAside = document.getElementById("profiles-aside");
         var twitterTimeline = document.getElementById("twitter-timeline");
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
-        let baseUrl = "http://localhost:8080/"
+        var profilesSelector = document.getElementById("profiles-selector");
+        let baseUrl = ""
+        const politician = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
         $.get(`${baseUrl}profiles?name=${politician}`)
             .done(profiles => {
                 if (profiles.length > 0) {
-                    globalPoliticianIds = profiles;
+                    globalProfiles = profiles;
                     renderPageWithPoliticianId(profiles[0].id);
                 }
                 else {
@@ -176,6 +193,7 @@
                 }
             })
         function renderPageWithPoliticianId(politicianId) {
+            renderProfilesSelector(politicianId);
             enterLoadingState();
             $.get(`${baseUrl}politicians/${politicianId}`)
                 .done(politician => {
@@ -187,6 +205,29 @@
                 .done(propositionsList => {
                     renderPropositions(propositionsList, propositionsListElement);
                 })
+        }
+
+        function renderProfilesSelector(politicianId){
+            profilesSelector.innerHTML= "";
+            globalProfiles.forEach(profile => {
+                debugger
+                if(profile.id === politicianId){
+                    profilesSelector.insertAdjacentHTML("beforeend", `<button type="button" class="list-group-item list-group-item-action active disabled" selectorButton="${profile.id}">
+                                                                        <p class="mb-0"><span class="font-weight-bold">Nome: </span>${profile.name}</p>
+                                                                        <p class="mb-0"><span class="font-weight-bold">Partido: </span>${profile.party}</p>
+                                                                    </button>`)
+                } else{
+                    profilesSelector.insertAdjacentHTML("beforeend", `<button type="button" class="list-group-item list-group-item-action" selectorButton="${profile.id}">
+                                                                        <p class="mb-0"><span class="font-weight-bold">Nome: </span>${profile.name}</p>
+                                                                        <p class="mb-0"><span class="font-weight-bold">Partido: </span>${profile.party}</p>
+                                                                    </button>`)
+                }
+                document.querySelectorAll("[selectorButton]").forEach(button => {
+                    button.onclick = e => {
+                        renderPageWithPoliticianId(parseInt(e.currentTarget.getAttribute("selectorButton")));          
+                    }
+                })
+            })
         }
 
         function enterLoadingState() {
