@@ -1,4 +1,5 @@
 async function renderTwitterTimeline(twitterUsername, twttr, timelineSection){
+    timelineSection.innerHTML = "";
     twttr.widgets.createTimeline(
         {
             sourceType: "profile",
@@ -10,4 +11,8 @@ async function renderTwitterTimeline(twitterUsername, twttr, timelineSection){
             height: "700"
         }
     );
+}
+
+function loadTwitter(element){
+    
 }

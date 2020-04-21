@@ -1,4 +1,5 @@
-async function renderPropositions(propositions, propositionsList) {
+async function renderPropositions(propositions, propositionsListElement) {
+    propositionsListElement.innerHTML = "";
     propositions.forEach(proposition => {
         let innerHtml = `<div class="list-group-item">    
                             <h5 class="mb-1">${proposition.title}</h5>                               
@@ -12,7 +13,7 @@ async function renderPropositions(propositions, propositionsList) {
                             </div>                  
                             <div id="propositionsTreeView${proposition.id}"></div>
                         </div>`;
-        propositionsList.insertAdjacentHTML("beforeend", innerHtml)
+        propositionsListElement.insertAdjacentHTML("beforeend", innerHtml)
         buildTreeView(proposition, `propositionsTreeView${proposition.id}`);
     });
     return;

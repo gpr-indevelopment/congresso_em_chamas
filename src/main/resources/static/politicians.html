@@ -13,6 +13,7 @@
     <script src="./js/newsComponents.js"></script>
     <script src="./js/propositionsComponents.js"></script>
     <script src="./js/twitterComponents.js"></script>
+    <script src="./js/profileComponents.js"></script>
     <title>Politicians</title>
     <style>
         body {
@@ -77,7 +78,6 @@
 
         .fa-exclamation-triangle {
             color: orangered;
-            display: none;
             margin-bottom: 10px;
         }
 
@@ -120,22 +120,14 @@
             overflow-y: scroll;
         }
 
-        .error-text {
+        .error {
             display: none;
         }
     </style>
 </head>
 
 <body>
-    <aside class="d-flex flex-column border-bandeira rounded">
-        <div id="congresso-aside"></div>
-        <div class="d-flex flex-row justify-content-center mt-5">
-            <button type="button" class="btn btn-outline-primary" id="backward-button"><i
-                    class="fas fa-arrow-left"></i></button>
-            <button type="button" class="btn btn-outline-primary" id="forward-button"><i
-                    class="fas fa-arrow-right"></i></button>
-        </div>
-    </aside>
+    <aside class="d-flex flex-column border-bandeira rounded" id="profiles-aside"></aside>
     <main class="pt-0">
         <div class="card-deck d-flex justify-content-center">
             <div class="card shadow" id="twitter-card">
@@ -143,37 +135,20 @@
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
                 <div class="card-body">
-                    <section id="twitter-timeline"
-                        class="d-flex flex-column justify-content-center align-items-center full-height">
-                        <div class="spinner-border text-warning mt-3" role="status" id="twitter-timeline-spinner"></div>
-                        <i class="fas fa-exclamation-triangle fa-2x mt-3" id="twitter-timeline-error-icon"></i>
-                        <div class="error-text" id="twitter-error-text">Nenhum político foi encontrado.</div>
-                    </section>
+                    <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center full-height"></section>
                 </div>
             </div>
             <div class="card shadow" id="news-card">
                 <div class="card-header">
                     <img src="assets/google_logo.png" class="google-logo">
                 </div>
-                <ul class="list-group" id="news-list">
-                    <li class="d-flex flex-column justify-content-center align-items-center full-height">
-                        <div class="spinner-border text-warning mt-3" role="status" id="news-spinner"></div>
-                        <i class="fas fa-exclamation-triangle fa-2x mt-3" id="news-error-icon"></i>
-                        <div class="error-text" id="news-error-text">Nenhum político foi encontrado.</div>
-                    </li>
-                </ul>
+                <ul class="list-group" id="news-list"></ul>
             </div>
             <div class="card shadow" id="propositions-card">
                 <div class="card-header">
                     <img src="assets/congresso_icon.png" class="congresso-logo">
                 </div>
-                <ul class="list-group" id="propositions-list">
-                    <li class="d-flex flex-column justify-content-center align-items-center full-height">
-                        <div class="spinner-border text-warning mt-3" role="status" id="propositions-spinner"></div>
-                        <i class="fas fa-exclamation-triangle fa-2x mt-3" id="propositions-error-icon"></i>
-                        <div class="error-text" id="propositions-error-text">Nenhum político foi encontrado.</div>
-                    </li>
-                </ul>
+                <ul class="list-group" id="propositions-list"></ul>
             </div>
         </div>
     </main>
@@ -184,8 +159,12 @@
         var globalPoliticianIds;
         var currentIdIndex = 0;
         const politician = new URLSearchParams(window.location.search).get("politician");
-        const congressoAside = document.getElementById("congresso-aside");
-        let baseUrl = ""
+        var profilesAside = document.getElementById("profiles-aside");
+        var twitterTimeline = document.getElementById("twitter-timeline");
+        var newsListElement = document.getElementById("news-list");
+        var propositionsListElement = document.getElementById("propositions-list");
+        let baseUrl = "http://localhost:8080/"
+        enterLoadingState();
         $.get(`${baseUrl}politicians?name=${politician}`)
             .done(politicianIds => {
                 if (politicianIds.length > 0) {
@@ -193,62 +172,43 @@
                     renderPageWithPoliticianId(politicianIds[0]);
                 }
                 else {
-                    document.getElementById("twitter-timeline-error-icon").style.display = "inline-block";
-                    document.getElementById("twitter-error-text").style.display = "inline-block";
-                    document.getElementById("twitter-timeline-spinner").style.display = "none";
-
-                    document.getElementById("news-error-icon").style.display = "inline-block";
-                    document.getElementById("news-error-text").style.display = "inline-block";
-                    document.getElementById("news-spinner").style.display = "none";
-
-                    document.getElementById("propositions-error-icon").style.display = "inline-block";
-                    document.getElementById("propositions-error-text").style.display = "inline-block";
-                    document.getElementById("propositions-spinner").style.display = "none";
+                    fireError();
                 }
             })
         function renderPageWithPoliticianId(politicianId) {
+            enterLoadingState();
             $.get(`${baseUrl}politicians/${politicianId}`)
                 .done(politician => {
-                    clearElement(congressoAside);
-                    congressoAside.insertAdjacentHTML("afterbegin", `<p class="text-left ml-4 mb-2"><span class="font-weight-bold">Nome: </span>${politician.name}</p>
-                                                                    <p class="text-left ml-4 mb-2"><span class="font-weight-bold">Partido: </span>${politician.party}</p>
-                                                                    <p class="text-left ml-4 mb-2"><span class="font-weight-bold">Twitter: </span><a href="http://https://twitter.com/${politician.twitterUsername}" target="_blank" class="text-decoration-none">@${politician.twitterUsername}</a></p>`)
-                    congressoAside.insertAdjacentHTML("afterbegin", `<img src="${politician.picture}" height="152" width="114" class="img-thumbnail m-5 rounded mx-auto d-block shadow">`)
-                    clearElement(document.getElementById("twitter-timeline"));
-                    renderTwitterTimeline(politician.twitterUsername, twttr, document.getElementById("twitter-timeline"));
-                    //document.getElementById("twitter-timeline-spinner").style.display = "none";
-                    clearElement(document.getElementById("news-list"));
-                    renderNews(politician.news, document.getElementById("news-list"));
-                    //document.getElementById("news-spinner").style.display = "none";
+                    renderProfile(profilesAside, politician);
+                    renderTwitterTimeline(politician.twitterUsername, twttr, twitterTimeline);
+                    renderNews(politician.news, newsListElement);
                 })
             $.get(`${baseUrl}politicians/${politicianId}/propositions`)
                 .done(propositionsList => {
-                    clearElement(document.getElementById("propositions-list"));
-                    renderPropositions(propositionsList, document.getElementById("propositions-list"));
-                    //document.getElementById("propositions-spinner").style.display = "none";
+                    renderPropositions(propositionsList, propositionsListElement);
                 })
         }
-        document.getElementById("backward-button").onclick = e => {
-            currentIdIndex--;
-            if (currentIdIndex >= 0) {
-                renderPageWithPoliticianId(globalPoliticianIds[currentIdIndex]);
-            }
-            else {
-                currentIdIndex++;
-            }
-        }
-        document.getElementById("forward-button").onclick = e => {
-            currentIdIndex++;
-            if (globalPoliticianIds[currentIdIndex]) {
-                renderPageWithPoliticianId(globalPoliticianIds[currentIdIndex]);
-            }
-            else {
-                currentIdIndex--;
-            }
+
+        function enterLoadingState() {
+            loadElement(profilesAside);
+            loadElement(twitterTimeline);
+            loadElement(newsListElement);
+            loadElement(propositionsListElement);
         }
 
-        function clearElement(element) {
-            element.innerHTML = "";
+        function loadElement(element) {
+            element.innerHTML = `<div class="d-flex flex-column justify-content-center align-items-center full-height">
+                                    <div class="spinner-border text-warning mt-3" role="status"></div>
+                                    <i class="fas fa-exclamation-triangle fa-2x mt-3 error"></i>
+                                    <div class="error">Nenhum político foi encontrado.</div>
+                                </div>`;
+        }
+
+        function fireError(){
+            document.querySelectorAll(".spinner-border").forEach(spinner => {
+                spinner.style.display = "none"
+            })
+            $(".error").removeClass("error");
         }
     </script>
 </body>
