@@ -9,7 +9,7 @@
     <script src="./node_modules/bootstrap-treeview-1.2.0/dist/bootstrap-treeview.min.js"></script>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script src="./js/newsComponents.js"></script>
     <script src="./js/propositionsComponents.js"></script>
     <script src="./js/twitterComponents.js"></script>
@@ -18,12 +18,13 @@
     <style>
         body {
             min-height: 100vh;
+            max-height: 100vh;
             display: grid;
-            grid-template-columns: minmax(400px, 1fr) 300px;
-            grid-template-rows: auto 62px;
+            grid-template-columns: 17rem minmax(400px, 1fr);
+            grid-template-rows: calc(100% - 62px) 62px;
             grid-template-areas:
-                'main aside'
-                'footer footer';
+                'aside main'
+                'aside footer';
         }
 
         aside {
@@ -33,7 +34,29 @@
         main {
             padding: 15px;
             grid-area: main;
-            background-color: black;
+            overflow: hidden;
+            overflow-y: scroll;
+            background-color: lightgray;
+        }
+
+        .bg-theme {
+            background-color: rgb(7, 24, 68);
+        }
+
+        .border-theme {
+            border-color: rgb(7, 24, 68);
+        }
+
+        .img-profile {
+            max-height: 10rem;
+            max-width: 10rem;
+            border: .5rem solid rgba(255,255,255,.2);
+        }
+
+        .bg-bandeira {
+            background-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66));
+            border-top: 3px solid;
+            border-color: rgb(7, 24, 68);
         }
 
         .card-deck {
@@ -62,15 +85,8 @@
             /* O alinhamento pra direita se dá com flex-end e não right */
             justify-content: flex-start;
             align-items: center;
-        }
-
-        .border-bandeira {
-            border: 6px solid;
-            border-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66)) 1;
-        }
-
-        .bg-bandeira {
-            background-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66));
+            border-top: 3px solid;
+            border-color: rgb(7, 24, 68);
         }
 
         .fa-twitter {
@@ -122,13 +138,13 @@
         }
 
         #profiles-selector {
-            max-height: 400px;
+            max-height: 250px;
             overflow: hidden;
             overflow-y: scroll;
         }
 
         #profiles-aside {
-            min-height: 30%;
+            min-height: 10%;
         }
 
         .error {
@@ -138,17 +154,17 @@
 </head>
 
 <body>
-    <aside class="d-flex flex-column border-bandeira rounded shadow">
+    <aside class="d-flex flex-column justify-content-center rounded-top shadow-lg bg-theme">
         <div id="profiles-aside">
 
         </div>
-        <ul class="list-group m-3" id="profiles-selector"></ul>
+        <ul class="list-group m-3 rounded" id="profiles-selector"></ul>
 
         </div>
     </aside>
     <main class="pt-0">
         <div class="card-deck d-flex justify-content-center">
-            <div class="card shadow" id="twitter-card">
+            <div class="card shadow border-theme rounded" id="twitter-card">
                 <div class="card-header">
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
@@ -156,13 +172,13 @@
                     <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center full-height"></section>
                 </div>
             </div>
-            <div class="card shadow" id="news-card">
+            <div class="card shadow border-theme rounded" id="news-card">
                 <div class="card-header">
                     <img src="assets/google_logo.png" class="google-logo">
                 </div>
                 <ul class="list-group" id="news-list"></ul>
             </div>
-            <div class="card shadow" id="propositions-card">
+            <div class="card shadow border-theme rounded" id="propositions-card">
                 <div class="card-header">
                     <img src="assets/congresso_icon.png" class="congresso-logo">
                 </div>
@@ -170,7 +186,7 @@
             </div>
         </div>
     </main>
-    <footer class="border-bandeira rounded shadow">
+    <footer class="rounded-right shadow-lg">
         <img src="assets/perfil.png" width="48px" height="48px">
     </footer>
     <script>
@@ -180,7 +196,7 @@
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
         var profilesSelector = document.getElementById("profiles-selector");
-        let baseUrl = "http://localhost:8080/"
+        let baseUrl = ""
         const politician = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
         $.get(`${baseUrl}profiles?name=${politician}`)
@@ -213,14 +229,14 @@
             globalProfiles.forEach(profile => {
                 debugger
                 if(profile.id === politicianId){
-                    profilesSelector.insertAdjacentHTML("beforeend", `<button type="button" class="list-group-item list-group-item-action active disabled" selectorButton="${profile.id}">
-                                                                        <p class="mb-0"><span class="font-weight-bold">Nome: </span>${profile.name}</p>
-                                                                        <p class="mb-0"><span class="font-weight-bold">Partido: </span>${profile.party}</p>
+                    profilesSelector.insertAdjacentHTML("beforeend", `<button type="button" class="list-group-item list-group-item-action active disabled pr-1 pl-1" selectorButton="${profile.id}">
+                                                                        <p class="mb-0"><i class="fas fa-user"></i>    ${profile.name}</p>
+                                                                        <p class="mb-0"><i class="fas fa-handshake"></i>    ${profile.party}</p>
                                                                     </button>`)
                 } else{
-                    profilesSelector.insertAdjacentHTML("beforeend", `<button type="button" class="list-group-item list-group-item-action" selectorButton="${profile.id}">
-                                                                        <p class="mb-0"><span class="font-weight-bold">Nome: </span>${profile.name}</p>
-                                                                        <p class="mb-0"><span class="font-weight-bold">Partido: </span>${profile.party}</p>
+                    profilesSelector.insertAdjacentHTML("beforeend", `<button type="button" class="list-group-item list-group-item-action pr-1 pl-1" selectorButton="${profile.id}">
+                                                                        <p class="mb-0"><i class="fas fa-user"></i>    ${profile.name}</p>
+                                                                        <p class="mb-0"><i class="fas fa-handshake"></i>    ${profile.party}</p>
                                                                     </button>`)
                 }
                 document.querySelectorAll("[selectorButton]").forEach(button => {

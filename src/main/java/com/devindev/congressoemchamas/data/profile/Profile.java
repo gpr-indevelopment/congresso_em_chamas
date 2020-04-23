@@ -19,4 +19,5 @@ public class Profile {
     private String picture;
 
     private Long legislatureId;
+    
 }
