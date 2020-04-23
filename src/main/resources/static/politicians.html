@@ -23,7 +23,7 @@
             grid-template-rows: auto 62px;
             grid-template-areas:
                 'main aside'
-                'footer footer'
+                'footer footer';
         }
 
         aside {
@@ -33,6 +33,7 @@
         main {
             padding: 15px;
             grid-area: main;
+            background-color: black;
         }
 
         .card-deck {
@@ -137,7 +138,7 @@
 </head>
 
 <body>
-    <aside class="d-flex flex-column border-bandeira rounded">
+    <aside class="d-flex flex-column border-bandeira rounded shadow">
         <div id="profiles-aside">
 
         </div>
@@ -169,7 +170,7 @@
             </div>
         </div>
     </main>
-    <footer class="border-bandeira rounded">
+    <footer class="border-bandeira rounded shadow">
         <img src="assets/perfil.png" width="48px" height="48px">
     </footer>
     <script>
@@ -179,7 +180,7 @@
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
         var profilesSelector = document.getElementById("profiles-selector");
-        let baseUrl = ""
+        let baseUrl = "http://localhost:8080/"
         const politician = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
         $.get(`${baseUrl}profiles?name=${politician}`)
