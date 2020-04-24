@@ -1,20 +1,22 @@
 async function renderPropositions(propositions, propositionsListElement) {
     propositionsListElement.innerHTML = "";
     propositions.forEach(proposition => {
-        let innerHtml = `<div class="list-group-item">    
-                            <h5 class="mb-1">${proposition.title}</h5>                               
-                            <div class="bg-bandeira border d-flex justify-content-between align-items-center mt-3 p-2 rounded-top">
-                                <div></div>
-                                <h6>${proposition.typeDescription}</h6>
-                                <a class="btn btn-primary" href="${proposition.link}" target="_blank" role="button">
-                                    Leia
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>                  
-                            <div id="propositionsTreeView${proposition.id}"></div>
-                        </div>`;
-        propositionsListElement.insertAdjacentHTML("beforeend", innerHtml)
-        buildTreeView(proposition, `propositionsTreeView${proposition.id}`);
+        if (proposition.title) {
+            let innerHtml = `<div class="list-group-item">    
+            <h5 class="mb-1">${proposition.title}</h5>                               
+            <div class="bg-bandeira border d-flex justify-content-between align-items-center mt-3 p-2 rounded-top">
+                <div></div>
+                <h6>${proposition.typeDescription}</h6>
+                <a class="btn btn-primary" href="${proposition.link}" target="_blank" role="button">
+                    Leia
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>                  
+            <div id="propositionsTreeView${proposition.id}"></div>
+            </div>`;
+            propositionsListElement.insertAdjacentHTML("beforeend", innerHtml)
+            buildTreeView(proposition, `propositionsTreeView${proposition.id}`);
+        }
     });
     return;
 }
@@ -60,13 +62,13 @@ function buildTreeView(proposition, renderTarget) {
         collapseIcon: "far fa-caret-square-down",
         data: tree,
         onNodeSelected: (event, data) => {
-            $(`#${renderTarget}`).treeview('toggleNodeExpanded', [ data.nodeId, { silent: true } ]);
+            $(`#${renderTarget}`).treeview('toggleNodeExpanded', [data.nodeId, { silent: true }]);
         },
         onNodeUnselected: (event, data) => {
-            $(`#${renderTarget}`).treeview('toggleNodeExpanded', [ data.nodeId, { silent: true } ]);
+            $(`#${renderTarget}`).treeview('toggleNodeExpanded', [data.nodeId, { silent: true }]);
             data.nodes.forEach(node => {
-                if(node.state.selected){
-                    $(`#${renderTarget}`).treeview('toggleNodeSelected', [ node.nodeId, { silent: true } ]);
+                if (node.state.selected) {
+                    $(`#${renderTarget}`).treeview('toggleNodeSelected', [node.nodeId, { silent: true }]);
                 }
             })
         },

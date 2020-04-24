@@ -36,12 +36,16 @@
             background-color: lightgray;
         }
 
-        header {
+        .congresso-header {
             grid-area: header;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             border-bottom: 3px solid rgb(255, 127, 39);
+        }
+
+        .congresso-title-text {
+            font-family: Domine-Bold;
         }
 
         .bg-theme {
@@ -99,19 +103,25 @@
 
         #propositions-card {
             max-width: 40%;
+            height: calc(100vh - 95px);
         }
 
         #twitter-card {
-            height: 700px;
+            height: calc(100vh - 95px);
             max-width: 20%;
         }
 
         #news-card {
             max-width: 40%;
+            height: calc(100vh - 95px);
         }
 
         .full-height {
             height: 100%;
+        }
+
+        .full-width {
+            width: 100%;
         }
 
         #news-list {
@@ -121,7 +131,7 @@
         }
 
         #propositions-list {
-            height: 500px;
+            max-height: calc(100vh - 62px);
             overflow: hidden;
             overflow-y: scroll;
         }
@@ -133,11 +143,17 @@
 </head>
 
 <body>
-    <header class="rounded-right shadow-lg bg-theme">
-        <button type="button" class="btn btn-light ml-2 mr-2" id="back-button">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-        <img src="assets/perfil-nobackground.png" width="48px" height="48px">
+    <header class="rounded-right shadow-lg bg-theme d-flex justify-content-between">
+        <div class="congresso-header full-width">
+            <button type="button" class="btn btn-light ml-2 mr-2" id="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <img src="assets/perfil-nobackground.png" width="48px" height="48px">
+            <h5 class="text-light mb-0">Congresso em Chamas</h5>
+        </div>
+        <div id="profiles-header" class="congresso-header">
+
+        </div>
     </header>
     <main class="pt-0">
         <div class="card-deck d-flex justify-content-center">
@@ -146,7 +162,8 @@
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
                 <div class="card-body">
-                    <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center full-height"></section>
+                    <section id="twitter-timeline"
+                        class="d-flex flex-column justify-content-center align-items-center full-height"></section>
                 </div>
             </div>
             <div class="card shadow border-theme rounded" id="news-card">
@@ -164,28 +181,26 @@
         </div>
     </main>
     <script>
-        var globalProfiles;
         var twitterTimeline = document.getElementById("twitter-timeline");
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
-        var profilesSelector = document.getElementById("profiles-selector");
-        let baseUrl = "http://localhost:8080/"
+        let baseUrl = ""
         const politician = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
         $.get(`${baseUrl}profiles?name=${politician}`)
             .done(profiles => {
                 if (profiles.length > 0) {
-                    globalProfiles = profiles;
-                    renderPageWithPoliticianId(profiles[0].id);
+                    renderPageWithPoliticianId(profiles[0].id, profiles);
                 }
                 else {
                     fireError();
                 }
             })
-        function renderPageWithPoliticianId(politicianId) {
+        function renderPageWithPoliticianId(politicianId, profiles) {
             enterLoadingState();
             $.get(`${baseUrl}politicians/${politicianId}`)
                 .done(politician => {
+                    renderProfilesDropdown(politician, profiles);
                     renderTwitterTimeline(politician.twitterUsername, twttr, twitterTimeline);
                     renderNews(politician.news, newsListElement);
                 })
@@ -209,7 +224,7 @@
                                 </div>`;
         }
 
-        function fireError(){
+        function fireError() {
             document.querySelectorAll(".spinner-border").forEach(spinner => {
                 spinner.style.display = "none"
             })
@@ -219,6 +234,20 @@
         document.getElementById("back-button").onclick = e => {
             e.preventDefault();
             window.location.href = "../index.html"
+        }
+
+        function renderProfilesDropdown(politician, profiles) {
+            if (profiles.length > 1) {
+                document.getElementById("profiles-header").insertAdjacentHTML('beforeend', `<a class="btn btn-light dropdown-toggle mr-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${politician.name}</a>
+                                                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="profile-dropdown-menu">
+                                                                                            
+                                                                                            </div>`)
+                profiles.forEach(profile => {
+                    if (profile.id != politician.id) {
+                        document.getElementById("profile-dropdown-menu").insertAdjacentHTML('afterbegin', `<a class="dropdown-item" href="../politicians.html?politician=${politician.name}">${profile.name}</a>`)
+                    }
+                })
+            }
         }
     </script>
 </body>
