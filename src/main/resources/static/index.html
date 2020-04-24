@@ -98,7 +98,7 @@
         button.onclick = e => {
             e.preventDefault();
             if (politicianInput.value) {
-                window.location.href += `politicians.html?politician=${politicianInput.value}`;
+                window.location.href = `../politicians.html?politician=${politicianInput.value}`;
             }
             else {
                 politicianInput.classList.add("is-invalid");
