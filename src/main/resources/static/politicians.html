@@ -244,7 +244,7 @@
                                                                                             </div>`)
                 profiles.forEach(profile => {
                     if (profile.id != politician.id) {
-                        document.getElementById("profile-dropdown-menu").insertAdjacentHTML('afterbegin', `<a class="dropdown-item" href="../politicians.html?politician=${politician.name}">${profile.name}</a>`)
+                        document.getElementById("profile-dropdown-menu").insertAdjacentHTML('afterbegin', `<a class="dropdown-item" href="../politicians.html?politician=${profile.name}">${profile.name}</a>`)
                     }
                 })
             }
