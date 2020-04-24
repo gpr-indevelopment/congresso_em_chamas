@@ -1,14 +1,14 @@
 package com.devindev.congressoemchamas.data.proposition;
 
-import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.processing.Processing;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,7 +26,7 @@ public class Proposition {
 
     private Timestamp presentationTimestamp;
 
-    private List<String> authors = new ArrayList<>();
+    private Set<String> authors = new HashSet<>();
 
     private List<Processing> processingHistory = new ArrayList<>();
 }

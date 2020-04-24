@@ -47,7 +47,7 @@ public class PoliticiansService {
         List<Proposition> propositions = new ArrayList<>();
         propositionIds.forEach(propositionId -> {
             Proposition proposition = camaraAPI.requestPropositionById(propositionId);
-            proposition.setAuthors(camaraAPI.requestAuthorsByPropositionId(propositionId));
+            proposition.getAuthors().addAll(camaraAPI.requestAuthorsByPropositionId(propositionId));
             proposition.setProcessingHistory(camaraAPI.requestProcessingHistoryByPropositionId(propositionId));
             Collections.sort(proposition.getProcessingHistory());
             propositions.add(proposition);
