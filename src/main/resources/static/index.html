@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="./node_modules/jquery-ui-dist/jquery-ui.min.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <title>Frontpage</title>
     <style>
@@ -92,24 +94,37 @@
     <script>
         const button = document.querySelector('[politicianButton]');
         const politicianInput = document.querySelector('[politicianInput]');
+        var baseUrl = "http://localhost:8080/"
         button.onclick = e => {
             e.preventDefault();
-            if(politicianInput.value){
-                window.location.href+=`politicians.html?politician=${politicianInput.value}`;
+            if (politicianInput.value) {
+                window.location.href += `politicians.html?politician=${politicianInput.value}`;
             }
             else {
                 politicianInput.classList.add("is-invalid");
             }
         }
         politicianInput.oninput = e => {
-            if(politicianInput.value){
+            if (politicianInput.value) {
                 politicianInput.classList.remove("is-invalid");
                 politicianInput.classList.add("is-valid");
             }
-            else{
+            else {
                 politicianInput.classList.remove("is-valid");
             }
         }
+        $("[politicianInput]").autocomplete({
+            source: function (request, response) {
+                $.get(`${baseUrl}profiles?name=${request.term}`)
+                    .done(profiles => {
+                        let autocompleteArray = [];
+                        profiles.forEach(profile => {
+                            autocompleteArray.push(profile.name)
+                        });
+                        response(autocompleteArray);
+                    })
+            }
+        })
     </script>
 </body>
 

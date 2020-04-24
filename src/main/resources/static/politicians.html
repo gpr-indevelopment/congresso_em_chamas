@@ -20,11 +20,11 @@
             min-height: 100vh;
             max-height: 100vh;
             display: grid;
-            grid-template-columns: 17rem minmax(400px, 1fr);
-            grid-template-rows: calc(100% - 62px) 62px;
+            grid-template-columns: 100%;
+            grid-template-rows: 62px calc(100% - 62px);
             grid-template-areas:
-                'aside main'
-                'aside footer';
+                'header'
+                'main';
         }
 
         aside {
@@ -37,6 +37,16 @@
             overflow: hidden;
             overflow-y: scroll;
             background-color: lightgray;
+        }
+
+        header {
+            grid-area: header;
+            display: flex;
+            /* O alinhamento pra direita se dá com flex-end e não right */
+            justify-content: flex-start;
+            align-items: center;
+            border-top: 3px solid;
+            border-color: rgb(7, 24, 68);
         }
 
         .bg-theme {
@@ -77,16 +87,6 @@
 
         .card-body {
             padding: 0;
-        }
-
-        body>footer {
-            grid-area: footer;
-            display: flex;
-            /* O alinhamento pra direita se dá com flex-end e não right */
-            justify-content: flex-start;
-            align-items: center;
-            border-top: 3px solid;
-            border-color: rgb(7, 24, 68);
         }
 
         .fa-twitter {
@@ -186,9 +186,9 @@
             </div>
         </div>
     </main>
-    <footer class="rounded-right shadow-lg">
+    <header class="rounded-right shadow-lg">
         <img src="assets/perfil.png" width="48px" height="48px">
-    </footer>
+    </header>
     <script>
         var globalProfiles;
         var profilesAside = document.getElementById("profiles-aside");
@@ -196,7 +196,7 @@
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
         var profilesSelector = document.getElementById("profiles-selector");
-        let baseUrl = ""
+        let baseUrl = "http://localhost:8080/"
         const politician = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
         $.get(`${baseUrl}profiles?name=${politician}`)
