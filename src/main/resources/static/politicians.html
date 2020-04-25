@@ -181,28 +181,26 @@
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
         let baseUrl = ""
-        const politician = new URLSearchParams(window.location.search).get("politician");
+        const politicianId = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
-        $.get(`${baseUrl}profiles?name=${politician}`)
-            .done(profiles => {
-                if (profiles.length > 0) {
-                    renderPageWithPoliticianId(profiles[0].id, profiles);
-                }
-                else {
-                    fireError();
-                }
-            })
-        function renderPageWithPoliticianId(politicianId, profiles) {
+        if (politicianId) {
+            renderPageWithPoliticianId(politicianId);
+        } else {
+            fireError();
+        }
+
+        function renderPageWithPoliticianId(politicianId) {
             enterLoadingState();
             $.get(`${baseUrl}politicians/${politicianId}`)
                 .done(politician => {
-                    renderProfilesDropdown(politician, profiles);
                     renderTwitterTimeline(politician.twitterUsername, twttr, twitterTimeline);
                     renderNews(politician.news, newsListElement);
-                })
-            $.get(`${baseUrl}politicians/${politicianId}/propositions`)
-                .done(propositionsList => {
-                    renderPropositions(propositionsList, propositionsListElement);
+                    $.get(`${baseUrl}politicians/${politicianId}/propositions`)
+                        .done(propositionsList => {
+                            renderPropositions(propositionsList, propositionsListElement);
+                        })
+                }).fail(data => {
+                    fireError();
                 })
         }
 
@@ -230,20 +228,6 @@
         document.getElementById("back-button").onclick = e => {
             e.preventDefault();
             window.location.href = "../index.html"
-        }
-
-        function renderProfilesDropdown(politician, profiles) {
-            if (profiles.length > 1) {
-                document.getElementById("profiles-header").insertAdjacentHTML('beforeend', `<a class="btn btn-light dropdown-toggle mr-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${politician.name}</a>
-                                                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="profile-dropdown-menu">
-                                                                                            
-                                                                                            </div>`)
-                profiles.forEach(profile => {
-                    if (profile.id != politician.id) {
-                        document.getElementById("profile-dropdown-menu").insertAdjacentHTML('afterbegin', `<a class="dropdown-item" href="../politicians.html?politician=${profile.name}">${profile.name}</a>`)
-                    }
-                })
-            }
         }
     </script>
 </body>

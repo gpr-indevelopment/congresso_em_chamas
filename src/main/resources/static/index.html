@@ -38,20 +38,39 @@
             -ms-filter: blur(5px);
         }
 
+        #form-search {
+            width: 450px;
+        }
+
+        #form-search-politician {
+            position: relative;
+        }
+
+        #list-profiles {
+            position: relative;
+            overflow: hidden;
+            overflow-y: scroll;
+            max-height: calc(100% - 152px);
+        }
+
+        #container-list-profiles {
+            height: 60vh;
+        }
+
+        #img-profile {
+            border: .3rem solid rgba(7, 24, 68, 0.2);
+        }
+
         .full-screen {
             height: 100vh;
             width: 100vw;
-        }
-
-        #form-search{
-            width: 450px;
         }
 
         .bg-white {
             background-color: white;
         }
 
-        form {
+        .bd-theme {
             border: 15px solid;
             border-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66)) 1;
         }
@@ -80,34 +99,35 @@
         <source src="assets/protests_144.mp4" type="video/mp4">
         This video is not available.
     </video>
-    <div class="form-container d-flex flex-row full-screen justify-content-center align-items-center" id="form-search-politician">
-        <form class="shadow p-3 bg-black bg-white form-container d-flex flex-column" id="form-search">
+    <div class="form-container d-flex flex-row justify-content-center align-items-center full-screen"
+        id="form-search-politician">
+        <form class="shadow p-3 bg-black bg-white form-container d-flex flex-column bd-theme" id="form-search">
             <img src="assets/logo.png" alt="">
             <input class="form-control" placeholder="Insira o nome de um parlamentar" politicianInput>
-            <button class="btn btn-primary" politicianButton>Enviar</button>
+            <button class="btn btn-primary" politicianButton data-toggle="popover" title="Nenhum político encontrado."
+                data-content="Por favor insira outra chave de pesquisa.">Enviar</button>
         </form>
     </div>
-
     <script>
         const button = document.querySelector('[politicianButton]');
         const politicianInput = document.querySelector('[politicianInput]');
-        var baseUrl = "http://localhost:8080/";
+        var baseUrl = "";
+        enablePopovers();
         button.onclick = e => {
             e.preventDefault();
-            // if (politicianInput.value) {
-            //     window.location.href = `../politicians.html?politician=${politicianInput.value}`;
-            // }
-            // else {
-            //     politicianInput.classList.add("is-invalid");
-            // }
+            $.get(`${baseUrl}profiles?name=${politicianInput.value}`)
+                .done(profiles => {
+                    console.log(profiles)
+                    if (profiles.length > 1) {
+                        handleProfileSelectionAnimation(profiles);
+                    } else if (profiles.length === 1) {
+                        window.location.href = `../politicians.html?politician=${profiles[0].id}`;
+                    } else {
+                        handleInvalidInput();
+                    }
+                })
         }
-        $(document).ready(e => {
-            $("#form-search-politician").animate({
-                left: 2000
-            }, {
-                duration: 1000
-            })
-        })    
+
         politicianInput.oninput = e => {
             if (politicianInput.value) {
                 politicianInput.classList.remove("is-invalid");
@@ -117,18 +137,54 @@
                 politicianInput.classList.remove("is-valid");
             }
         }
-        $("[politicianInput]").autocomplete({
-            source: function (request, response) {
-                $.get(`${baseUrl}profiles?name=${request.term}`)
-                    .done(profiles => {
-                        let autocompleteArray = [];
-                        profiles.forEach(profile => {
-                            autocompleteArray.push(profile.name)
-                        });
-                        response(autocompleteArray);
+
+        function handleInvalidInput() {
+            politicianInput.classList.add("is-invalid");
+            $('[data-toggle="popover"]').popover('show')
+        }
+
+        function enablePopovers() {
+            let popover = $('[data-toggle="popover"]');
+            popover.popover({
+                trigger: "manual",
+            });
+            popover.on('shown.bs.popover', () => {
+                setTimeout(() => {
+                    $('[data-toggle="popover"]').popover('hide');
+                }, 3000);
+            });
+        }
+
+        function handleProfileSelectionAnimation(profiles) {
+            $("#form-search-politician").animate({
+                left: 2000
+            }, {
+                duration: 800,
+                complete: () => {
+                    let mainDiv = document.getElementById("form-search-politician");
+                    mainDiv.innerHTML = "";
+                    mainDiv.insertAdjacentHTML('beforeend', `<div class="bd-theme p-2 bg-white" id="container-list-profiles">
+                                                                            <img src="assets/logo.png" alt="" height="150px">
+                                                                            <ul class="list-group" id="list-profiles"></ul>
+                                                                        </div>`)
+                    let profilesList = document.getElementById("list-profiles");
+                    profiles.forEach(profile => {
+                        profilesList.insertAdjacentHTML('beforeend', `<a class="list-group-item list-group-item-action d-flex" href="../politicians.html?politician=${profile.id}">
+                                                                                    <img src="${profile.picture}" height="50" width="50" class="d-block img-profile rounded-circle" id="img-profile">
+                                                                                    <div class="ml-2">
+                                                                                        ${profile.name}
+                                                                                        <p class="mb-1"><span class="font-weight-bold">Partido: </span>${profile.party}</p>
+                                                                                    </div>                 
+                                                                                </a>`)
                     })
-            }
-        })
+                    $("#form-search-politician").animate({
+                        left: 0
+                    }, {
+                        duration: 800
+                    })
+                }
+            })
+        }
     </script>
 </body>
 
