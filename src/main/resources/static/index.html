@@ -115,6 +115,7 @@
         setupInitialScreen();
 
         function setupInitialScreen() {
+            currentInput = "";
             document.querySelector('[politicianButton]').onclick = e => {
                 e.preventDefault();
                 document.querySelector('[politicianButton]').innerHTML = `<div class="spinner-border text-warning" style="width: 20px; height: 20px;" role="status"></div>`;
