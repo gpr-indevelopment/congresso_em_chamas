@@ -180,7 +180,7 @@
         var twitterTimeline = document.getElementById("twitter-timeline");
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
-        let baseUrl = ""
+        let baseUrl = "http://localhost:8080/"
         const politicianId = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
         if (politicianId) {
