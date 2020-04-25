@@ -110,13 +110,14 @@
         </form>
     </div>
     <script>
-        var baseUrl = "http://localhost:8080/";
+        var baseUrl = "";
         var currentInput;
         setupInitialScreen();
 
         function setupInitialScreen() {
             document.querySelector('[politicianButton]').onclick = e => {
                 e.preventDefault();
+                document.querySelector('[politicianButton]').innerHTML = `<div class="spinner-border text-warning" style="width: 20px; height: 20px;" role="status"></div>`;
                 $.get(`${baseUrl}profiles?name=${currentInput}`)
                     .done(profiles => {
                         if (profiles.length > 1) {
@@ -145,6 +146,7 @@
         function handleInvalidInput() {
             document.querySelector('[politicianInput]').classList.add("is-invalid");
             $('[data-toggle="popover"]').popover('show')
+            document.querySelector('[politicianButton]').innerHTML = `Enviar`;
         }
 
         function enablePopovers() {
