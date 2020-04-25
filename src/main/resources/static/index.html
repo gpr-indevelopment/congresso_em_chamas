@@ -16,8 +16,8 @@
             Assim, os filhos podem fazer posicionamento relativo e tomar 50% da tela.
              */
             position: absolute;
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
             margin: 0px;
             /* Todo o overflow vai ficar escondido na tela */
             overflow: hidden;
@@ -28,8 +28,8 @@
             /* Coloca em posição absoluta, desvinculado de todos os parents. */
             position: absolute;
             /* Os heights e widths minimos fazem com que o video se ajuste ao tamanho da tela. */
-            min-height: 100%;
-            min-width: 100%;
+            min-height: 100vh;
+            min-width: 100vw;
             /* Coloca em background na tela */
             z-index: -100;
             -webkit-filter: blur(5px);
@@ -38,20 +38,17 @@
             -ms-filter: blur(5px);
         }
 
-        .form-container {
-            height: 100%;
-            width: 100%;
-            /* Alinha os filhos no centro horizontalmente, desde que seja um bloco */
-            text-align: center;
+        .full-screen {
+            height: 100vh;
+            width: 100vw;
         }
 
-        .form-container>form {
-            /* Deve assumir posição relativa ao pai, se posicionando em 30% do topo */
-            position: relative;
-            top: 25%;
+        #form-search{
+            width: 450px;
+        }
+
+        .bg-white {
             background-color: white;
-            /* O filho tem que virar um bloco inline para não ocupar a largura toda. */
-            display: inline-block;
         }
 
         form {
@@ -61,8 +58,8 @@
 
         form>input {
             min-width: 300px;
-            text-align: center;
             margin-bottom: 15px;
+            text-align: center;
         }
 
         form>button {
@@ -83,8 +80,8 @@
         <source src="assets/protests_144.mp4" type="video/mp4">
         This video is not available.
     </video>
-    <div class="form-container">
-        <form class="shadow p-3 mb-5 bg-black">
+    <div class="form-container d-flex flex-row full-screen justify-content-center align-items-center" id="form-search-politician">
+        <form class="shadow p-3 bg-black bg-white form-container d-flex flex-column" id="form-search">
             <img src="assets/logo.png" alt="">
             <input class="form-control" placeholder="Insira o nome de um parlamentar" politicianInput>
             <button class="btn btn-primary" politicianButton>Enviar</button>
@@ -94,16 +91,23 @@
     <script>
         const button = document.querySelector('[politicianButton]');
         const politicianInput = document.querySelector('[politicianInput]');
-        var baseUrl = ""
+        var baseUrl = "http://localhost:8080/";
         button.onclick = e => {
             e.preventDefault();
-            if (politicianInput.value) {
-                window.location.href = `../politicians.html?politician=${politicianInput.value}`;
-            }
-            else {
-                politicianInput.classList.add("is-invalid");
-            }
+            // if (politicianInput.value) {
+            //     window.location.href = `../politicians.html?politician=${politicianInput.value}`;
+            // }
+            // else {
+            //     politicianInput.classList.add("is-invalid");
+            // }
         }
+        $(document).ready(e => {
+            $("#form-search-politician").animate({
+                left: 2000
+            }, {
+                duration: 1000
+            })
+        })    
         politicianInput.oninput = e => {
             if (politicianInput.value) {
                 politicianInput.classList.remove("is-invalid");
