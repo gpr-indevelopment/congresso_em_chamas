@@ -8,10 +8,12 @@ public class GetPoliticianById extends CongressoResponseHandler<Politician> {
 
     @Override
     protected Politician handleResponse(JsonObject jsonObject) {
-        return buildPolitician(jsonObject.get("dados")
+        Politician politician = buildPolitician(jsonObject.get("dados")
                 .getAsJsonObject()
                 .get("ultimoStatus")
                 .getAsJsonObject());
+        politician.setSchooling(jsonObject.get("dados").getAsJsonObject().get("escolaridade").getAsString());
+        return politician;
     }
 
     private Politician buildPolitician(JsonObject data) {

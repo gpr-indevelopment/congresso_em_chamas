@@ -21,7 +21,7 @@
             max-height: 100vh;
             display: grid;
             grid-template-columns: 100%;
-            grid-template-rows: 62px calc(100% - 62px);
+            grid-template-rows: 62px calc(100vh - 62px);
             grid-template-areas:
                 'header'
                 'main';
@@ -29,11 +29,12 @@
 
 
         main {
-            padding: 15px;
             grid-area: main;
-            overflow: hidden;
-            overflow-y: scroll;
             background-color: lightgray;
+        }
+
+        p {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
 
         .congresso-header {
@@ -58,13 +59,12 @@
             border-color: rgb(7, 24, 68);
         }
 
-        .card-deck {
-            min-width: 400px;
+        .card{
+            max-height: 100%;
         }
 
-        .card {
-            margin-top: 15px;
-            min-width: 350px;
+        .card-deck {
+            height: 100%;
         }
 
         .card-header {
@@ -74,8 +74,12 @@
             background: url("../assets/stars_transparent_less.png");
         }
 
-        .card-body {
+        .card-body{
             padding: 0;
+        }
+
+        .fa-address-card{
+            color: rgb(250, 224, 66);
         }
 
         .fa-twitter {
@@ -97,37 +101,15 @@
             width: 42px;
         }
 
-        #propositions-card {
-            max-width: 40%;
-            height: calc(100vh - 95px);
-        }
-
-        #twitter-card {
-            height: calc(100vh - 95px);
-            max-width: 20%;
-        }
-
-        #news-card {
-            max-width: 40%;
-            height: calc(100vh - 95px);
-        }
-
-        .full-height {
-            height: 100%;
-        }
-
         .full-width {
             width: 100%;
         }
 
-        #news-list {
-            height: 638px;
-            overflow: hidden;
-            overflow-y: scroll;
+        .full-height{
+            height: 100%;
         }
 
-        #propositions-list {
-            height: calc(100vh - 95px);
+        .scrollable {
             overflow: hidden;
             overflow-y: scroll;
         }
@@ -135,6 +117,7 @@
         .error {
             display: none;
         }
+
     </style>
 </head>
 
@@ -147,32 +130,37 @@
             <img src="assets/perfil-nobackground.png" width="48px" height="48px">
             <h5 class="text-light mb-0">Congresso em Chamas</h5>
         </div>
-        <div id="profiles-header" class="congresso-header">
-
-        </div>
     </header>
-    <main class="pt-0">
-        <div class="card-deck d-flex justify-content-center">
+    <main class="p-3">
+        <div class="card-deck">
+            <div class="card shadow rounded">
+                <div class="card-header">
+                    <i class="far fa-address-card fa-2x"></i>
+                </div>
+                <div class="card-body" id="profile-card">
+                    
+                </div>
+            </div>
             <div class="card shadow rounded" id="twitter-card">
                 <div class="card-header">
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
                 <div class="card-body">
-                    <section id="twitter-timeline"
-                        class="d-flex flex-column justify-content-center align-items-center full-height"></section>
+                    <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center full-height">
+                    </section>
                 </div>
             </div>
             <div class="card shadow rounded" id="news-card">
                 <div class="card-header">
                     <img src="assets/google_logo.png" class="google-logo">
                 </div>
-                <ul class="list-group" id="news-list"></ul>
+                <ul class="list-group scrollable full-height" id="news-list"></ul>
             </div>
             <div class="card shadow rounded" id="propositions-card">
                 <div class="card-header">
                     <img src="assets/congresso_icon.png" class="congresso-logo">
                 </div>
-                <ul class="list-group" id="propositions-list"></ul>
+                <ul class="list-group scrollable full-height" id="propositions-list"></ul>
             </div>
         </div>
     </main>
@@ -180,6 +168,7 @@
         var twitterTimeline = document.getElementById("twitter-timeline");
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
+        var profileElement = document.getElementById("profile-card");
         let baseUrl = ""
         const politicianId = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
@@ -193,6 +182,7 @@
             enterLoadingState();
             $.get(`${baseUrl}politicians/${politicianId}`)
                 .done(politician => {
+                    renderProfile(profileElement, politician);
                     renderTwitterTimeline(politician.twitterUsername, twttr, twitterTimeline);
                     renderNews(politician.news, newsListElement);
                     $.get(`${baseUrl}politicians/${politicianId}/propositions`)
@@ -208,6 +198,7 @@
             loadElement(twitterTimeline);
             loadElement(newsListElement);
             loadElement(propositionsListElement);
+            loadElement(profileElement);
         }
 
         function loadElement(element) {

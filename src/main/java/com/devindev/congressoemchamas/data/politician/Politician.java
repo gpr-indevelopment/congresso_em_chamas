@@ -19,6 +19,8 @@ public class Politician extends Profile implements Comparable<Politician>  {
 
     private String twitterUsername;
 
+    private String schooling;
+
     @OneToMany(mappedBy = "politician", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
     @JsonManagedReference
