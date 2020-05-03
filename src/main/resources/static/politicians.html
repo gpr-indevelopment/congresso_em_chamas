@@ -124,18 +124,18 @@
             -webkit-box-orient: vertical;
         }
 
-        .clamp-2{
+        .clamp-2 {
             -webkit-line-clamp: 2;
         }
 
-        .clamp-3{
+        .clamp-3 {
             -webkit-line-clamp: 3;
         }
     </style>
 </head>
 
 <body>
-    <header class="rounded-right shadow-lg bg-theme d-flex justify-content-between">
+    <header class="shadow-lg bg-theme d-flex justify-content-between">
         <div class="congresso-header full-width">
             <button type="button" class="btn btn-light ml-2 mr-2" id="back-button">
                 <i class="fas fa-arrow-left"></i>
@@ -202,6 +202,10 @@
                     $.get(`${baseUrl}politicians/${politicianId}/propositions`)
                         .done(propositionsList => {
                             renderPropositions(propositionsList, propositionsListElement);
+                        })
+                    $.get(`${baseUrl}politicians/${politicianId}/expenses`)
+                        .done(expenses => {
+                            console.log(expenses);
                         })
                 }).fail(data => {
                     fireError();

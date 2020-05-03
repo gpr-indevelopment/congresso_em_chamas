@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.controller;
 
+import com.devindev.congressoemchamas.data.expense.Expense;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
@@ -29,5 +30,11 @@ public class PoliticiansController {
     @RequestMapping(path = "/politicians/{politicianId}/propositions", method = RequestMethod.GET)
     public List<Proposition> getPropositionsByPoliticianId(@PathVariable Long politicianId){
         return politiciansService.findPropositionsByPoliticianId(politicianId);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/politicians/{politicianId}/expenses", method = RequestMethod.GET)
+    public List<Expense> getExpensesByPoliticianId(@PathVariable Long politicianId){
+        return politiciansService.findExpensesByPoliticianId(politicianId);
     }
 }

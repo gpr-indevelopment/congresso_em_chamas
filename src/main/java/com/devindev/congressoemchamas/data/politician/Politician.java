@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.data.politician;
 
+import com.devindev.congressoemchamas.data.expense.Expense;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
@@ -27,8 +28,10 @@ public class Politician extends Profile implements Comparable<Politician>  {
     private List<News> news = new ArrayList<>();
 
     @Transient
-    @JsonManagedReference
     private List<Proposition> propositions = new ArrayList<>();
+
+    @Transient
+    private List<Expense> expenses;
 
     @Override
     public int compareTo(Politician o) {

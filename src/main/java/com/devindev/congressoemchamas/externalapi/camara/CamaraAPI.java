@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
+import com.devindev.congressoemchamas.data.expense.Expense;
 import com.devindev.congressoemchamas.data.processing.Processing;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
@@ -150,6 +151,22 @@ public class CamaraAPI {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the processing list of a proposition from CamaraAPI.");
             LOGGER.error("Returning an empty processing list.");
+            return new ArrayList<>();
+        }
+    }
+
+    @Cacheable(cacheNames = "expensesByPropositionId")
+    public List<Expense> requestExpensesByPoliticianId(Long politicianId){
+        try {
+            URIBuilder builder = new URIBuilder();
+            builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
+                    .setPathSegments("deputados", politicianId.toString(), "despesas");
+            GetExpensesByPoliticianId apiFunctionHandler = new GetExpensesByPoliticianId();
+            return Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
+        } catch (IOException exception) {
+            LOGGER.error(exception.getMessage());
+            LOGGER.error("Unable to retrieve the expenses list from CamaraAPI.");
+            LOGGER.error("Returning an empty expenses list.");
             return new ArrayList<>();
         }
     }

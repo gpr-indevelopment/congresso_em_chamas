@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.service;
 
+import com.devindev.congressoemchamas.data.expense.Expense;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.politician.PoliticianRepository;
@@ -53,6 +54,10 @@ public class PoliticiansService {
             propositions.add(proposition);
         });
         return propositions;
+    }
+
+    public List<Expense> findExpensesByPoliticianId(Long politicianId){
+        return camaraAPI.requestExpensesByPoliticianId(politicianId);
     }
 
     private Politician buildNewPoliticianAndSave(Long camaraPoliticianId){

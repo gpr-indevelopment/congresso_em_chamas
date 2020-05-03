@@ -14,7 +14,6 @@ import java.util.Set;
 @Setter
 public class Proposition {
 
-    @Id
     private Long id;
 
     // TODO: 4/4/2020 Change this to an enum or database data
