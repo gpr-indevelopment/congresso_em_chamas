@@ -59,7 +59,7 @@
             border-color: rgb(7, 24, 68);
         }
 
-        .card{
+        .card {
             max-height: 100%;
         }
 
@@ -74,11 +74,11 @@
             background: url("../assets/stars_transparent_less.png");
         }
 
-        .card-body{
+        .card-body {
             padding: 0;
         }
 
-        .fa-address-card{
+        .fa-address-card {
             color: rgb(250, 224, 66);
         }
 
@@ -105,7 +105,7 @@
             width: 100%;
         }
 
-        .full-height{
+        .full-height {
             height: 100%;
         }
 
@@ -118,6 +118,19 @@
             display: none;
         }
 
+        .multi-line-overflow {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+        }
+
+        .clamp-2{
+            -webkit-line-clamp: 2;
+        }
+
+        .clamp-3{
+            -webkit-line-clamp: 3;
+        }
     </style>
 </head>
 
@@ -138,7 +151,7 @@
                     <i class="far fa-address-card fa-2x"></i>
                 </div>
                 <div class="card-body" id="profile-card">
-                    
+
                 </div>
             </div>
             <div class="card shadow rounded" id="twitter-card">
@@ -146,7 +159,8 @@
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
                 <div class="card-body">
-                    <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center full-height">
+                    <section id="twitter-timeline"
+                        class="d-flex flex-column justify-content-center align-items-center full-height">
                     </section>
                 </div>
             </div>
@@ -205,7 +219,7 @@
             element.innerHTML = `<div class="d-flex flex-column justify-content-center align-items-center full-height">
                                     <div class="spinner-border text-warning mt-3" role="status"></div>
                                     <i class="fas fa-exclamation-triangle fa-2x mt-3 error"></i>
-                                    <div class="error">Nenhum político foi encontrado.</div>
+                                    <div class="error">Erro na busca de político.</div>
                                 </div>`;
         }
 

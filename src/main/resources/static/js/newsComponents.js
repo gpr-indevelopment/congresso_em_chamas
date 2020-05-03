@@ -29,42 +29,46 @@ function chooseContent(news){
 
 function createG1NewsItem(news){
     let options = {
-        themeColor: "#C4170C"
+        themeColor: "#C4170C",
+        logo: "G1_cropped.jpg"
     }
     return createNewsItem(news, options)
 }
 
 function createEstadaoNewsItem(news){
     let options = {
-        themeColor: "#A6A6A6"
+        themeColor: "#A6A6A6",
+        logo: "Estadao.jpg"
     }
     return createNewsItem(news, options)
 }
 
 function createFolhaNewsItem(news){
     let options = {
-        themeColor: "#000000"
+        themeColor: "#000000",
+        logo: "Folha_cropped.jpg"
     }
     return createNewsItem(news, options)
 }
 
 function createYahooNewsItem(news){
     let options = {
-        themeColor: "#324fe1"
+        themeColor: "#324fe1",
+        logo: "Yahoo.jpg"
     }
     return createNewsItem(news, options)
 }
 
 function createNewsItem(news, options){
-    let innerHtml = `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action" style="border-color: ${options.themeColor}">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">${news.title}</h5>
-                            <small>${news.dateString}</small>
+    let innerHtml = `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action p-2">
+                        <div class="d-flex flex-wrap justify-content-center mb-2">
+                            <img src="${"../assets/" + options.logo}" style="width: 70px; height: 70px;" class="mr-2 shadow border rounded-circle">
+                            <div class="w-75">
+                                <h6 class="multi-line-overflow clamp-2 mt-2">${news.title}</h6>
+                                <small class="mt-1">${news.dateString}</small>
+                            </div>
                         </div>
-                        <p class="mb-1">${news.description}</p>
-                        <div style="background-color: ${options.themeColor}; margin: 0px -20px -12px -20px">
-                            <h6 style="color:#FFFFFF; margin:0px 0px 0px 20px">${news.mediaOutlet}</h6>
-                        </div>
+                        <h6 class="font-weight-normal multi-line-overflow clamp-3">${news.description}</h6>                    
                     </a>`;
     return innerHtml;
 }
