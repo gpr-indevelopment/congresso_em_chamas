@@ -8,7 +8,7 @@ async function renderTwitterTimeline(twitterUsername, twttr, timelineSection){
         timelineSection,
         {
             chrome: "nofooter noheader",
-            height: $(timelineSection.parentElement).height()
+            height: "100%"
         }
     );
 }
