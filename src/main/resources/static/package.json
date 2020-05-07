@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "chart.js": "^2.9.3",
     "http-server": "^0.12.1",
     "jquery": "^3.4.1",
     "jquery-ui-dist": "^1.12.1"

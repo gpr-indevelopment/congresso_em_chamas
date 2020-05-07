@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./node_modules/bootstrap-treeview-1.2.0/dist/bootstrap-treeview.min.js"></script>
+    <script src="./js/bootstrap-treeview-1.2.0/dist/bootstrap-treeview.min.js"></script>
+    <script src="./node_modules/chart.js/dist/Chart.min.js"></script>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
     <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -60,6 +61,7 @@
         }
 
         .card {
+            min-height: 600px;
             max-height: 100%;
         }
 
@@ -131,6 +133,22 @@
         .clamp-3 {
             -webkit-line-clamp: 3;
         }
+
+        #profile-card{
+
+        }
+
+        #twitter-card{
+           
+        }
+
+        #news-card{
+
+        }
+
+        #propositions-card{
+
+        }
     </style>
 </head>
 
@@ -146,11 +164,11 @@
     </header>
     <main class="p-3">
         <div class="card-deck">
-            <div class="card shadow rounded">
+            <div class="card shadow rounded" id="profile-card">
                 <div class="card-header">
                     <i class="far fa-address-card fa-2x"></i>
                 </div>
-                <div class="card-body" id="profile-card">
+                <div class="card-body" id="profile-body">
 
                 </div>
             </div>
@@ -182,7 +200,7 @@
         var twitterTimeline = document.getElementById("twitter-timeline");
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
-        var profileElement = document.getElementById("profile-card");
+        var profileElement = document.getElementById("profile-body");
         let baseUrl = ""
         const politicianId = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
