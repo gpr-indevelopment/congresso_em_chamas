@@ -1,8 +1,7 @@
 package com.devindev.congressoemchamas.controller;
 
-import com.devindev.congressoemchamas.data.expense.Expense;
+import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.politician.Politician;
-import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.service.PoliticiansService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +32,8 @@ public class PoliticiansController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/politicians/{politicianId}/expenses", method = RequestMethod.GET)
-    public List<Expense> getExpensesByPoliticianId(@PathVariable Long politicianId){
-        return politiciansService.findExpensesByPoliticianId(politicianId);
+    @RequestMapping(path = "/politicians/{politicianId}/monthlyexpenses", method = RequestMethod.GET)
+    public List<MonthlyExpense> getMonthlyExpensesByPoliticianId(@PathVariable Long politicianId){
+        return politiciansService.findMonthlyExpensesByPoliticianId(politicianId);
     }
 }

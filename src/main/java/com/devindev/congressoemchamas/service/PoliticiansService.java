@@ -1,6 +1,7 @@
 package com.devindev.congressoemchamas.service;
 
-import com.devindev.congressoemchamas.data.expense.Expense;
+import com.devindev.congressoemchamas.data.expenses.Expense;
+import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.politician.PoliticianRepository;
@@ -56,8 +57,22 @@ public class PoliticiansService {
         return propositions;
     }
 
-    public List<Expense> findExpensesByPoliticianId(Long politicianId){
-        return camaraAPI.requestExpensesByPoliticianId(politicianId);
+    public List<MonthlyExpense> findMonthlyExpensesByPoliticianId(Long politicianId){
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        List<MonthlyExpense> monthlyExpenses = new ArrayList<>();
+        Map<Integer, List<Expense>> monthToExpense = new HashMap<>();
+        camaraAPI.requestAllExpensesByPoliticianId(politicianId, year).forEach(expense -> {
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(expense.getDate().getTime());
+            int currentMonth = cal.get(Calendar.MONTH) + 1;
+            monthToExpense.putIfAbsent(currentMonth, new ArrayList<>());
+            monthToExpense.get(currentMonth).add(expense);
+        });
+        monthToExpense.forEach((month, expenses) -> {
+            MonthlyExpense monthlyExpense = new MonthlyExpense(month, year, expenses);
+            monthlyExpenses.add(monthlyExpense);
+        });
+        return monthlyExpenses;
     }
 
     private Politician buildNewPoliticianAndSave(Long camaraPoliticianId){

@@ -1,13 +1,12 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
-import com.devindev.congressoemchamas.data.expense.Expense;
+import com.devindev.congressoemchamas.data.expenses.Expense;
 import com.devindev.congressoemchamas.data.processing.Processing;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.camara.functions.*;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import lombok.Getter;
-import lombok.Setter;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Component
@@ -156,13 +156,24 @@ public class CamaraAPI {
     }
 
     @Cacheable(cacheNames = "expensesByPropositionId")
-    public List<Expense> requestExpensesByPoliticianId(Long politicianId){
+    public List<Expense> requestAllExpensesByPoliticianId(Long politicianId, int requestYear){
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
+                    .addParameter("idLegislatura", getCurrentLegislatureId().toString())
+                    .addParameter("ano", String.valueOf(requestYear))
                     .setPathSegments("deputados", politicianId.toString(), "despesas");
-            GetExpensesByPoliticianId apiFunctionHandler = new GetExpensesByPoliticianId();
-            return Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
+            GetAllExpensesByPoliticianId apiFunctionHandler = new GetAllExpensesByPoliticianId(new ArrayList<>());
+            List<Expense> expenses =  Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
+            for (int i = 0; i < expenses.size(); i++) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(expenses.get(i).getDate().getTime());
+                int expenseYear = cal.get(Calendar.YEAR);
+                if(requestYear != expenseYear){
+                    expenses.remove(i);
+                }
+            }
+            return expenses;
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the expenses list from CamaraAPI.");

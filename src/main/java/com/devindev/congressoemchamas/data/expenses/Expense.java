@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.data.expense;
+package com.devindev.congressoemchamas.data.expenses;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,11 +1,15 @@
 function renderExpenses(expenses, element) {
-    element.innerHTML = `<div id="chart-container" class="d-flex align-items-center">
-                            <canvas id="chart"></canvas>
-                        </div>`;
+    element.innerHTML = `
+                            <div style="height: calc(100% - 2rem); width: calc(100% - 300px)">
+                                <canvas id="chart"></canvas>
+                            </div>
+                            <div class="border shadow d-flex justify-content-center align-items-center p-2 m-4" style="width: 300px; height: calc(100% - 2rem)">
+                                <small class="text-center">Clique em uma despesa ou data para visualizar seus detalhes.</small>
+                            </div>                             
+                        `;
     let expenseData = buildExpenseData(expenses);
     var ctx = document.getElementById("chart").getContext('2d');
     new Chart(ctx, {
-        responsive: true,
         // The type of chart we want to create
         type: 'line',
         // The data for our dataset
@@ -23,6 +27,8 @@ function renderExpenses(expenses, element) {
 
         // Configuration options go here
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales:{
                 yAxes:[
                     {
@@ -43,10 +49,11 @@ function buildExpenseData(expenses){
         values: [],
         dates: []
     }
-    expenses.sort((a, b) => new Date(a.date) - new Date(b.date))
+    expenses.sort((a, b) => a.month - b.month)
     expenses.forEach(expense => {
-        expenseData.values.push(expense.value);
-        expenseData.dates.push(new Date(expense.date).toLocaleDateString())
+        let currentMonth = (expense.month < 10) ? "0"+expense.month : expense.month;
+        expenseData.values.push(expense.value.toFixed(2));
+        expenseData.dates.push(`${currentMonth}/${expense.year}`)
     });
     return expenseData;
 }

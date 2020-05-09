@@ -137,9 +137,8 @@
             -webkit-line-clamp: 3;
         }
 
-        #chart-container{
-            height: 400px;
-            width: 700px;
+        #expenses-card{
+            min-height: 800px;
         }
     </style>
 </head>
@@ -183,12 +182,14 @@
                 <ul class="list-group scrollable full-height" id="propositions-list"></ul>
             </div>
         </div>
-        <div class="card shadow rounded mt-4 mb-3">
-            <div class="card-header">
-                <i class="fas fa-money-bill-wave fa-2x"></i>
+        <div class="card-deck">
+            <div class="card shadow rounded mt-4 mb-3" id="expenses-card">
+                <div class="card-header">
+                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                </div>
+                <div class="p-3 full-height d-flex justify-content-center align-items-center" id="expenses-body"></div>
             </div>
-            <div class="card-body d-flex justify-content-center align-items-center" id="expenses-body"></div>
-        </div>
+        </div>  
     </main>
     <script>
         var twitterTimeline = document.getElementById("twitter-timeline");
@@ -216,7 +217,7 @@
                         .done(propositionsList => {
                             renderPropositions(propositionsList, propositionsListElement);
                         })
-                    $.get(`${baseUrl}politicians/${politicianId}/expenses`)
+                    $.get(`${baseUrl}politicians/${politicianId}/monthlyexpenses`)
                         .done(expenses => {
                             renderExpenses(expenses, expensesBody);
                         })
