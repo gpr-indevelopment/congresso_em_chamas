@@ -1,5 +1,6 @@
 package com.devindev.congressoemchamas.externalapi;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.http.HttpResponse;
@@ -25,4 +26,8 @@ public abstract class CongressoResponseHandler<T> implements ResponseHandler<T> 
     }
 
     protected abstract T handleResponse(JsonObject jsonObject);
+
+    protected String nullCheckRetrievedStringValue(JsonElement jsonElement){
+        return ((jsonElement.isJsonNull()) ? null : jsonElement.getAsString());
+    }
 }

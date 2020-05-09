@@ -2,6 +2,7 @@ package com.devindev.congressoemchamas.externalapi.camara.functions;
 
 import com.devindev.congressoemchamas.data.expense.Expense;
 import com.devindev.congressoemchamas.externalapi.CongressoResponseHandler;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class GetExpensesByPoliticianId extends CongressoResponseHandler<List<Exp
     @Override
     protected List<Expense> handleResponse(JsonObject jsonObject) {
         List<Expense> expenses = new ArrayList<>();
-        jsonObject.get("dados").getAsJsonArray().forEach(data -> {
+        for (JsonElement data : jsonObject.get("dados").getAsJsonArray()) {
             JsonObject dataObject = data.getAsJsonObject();
             Expense expense = new Expense();
             try {
@@ -31,13 +32,13 @@ public class GetExpensesByPoliticianId extends CongressoResponseHandler<List<Exp
                 LOGGER.error(e.getMessage());
                 LOGGER.error("Unable to parse the date of an expense. Expense returning with a null date.");
             }
-            expense.setDocumentNumber(dataObject.get("numDocumento").getAsString());
-            expense.setDocumentUrl(dataObject.get("urlDocumento").getAsString());
-            expense.setProvider(dataObject.get("nomeFornecedor").getAsString());
-            expense.setType(dataObject.get("tipoDespesa").getAsString());
+            expense.setDocumentNumber(nullCheckRetrievedStringValue(dataObject.get("numDocumento")));
+            expense.setDocumentUrl(nullCheckRetrievedStringValue(dataObject.get("urlDocumento")));
+            expense.setProvider(nullCheckRetrievedStringValue(dataObject.get("nomeFornecedor")));
+            expense.setType(nullCheckRetrievedStringValue(dataObject.get("tipoDespesa")));
             expense.setValue(dataObject.get("valorDocumento").getAsDouble());
             expenses.add(expense);
-        });
+        }
         return expenses;
     }
 }
