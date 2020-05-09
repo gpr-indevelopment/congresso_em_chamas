@@ -15,7 +15,7 @@
     <script src="./js/propositionsComponents.js"></script>
     <script src="./js/twitterComponents.js"></script>
     <script src="./js/profileComponents.js"></script>
-    <script src="./js/chartComponents.js"></script>
+    <script src="./js/expensesComponents.js"></script>
     <title>Politicians</title>
     <style>
         body {
@@ -160,7 +160,7 @@
                 <div class="card-header">
                     <i class="far fa-address-card fa-2x"></i>
                 </div>
-                <div class="card-body" id="profile-body">
+                <div id="profile-body" class="full-height">
 
                 </div>
             </div>
@@ -168,9 +168,7 @@
                 <div class="card-header">
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
-                <div class="card-body">
-                    <section id="twitter-timeline" class="d-flex flex-column justify-content-center align-items-center full-height"></section>
-                </div>
+                <div id="twitter-timeline" class="full-height"></div>
             </div>
             <div class="card shadow rounded" id="news-card">
                 <div class="card-header">
@@ -189,11 +187,7 @@
             <div class="card-header">
                 <i class="fas fa-money-bill-wave fa-2x"></i>
             </div>
-            <div class="card-body d-flex justify-content-center align-items-center">
-                <div id="chart-container" class="d-flex align-items-center">
-                    <canvas id="chart"></canvas>
-                </div>
-            </div>
+            <div class="card-body d-flex justify-content-center align-items-center" id="expenses-body"></div>
         </div>
     </main>
     <script>
@@ -201,6 +195,7 @@
         var newsListElement = document.getElementById("news-list");
         var propositionsListElement = document.getElementById("propositions-list");
         var profileElement = document.getElementById("profile-body");
+        var expensesBody = document.getElementById("expenses-body");
         let baseUrl = ""
         const politicianId = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
@@ -223,7 +218,7 @@
                         })
                     $.get(`${baseUrl}politicians/${politicianId}/expenses`)
                         .done(expenses => {
-                            renderExpenses(expenses, document.getElementById("chart"));
+                            renderExpenses(expenses, expensesBody);
                         })
                 }).fail(data => {
                     fireError();
@@ -235,10 +230,11 @@
             loadElement(newsListElement);
             loadElement(propositionsListElement);
             loadElement(profileElement);
+            loadElement(expensesBody);
         }
 
         function loadElement(element) {
-            element.innerHTML = `<div class="d-flex flex-column justify-content-center align-items-center full-height">
+            element.innerHTML = `<div class="d-flex justify-content-center align-items-center full-height">
                                     <div class="spinner-border text-warning mt-3" role="status"></div>
                                     <i class="fas fa-exclamation-triangle fa-2x mt-3 error"></i>
                                     <div class="error">Erro na busca de político.</div>

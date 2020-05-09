@@ -1,7 +1,10 @@
 function renderExpenses(expenses, element) {
+    element.innerHTML = `<div id="chart-container" class="d-flex align-items-center">
+                            <canvas id="chart"></canvas>
+                        </div>`;
     let expenseData = buildExpenseData(expenses);
-    var ctx = element.getContext('2d');
-    var chart = new Chart(ctx, {
+    var ctx = document.getElementById("chart").getContext('2d');
+    new Chart(ctx, {
         responsive: true,
         // The type of chart we want to create
         type: 'line',
