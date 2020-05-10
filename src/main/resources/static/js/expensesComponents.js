@@ -1,17 +1,15 @@
 function renderExpenses(expenses, element) {
-    element.innerHTML = `
-                            <div style="height: calc(100% - 2rem); width: calc(100% - 300px)">
+    element.innerHTML = `   <div id="chart-container">
                                 <canvas id="chart"></canvas>
                             </div>
-                            <div class="border shadow d-flex justify-content-center align-items-center p-2 m-4" style="width: 300px; height: calc(100% - 2rem)">
+                            <div class="border shadow d-flex justify-content-center align-items-center" id="chart-details-container">
                                 <small class="text-center">Clique em uma despesa ou data para visualizar seus detalhes.</small>
-                            </div>                             
-                        `;
+                            </div>`;
     let expenseData = buildExpenseData(expenses);
     var ctx = document.getElementById("chart").getContext('2d');
     new Chart(ctx, {
         // The type of chart we want to create
-        type: 'line',
+        type: 'bar',
         // The data for our dataset
         data: {
             labels: expenseData.dates,

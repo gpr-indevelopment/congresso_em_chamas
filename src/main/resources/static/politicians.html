@@ -22,19 +22,24 @@
             min-height: 100vh;
             display: grid;
             grid-template-columns: 100%;
-            grid-template-rows: 62px auto;
+            grid-template-rows: 62px auto auto;
             grid-template-areas:
                 'header'
-                'main';
+                'main'
+                'footer';
         }
 
         main {
             grid-area: main;
-            background-color: lightgray;
         }
 
         p {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        footer {
+            grid-area: footer;
+            border-top: 3px solid rgb(255, 127, 39);
         }
 
         .congresso-header {
@@ -60,12 +65,12 @@
         }
 
         .card {
-            min-height: 400px;
-            max-height: 600px;
+            height: 100%;
         }
 
         .card-deck {
-            height: 100%;
+            height: calc(100vh - 62px);
+            background-color: lightgray;
         }
 
         .card-header {
@@ -92,7 +97,7 @@
             margin-bottom: 10px;
         }
 
-        .fa-money-bill-wave{
+        .fa-money-bill-wave {
             color: #00c853;
         }
 
@@ -137,8 +142,72 @@
             -webkit-line-clamp: 3;
         }
 
-        #expenses-card{
-            min-height: 800px;
+        #expenses-body {
+            width: 100%;
+            height: 80vh;
+        }
+
+        #chart-container {
+            width: 100vw;
+        }
+
+        #chart-details-container {
+            width: 100vw;
+        }
+
+        .footer-heading {
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 15px;
+            font-size: 16px;
+        }
+
+        .footer-text{
+            font-weight: normal;
+            color: #fff;
+            font-family: 'proxima-nova', Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        #site-description-container{
+            width: 20%;
+        }
+
+        #developer-profile-container{
+            width: 20%;
+        }
+
+        #developer-profile-picture{
+            height: 100px;
+            width: 100px;
+            border: .3rem solid rgb(255, 127, 39);
+        }
+
+        .social-media-icon{
+            height: 30px;
+            width: 30px;
+            margin-right: 15px;
+        }
+
+        @media only screen and (min-width: 600px) {
+
+            /* For tablets: */
+
+        }
+
+        @media only screen and (min-width: 768px) {
+
+            /* For desktop */
+            #chart-container {
+                width: 75vw;
+                margin-right: 10px;
+                min-width: 400px;
+            }
+
+            #chart-details-container {
+                min-width: 250px;
+                width: calc(23vw - 2rem);
+            }
         }
     </style>
 </head>
@@ -153,8 +222,8 @@
             <h5 class="text-light mb-0">Congresso em Chamas</h5>
         </div>
     </header>
-    <main class="p-3">
-        <div class="card-deck">
+    <main>
+        <div class="card-deck pt-3 pb-5 mr-0 pl-3">
             <div class="card shadow rounded" id="profile-card">
                 <div class="card-header">
                     <i class="far fa-address-card fa-2x"></i>
@@ -182,15 +251,39 @@
                 <ul class="list-group scrollable full-height" id="propositions-list"></ul>
             </div>
         </div>
-        <div class="card-deck">
-            <div class="card shadow rounded mt-4 mb-3" id="expenses-card">
-                <div class="card-header">
-                    <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="p-3 full-height d-flex justify-content-center align-items-center" id="expenses-body"></div>
-            </div>
-        </div>  
+        <div class="d-flex flex-wrap p-3 border" id="expenses-body"></div>
     </main>
+    <footer class="bg-theme d-flex justify-content-center p-3">
+        <div id="site-description-container" class="mr-5">
+            <div class="footer-heading">
+                Sobre Congresso em Chamas
+            </div>
+            <p class="footer-text">
+                Congresso em Chamas é um dashboard para acompanhamento dos principais indicadores dos deputados federais atualmente com mandato. Criado em 2020 por <span class="font-weight-bold">Gabriel Robaina</span> utilizando Spring Boot no backend e HTML, CSS e JS no frontend com componentes Bootstrap.
+            </p>
+        </div>
+        <div id="developer-profile-container">
+            <div class="footer-heading">
+                Sobre o autor
+            </div>
+            <div class="d-flex">
+                <img src="../assets/devprofile.png" id="developer-profile-picture" class="d-block img-profile rounded-circle mr-3">
+                <div id="profile-details-container">
+                    <p class="footer-text">
+                        Gabriel Pimenta Robaina
+                    </p>
+                    <div class="d-flex">
+                        <a href="https://www.linkedin.com/in/gabriel-robaina-8b6542114/" target="_blank">
+                            <img src="../assets/linkedin-icon.png" class="social-media-icon">
+                        </a>
+                        <a href="https://github.com/gpr-indevelopment/congresso_em_chamas" target="_blank">
+                            <img src="../assets/github-icon.png" class="social-media-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script>
         var twitterTimeline = document.getElementById("twitter-timeline");
         var newsListElement = document.getElementById("news-list");
