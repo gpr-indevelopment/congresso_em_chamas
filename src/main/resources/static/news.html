@@ -103,11 +103,15 @@
             </div>
         </div>
     </footer>
+    <div class="global-overlay">
+        <div class="spinner-border text-warning mt-3" role="status"></div>
+    </div>
     <script>
         initializeNavLinks(politicianId);
         $.get(`${baseUrl}politicians/${politicianId}`)
             .done(politician => {
                 renderNews(politician.news, document.getElementById("news-list"));
+                clearLoadingState();
             })
     </script>
 </body>
