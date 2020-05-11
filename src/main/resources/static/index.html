@@ -110,7 +110,7 @@
         </form>
     </div>
     <script>
-        var baseUrl = "";
+        var baseUrl = "http://localhost:8080/";
         var currentInput;
         setupInitialScreen();
 
@@ -124,7 +124,7 @@
                         if (profiles.length > 1) {
                             handleProfileSelectionState(profiles);
                         } else if (profiles.length === 1) {
-                            window.location.href = `../politicians.html?politician=${profiles[0].id}`;
+                            window.location.href = `../tabs/expenses.html?politician=${profiles[0].id}`;
                         } else {
                             handleInvalidInput();
                         }
@@ -177,7 +177,7 @@
                                                                         </div>`)
                     let profilesList = document.getElementById("list-profiles");
                     profiles.forEach(profile => {
-                        profilesList.insertAdjacentHTML('beforeend', `<a class="list-group-item list-group-item-action d-flex" href="../politicians.html?politician=${profile.id}">
+                        profilesList.insertAdjacentHTML('beforeend', `<a class="list-group-item list-group-item-action d-flex" href="../tabs/expenses.html?politician=${profile.id}">
                                                                                     <img src="${profile.picture}" height="50" width="50" class="d-block img-profile rounded-circle" id="img-profile">
                                                                                     <div class="ml-2">
                                                                                         ${profile.name}

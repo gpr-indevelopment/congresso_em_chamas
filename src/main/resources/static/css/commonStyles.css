@@ -1,0 +1,43 @@
+:root {
+    --theme-bg-color: rgb(7, 24, 68);
+}
+
+body {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        'header'
+        'main'
+        'footer';
+}
+
+main {
+    grid-area: main;
+    min-height: 80vh;
+}
+
+header {
+    grid-area: header;
+}
+
+footer{
+    grid-area: footer;
+}
+
+p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.global-overlay{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

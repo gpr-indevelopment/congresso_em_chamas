@@ -16,47 +16,10 @@
     <script src="./js/twitterComponents.js"></script>
     <script src="./js/profileComponents.js"></script>
     <script src="./js/expensesComponents.js"></script>
+    <link rel="stylesheet" href="./css/headerStyles.css">
+    <link rel="stylesheet" href="./css/footerStyles.css">
     <title>Politicians</title>
     <style>
-        body {
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 100%;
-            grid-template-rows: 62px auto auto;
-            grid-template-areas:
-                'header'
-                'main'
-                'footer';
-        }
-
-        main {
-            grid-area: main;
-        }
-
-        p {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-        }
-
-        footer {
-            grid-area: footer;
-            border-top: 3px solid rgb(255, 127, 39);
-        }
-
-        .congresso-header {
-            grid-area: header;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            border-bottom: 3px solid rgb(255, 127, 39);
-        }
-
-        .congresso-title-text {
-            font-family: Domine-Bold;
-        }
-
-        .bg-theme {
-            background-color: rgb(7, 24, 68);
-        }
 
         .bg-bandeira {
             background-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66));
@@ -111,14 +74,6 @@
             width: 42px;
         }
 
-        .full-width {
-            width: 100%;
-        }
-
-        .full-height {
-            height: 100%;
-        }
-
         .scrollable {
             overflow: hidden;
             overflow-y: scroll;
@@ -155,40 +110,6 @@
             width: 100vw;
         }
 
-        .footer-heading {
-            font-weight: 700;
-            color: #fff;
-            margin: 0 0 15px;
-            font-size: 16px;
-        }
-
-        .footer-text{
-            font-weight: normal;
-            color: #fff;
-            font-family: 'proxima-nova', Helvetica, Arial, sans-serif;
-            font-size: 12px;
-        }
-
-        #site-description-container{
-            width: 20%;
-        }
-
-        #developer-profile-container{
-            width: 20%;
-        }
-
-        #developer-profile-picture{
-            height: 100px;
-            width: 100px;
-            border: .3rem solid rgb(255, 127, 39);
-        }
-
-        .social-media-icon{
-            height: 30px;
-            width: 30px;
-            margin-right: 15px;
-        }
-
         @media only screen and (min-width: 600px) {
 
             /* For tablets: */
@@ -213,14 +134,30 @@
 </head>
 
 <body>
-    <header class="shadow-lg bg-theme d-flex justify-content-between">
-        <div class="congresso-header full-width">
-            <button type="button" class="btn btn-light ml-2 mr-2" id="back-button">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <img src="assets/perfil-nobackground.png" width="48px" height="48px">
-            <h5 class="text-light mb-0">Congresso em Chamas</h5>
+    <header>
+        <div class="shadow-lg bg-theme d-flex justify-content-between">
+            <div class="congresso-header w-100">
+                <button type="button" class="btn btn-light ml-2 mr-2" id="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <img src="assets/perfil-nobackground.png" width="48px" height="48px">
+                <h5 class="text-light mb-0">Congresso em Chamas</h5>
+            </div>
         </div>
+        <ul class="nav nav-tabs bg-theme">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Notícias</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Propostas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Despesas</a>
+            </li>
+          </ul>
     </header>
     <main>
         <div class="card-deck pt-3 pb-5 mr-0 pl-3">
@@ -228,7 +165,7 @@
                 <div class="card-header">
                     <i class="far fa-address-card fa-2x"></i>
                 </div>
-                <div id="profile-body" class="full-height">
+                <div id="profile-body" class="h-100">
 
                 </div>
             </div>
@@ -236,25 +173,25 @@
                 <div class="card-header">
                     <i class="fab fa-twitter fa-2x"></i>
                 </div>
-                <div id="twitter-timeline" class="full-height"></div>
+                <div id="twitter-timeline" class="h-100"></div>
             </div>
             <div class="card shadow rounded" id="news-card">
                 <div class="card-header">
                     <img src="assets/google_logo.png" class="google-logo">
                 </div>
-                <ul class="list-group scrollable full-height" id="news-list"></ul>
+                <ul class="list-group scrollable h-100" id="news-list"></ul>
             </div>
             <div class="card shadow rounded" id="propositions-card">
                 <div class="card-header">
                     <img src="assets/congresso_icon.png" class="congresso-logo">
                 </div>
-                <ul class="list-group scrollable full-height" id="propositions-list"></ul>
+                <ul class="list-group scrollable h-100" id="propositions-list"></ul>
             </div>
         </div>
         <div class="d-flex flex-wrap p-3 border" id="expenses-body"></div>
     </main>
     <footer class="bg-theme d-flex justify-content-center p-3">
-        <div id="site-description-container" class="mr-5">
+        <div class="mr-5 w-25">
             <div class="footer-heading">
                 Sobre Congresso em Chamas
             </div>
@@ -262,7 +199,7 @@
                 Congresso em Chamas é um dashboard para acompanhamento dos principais indicadores dos deputados federais atualmente com mandato. Criado em 2020 por <span class="font-weight-bold">Gabriel Robaina</span> utilizando Spring Boot no backend e HTML, CSS e JS no frontend com componentes Bootstrap.
             </p>
         </div>
-        <div id="developer-profile-container">
+        <div class="w-25">
             <div class="footer-heading">
                 Sobre o autor
             </div>
@@ -290,7 +227,7 @@
         var propositionsListElement = document.getElementById("propositions-list");
         var profileElement = document.getElementById("profile-body");
         var expensesBody = document.getElementById("expenses-body");
-        let baseUrl = ""
+        let baseUrl = "http://localhost:8080/"
         const politicianId = new URLSearchParams(window.location.search).get("politician");
         enterLoadingState();
         if (politicianId) {
@@ -328,7 +265,7 @@
         }
 
         function loadElement(element) {
-            element.innerHTML = `<div class="d-flex justify-content-center align-items-center full-height">
+            element.innerHTML = `<div class="d-flex justify-content-center align-items-center h-100">
                                     <div class="spinner-border text-warning mt-3" role="status"></div>
                                     <i class="fas fa-exclamation-triangle fa-2x mt-3 error"></i>
                                     <div class="error">Erro na busca de político.</div>

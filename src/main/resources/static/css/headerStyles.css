@@ -1,0 +1,19 @@
+.congresso-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.congresso-title-text {
+    font-family: Domine-Bold;
+}
+
+.navbar-dark .navbar-toggler {
+    color: #fff;
+    border-color: #fff;
+}
+
+header{
+    background-color: var(--theme-bg-color);
+    border-bottom: 3px solid rgb(255, 127, 39);
+}

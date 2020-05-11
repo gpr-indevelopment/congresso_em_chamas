@@ -1,9 +1,9 @@
 function renderExpenses(expenses, element) {
-    element.innerHTML = `   <div id="chart-container">
+    element.innerHTML = `   <div class="chart-container mr-3">
                                 <canvas id="chart"></canvas>
                             </div>
-                            <div class="border shadow d-flex justify-content-center align-items-center" id="chart-details-container">
-                                <small class="text-center">Clique em uma despesa ou data para visualizar seus detalhes.</small>
+                            <div class="border shadow d-flex justify-content-center align-items-center chart-details-container">
+                                <small class="text-center w-50">Clique em uma despesa ou data para visualizar seus detalhes.</small>
                             </div>`;
     let expenseData = buildExpenseData(expenses);
     var ctx = document.getElementById("chart").getContext('2d');

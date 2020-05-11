@@ -60,17 +60,17 @@ function createYahooNewsItem(news){
 }
 
 function createNewsItem(news, options){
-    let innerHtml = `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action p-2">
+    let innerHtml = `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action">
                         <div class="d-flex flex-wrap mb-2">
                             <div class="d-flex justify-content-center align-items-center">
                                 <img src="${"../assets/" + options.logo}" width="70" height="70" class="mr-2 shadow border rounded-circle">
                             </div>
                             <div style="width: calc(100% - 78px)">
-                                <p class="multi-line-overflow clamp-2 mt-2 mb-0">${news.title}</p>
+                                <p class="mt-2 mb-0">${news.title}</p>
                                 <small class="mt-1">${news.dateString}</small>
                             </div>
                         </div>
-                        <p class="multi-line-overflow clamp-3 mb-1" style="font-size: 12px">${news.description}</p>                    
+                        <p class="mb-1" style="font-size: 12px">${news.description}</p>                    
                     </a>`;
     return innerHtml;
 }
