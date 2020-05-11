@@ -1,5 +1,5 @@
 function renderExpenses(expenses, element) {
-    element.innerHTML = `   <div class="chart-container mr-3">
+    element.innerHTML = `   <div class="chart-container mr-3 mb-3">
                                 <canvas id="chart"></canvas>
                             </div>
                             <div class="border shadow d-flex justify-content-center align-items-center chart-details-container">
