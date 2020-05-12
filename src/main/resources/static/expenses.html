@@ -18,17 +18,16 @@
     <link rel="stylesheet" href="../css/footerStyles.css">
     <title>Despesas</title>
     <style>
-        .chart-container{
+        .chart-container {
             height: 80vh;
             min-width: 75%;
             flex: 1;
         }
 
-        .chart-details-container{
+        .chart-details-container {
             min-width: 250px;
             flex: 1;
         }
-
     </style>
 </head>
 
@@ -37,6 +36,11 @@
         <div class="d-flex flex-wrap p-3" id="expenses-body"></div>
     </main>
     <header>
+        <div class="d-flex justify-content-center align-items-center pt-3">
+            <div id="profile-container" class="d-flex flex-column align-items-center">
+
+            </div>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="../index.html">
                 <div class="congresso-header w-100">
@@ -69,10 +73,10 @@
     <footer class="bg-theme d-flex p-3">
         <div class="w-50 d-flex justify-content-end mr-5">
             <div class="footer-about">
-                <div class="footer-heading">
+                <div class="heading">
                     Sobre Congresso em Chamas
                 </div>
-                <p class="footer-text">
+                <p class="common-text">
                     Congresso em Chamas é um dashboard para acompanhamento dos principais indicadores dos deputados
                     federais
                     atualmente com mandato. Criado em 2020 por <span class="font-weight-bold">Gabriel Robaina</span>
@@ -81,12 +85,11 @@
             </div>
         </div>
         <div class="w-50">
-            <div class="footer-heading">
+            <div class="heading">
                 Sobre o autor
             </div>
             <div class="d-flex flex-wrap">
-                <img src="../assets/devprofile.png" id="developer-profile-picture"
-                    class="d-block img-profile rounded-circle mr-3 mb-3">
+                <img src="../assets/devprofile.png" class="rounded-circle mr-3 mb-3 profile-picture">
                 <div id="profile-details-container">
                     <p class="author-title">
                         Gabriel Pimenta Robaina
@@ -112,6 +115,10 @@
             .done(expenses => {
                 renderExpenses(expenses, document.getElementById("expenses-body"));
                 clearLoadingState();
+            })
+        $.get(`${baseUrl}politicians/${politicianId}`)
+            .done(politician => {
+                renderProfile(document.getElementById("profile-container"), politician);
             })
     </script>
 </body>

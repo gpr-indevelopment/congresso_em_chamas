@@ -3,31 +3,11 @@ footer {
     background-color: var(--theme-bg-color);
 }
 
-.footer-heading {
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 15px;
-    font-size: 16px;
-}
-
-.footer-text{
-    font-weight: normal;
-    color: rgba(255,255,255,.5);
-    font-family: 'proxima-nova', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-}
-
 .author-title{
     font-weight: normal;
     color: #fff;
     font-family: 'proxima-nova', Helvetica, Arial, sans-serif;
     font-size: 12px;
-}
-
-#developer-profile-picture{
-    height: 100px;
-    width: 100px;
-    border: .3rem solid rgb(255, 127, 39);
 }
 
 .social-media-icon{

@@ -41,3 +41,24 @@ p {
     justify-content: center;
     align-items: center;
 }
+
+.profile-picture{
+    height: 100px;
+    width: 100px;
+    border: .3rem solid rgba(255, 127, 39, 0.8);
+}
+
+.heading {
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 15px;
+    font-size: 16px;
+}
+
+.common-text{
+    font-weight: normal;
+    color: rgba(255,255,255,.5);
+    font-family: 'proxima-nova', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
