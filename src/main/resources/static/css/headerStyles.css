@@ -17,3 +17,10 @@ header{
     background-color: var(--theme-bg-color);
     border-bottom: 3px solid rgb(255, 127, 39);
 }
+
+.politician-profile-picture-container{
+    height: 60px;
+    width: 60px;
+    border: .2rem solid rgba(255, 127, 39, 0.8);
+    overflow: hidden;
+}

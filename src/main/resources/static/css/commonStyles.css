@@ -42,12 +42,6 @@ p {
     align-items: center;
 }
 
-.profile-picture{
-    height: 100px;
-    width: 100px;
-    border: .3rem solid rgba(255, 127, 39, 0.8);
-}
-
 .heading {
     font-weight: 700;
     color: #fff;

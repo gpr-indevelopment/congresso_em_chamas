@@ -36,10 +36,8 @@
         <div class="d-flex flex-wrap p-3" id="expenses-body"></div>
     </main>
     <header>
-        <div class="d-flex justify-content-center align-items-center pt-3">
-            <div id="profile-container" class="d-flex flex-column align-items-center">
-
-            </div>
+        <div class="d-flex justify-content-start align-items-center pt-3 pl-4">
+            <div id="profile-container" class="d-flex"></div>
         </div>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="../index.html">
@@ -89,7 +87,7 @@
                 Sobre o autor
             </div>
             <div class="d-flex flex-wrap">
-                <img src="../assets/devprofile.png" class="rounded-circle mr-3 mb-3 profile-picture">
+                <img src="../assets/devprofile.png" class="profile-picture rounded-circle mr-3 mb-3">
                 <div id="profile-details-container">
                     <p class="author-title">
                         Gabriel Pimenta Robaina
@@ -110,16 +108,16 @@
         <div class="spinner-border text-warning mt-3" role="status"></div>
     </div>
     <script>
-        initializeNavLinks(politicianId);
-        $.get(`${baseUrl}politicians/${politicianId}/monthlyexpenses`)
-            .done(expenses => {
-                renderExpenses(expenses, document.getElementById("expenses-body"));
-                clearLoadingState();
-            })
         $.get(`${baseUrl}politicians/${politicianId}`)
             .done(politician => {
                 renderProfile(document.getElementById("profile-container"), politician);
+                $.get(`${baseUrl}politicians/${politicianId}/monthlyexpenses`)
+                    .done(expenses => {
+                        renderExpenses(expenses, document.getElementById("expenses-body"));
+                        clearLoadingState();
+                    })
             })
+        initializeNavLinks(politicianId);
     </script>
 </body>
 
