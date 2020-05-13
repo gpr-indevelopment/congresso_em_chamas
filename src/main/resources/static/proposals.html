@@ -21,9 +21,7 @@
 
 <body>
     <main>
-        <div class="w-100 d-flex justify-content-center">
-            <ul class="list-group scrollable" id="news-list"></ul>
-        </div>
+        <ul class="list-group scrollable h-100" id="propositions-list"></ul>
     </main>
     <header>
         <div class="w-100 d-flex justify-content-between flex-wrap pb-1 align-items-center">
@@ -46,10 +44,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./news.html">Notícias</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="./proposals.html">Propostas</a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="./expenses.html">Despesas<span
                                     class="sr-only">(current)</span></a>
                         </li>
@@ -102,6 +100,15 @@
     </div>
     <script>
         initializeNavLinks(politicianId);
+        $.get(`${baseUrl}politicians/${politicianId}`)
+            .done(politician => {
+                renderProfile(document.getElementById("profile-container"), politician);
+                $.get(`${baseUrl}politicians/${politicianId}/propositions`)
+                    .done(propositionsList => {
+                        renderPropositions(propositionsList, document.getElementById("propositions-list"));
+                        clearLoadingState();
+                    })
+            })
     </script>
 </body>
 
