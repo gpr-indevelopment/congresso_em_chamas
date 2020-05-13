@@ -20,42 +20,47 @@
 </head>
 
 <body>
+    <main>
+        <div class="w-100 d-flex justify-content-center">
+            <ul class="list-group scrollable" id="news-list"></ul>
+        </div>
+    </main>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="../index.html">
-                <div class="congresso-header w-100">
-                    <img src="../assets/perfil-nobackground.png" width="48px" height="48px">
-                    <h5 class="text-light mb-0">Congresso em Chamas</h5>
+        <div class="w-100 d-flex justify-content-between flex-wrap pb-1 align-items-center">
+            <nav class="navbar navbar-expand-lg navbar-dark pb-0 pt-0">
+                <a class="navbar-brand" href="../index.html">
+                    <div class="congresso-header w-100">
+                        <img src="../assets/perfil-nobackground.png" width="48px" height="48px">
+                        <h5 class="text-light mb-0">Congresso em Chamas</h5>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./profile.html">Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./news.html">Notícias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./proposals.html">Propostas</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="./expenses.html">Despesas<span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
                 </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="./profile.html">Perfil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./news.html">Notícias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./proposals.html">Propostas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./expenses.html">Despesas<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
+            </nav>
+            <div class="d-flex justify-content-start align-items-center">
+                <div id="profile-container" class="d-flex"></div>
             </div>
-        </nav>
-        <div class="d-flex justify-content-start align-items-center pl-4 mb-3">
-            <div id="profile-container" class="d-flex"></div>
         </div>
     </header>
-    <main>
-
-    </main>
     <footer class="bg-theme d-flex p-3">
         <div class="w-50 d-flex justify-content-end mr-5">
             <div class="footer-about">
@@ -63,7 +68,8 @@
                     Sobre Congresso em Chamas
                 </div>
                 <p class="common-text">
-                    Congresso em Chamas é um dashboard para acompanhamento dos principais indicadores dos deputados federais
+                    Congresso em Chamas é um dashboard para acompanhamento dos principais indicadores dos deputados
+                    federais
                     atualmente com mandato. Criado em 2020 por <span class="font-weight-bold">Gabriel Robaina</span>
                     utilizando Spring Boot no backend e HTML, CSS e JS no frontend com componentes Bootstrap.
                 </p>
@@ -96,11 +102,6 @@
     </div>
     <script>
         initializeNavLinks(politicianId);
-        $.get(`${baseUrl}politicians/${politicianId}`)
-            .done(politician => {
-                renderProfile(document.getElementById("profile-container"), politician);
-                clearLoadingState();
-            })
     </script>
 </body>
 

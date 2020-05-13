@@ -23,4 +23,13 @@ header{
     width: 60px;
     border: .2rem solid rgba(255, 127, 39, 0.8);
     overflow: hidden;
+    background-color: white;
+}
+
+#profile-container{
+    margin: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+.navbar {
+    flex: 1;
 }
