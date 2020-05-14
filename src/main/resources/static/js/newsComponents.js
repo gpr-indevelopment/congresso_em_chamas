@@ -60,10 +60,10 @@ function createYahooNewsItem(news){
 }
 
 function createNewsItem(news, options){
-    let innerHtml = `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action">
+    let innerHtml = `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action mb-2 border rounded-lg shadow">
                         <div class="d-flex flex-wrap mb-2">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="${"../assets/" + options.logo}" width="70" height="70" class="mr-2 shadow border rounded-circle">
+                                <img src="${"../assets/" + options.logo}" width="70" height="70" class="mr-2 border rounded-circle">
                             </div>
                             <div style="width: calc(100% - 78px)">
                                 <p class="mt-2 mb-0">${news.title}</p>

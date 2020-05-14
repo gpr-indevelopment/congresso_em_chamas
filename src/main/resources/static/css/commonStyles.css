@@ -15,6 +15,7 @@ body {
 main {
     grid-area: main;
     min-height: 80vh;
+    background-color: rgb(243, 243, 243);
 }
 
 header {
