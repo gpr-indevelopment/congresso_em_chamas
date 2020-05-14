@@ -2,7 +2,7 @@ async function renderPropositions(propositions, propositionsListElement) {
     propositionsListElement.innerHTML = "";
     propositions.forEach(proposition => {
         if (proposition.title) {
-            let innerHtml = `<a href="${proposition.link}" target="_blank" class="list-group-item list-group-item-action mb-2 border rounded-lg">    
+            let innerHtml = `<a href="${proposition.link}" target="_blank" class="list-group-item list-group-item-action mb-2 border rounded-lg shadow">    
                                 <h6 class="mb-2 text-justify">${proposition.title}</h5>
                                 <p class="proposition-type font-weight-light">${proposition.typeDescription}</p>                                               
                                 <div id="propositionsTreeView${proposition.id}"></div>
