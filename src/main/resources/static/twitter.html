@@ -11,17 +11,33 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
     <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <script src="../js/profileComponents.js"></script>
     <script src="../js/commonComponents.js"></script>
+    <script src="../js/twitterComponents.js"></script>
     <link rel="stylesheet" href="../css/commonStyles.css">
     <link rel="stylesheet" href="../css/headerStyles.css">
     <link rel="stylesheet" href="../css/footerStyles.css">
-    <title>Perfil</title>
+    <title>Twitter</title>
+    <style>
+        
+        #twitter-timeline {
+            width: 100%;
+        }
+
+        @media only screen and (min-width: 768px) {
+
+            /* For desktop */
+            #twitter-timeline {
+                width: 550px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <main>
-        
+        <div class="d-flex justify-content-center align-items-center">
+            <div id="twitter-timeline" class="shadow"></div>
+        </div>
     </main>
     <header>
         <div class="w-100 d-flex justify-content-between flex-wrap pb-1 align-items-center">
@@ -38,10 +54,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="./profile.html">Perfil</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="./twitter.html">Twitter</a>
                         </li>
                         <li class="nav-item">
@@ -102,6 +118,12 @@
         <div class="spinner-border text-warning mt-3" role="status"></div>
     </div>
     <script>
+        $.get(`${baseUrl}politicians/${politicianId}`)
+            .done(politician => {
+                renderProfile(document.getElementById("profile-container"), politician);
+                renderTwitterTimeline(politician.twitterUsername, twttr, document.getElementById("twitter-timeline"));
+                clearLoadingState();
+            })
         initializeNavLinks(politicianId);
     </script>
 </body>

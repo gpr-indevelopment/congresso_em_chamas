@@ -16,6 +16,7 @@
 header{
     background-color: var(--theme-bg-color);
     border-bottom: 3px solid rgb(255, 127, 39);
+    min-height: 83px;
 }
 
 .politician-profile-picture-container{
