@@ -2,18 +2,11 @@ async function renderPropositions(propositions, propositionsListElement) {
     propositionsListElement.innerHTML = "";
     propositions.forEach(proposition => {
         if (proposition.title) {
-            let innerHtml = `<div class="list-group-item">    
-            <h5 class="mb-1 text-truncate">${proposition.title}</h5>                               
-            <div class="bg-bandeira border d-flex justify-content-between align-items-center mt-3 p-2 rounded-top">
-                <div></div>
-                <h6>${proposition.typeDescription}</h6>
-                <a class="btn btn-primary" href="${proposition.link}" target="_blank" role="button">
-                    Leia
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>                  
-            <div id="propositionsTreeView${proposition.id}"></div>
-            </div>`;
+            let innerHtml = `<a href="${proposition.link}" target="_blank" class="list-group-item list-group-item-action mb-2 border rounded-lg">    
+                                <h6 class="mb-2 text-justify">${proposition.title}</h5>
+                                <p class="proposition-type font-weight-light">${proposition.typeDescription}</p>                                               
+                                <div id="propositionsTreeView${proposition.id}"></div>
+                            </a>`;
             propositionsListElement.insertAdjacentHTML("beforeend", innerHtml)
             buildTreeView(proposition, `propositionsTreeView${proposition.id}`);
         }
@@ -24,16 +17,18 @@ async function renderPropositions(propositions, propositionsListElement) {
 function buildTreeView(proposition, renderTarget) {
     var tree = [
         {
-            text: `Detalhes`,
+            text: `<span>Detalhes</span>`,
             nodes: [
                 {
-                    text: `Autores    <span class="badge badge-primary">${proposition.authors.length}</span>`,
+                    text: `Autores`,
+                    tags: [`${proposition.authors.length}`],
                     nodes: [
 
                     ]
                 },
                 {
-                    text: `Histórico de tramitação    <span class="badge badge-primary">${proposition.processingHistory.length}</span>`,
+                    text: `Histórico de tramitação`,
+                    tags: [`${proposition.processingHistory.length}`],
                     nodes: [
 
                     ]
@@ -50,16 +45,19 @@ function buildTreeView(proposition, renderTarget) {
     })
     proposition.processingHistory.forEach(processingHistory => {
         tree[0].nodes[1].nodes.push({
-            text: `   ${processingHistory.title}: ${processingHistory.description}    <span class="badge badge-primary">${new Date(processingHistory.timestamp).toLocaleDateString()}</span>`,
-            icon: "fas fa-file-signature",
+            text: `<span class="processing-history-description">${processingHistory.title}: ${processingHistory.description}</span>`,
             selectable: false,
+            icon: "fas fa-file-signature",
+            tags:[`${new Date(processingHistory.timestamp).toLocaleDateString()}`]
         })
     })
     $(`#${renderTarget}`).treeview({
         levels: 1,
         multiSelect: true,
-        expandIcon: "far fa-caret-square-right",
-        collapseIcon: "far fa-caret-square-down",
+        showTags: true,
+        selectedBackColor: "var(--theme-bg-color)",
+        expandIcon: "fas fa-plus",
+        collapseIcon: "fas fa-minus",
         data: tree,
         onNodeSelected: (event, data) => {
             $(`#${renderTarget}`).treeview('toggleNodeExpanded', [data.nodeId, { silent: true }]);
