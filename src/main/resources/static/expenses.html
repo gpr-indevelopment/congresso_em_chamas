@@ -24,13 +24,34 @@
             flex: 1;
         }
 
-        .chart-details-container {
+        #chart-details-container {
             min-width: 250px;
             flex: 1;
         }
 
-        #expenses-body{
+        #expenses-body {
             background-color: white;
+        }
+
+        .fa-money-bill-wave {
+            color: green;
+        }
+
+        .fa-file-alt {
+            color: rgba(255, 127, 39, 0.8);
+        }
+
+        @media only screen and (min-width: 768px) {
+
+            /* For desktop */
+            #chart-details-list {
+                overflow: hidden;
+                overflow-y: scroll;
+            }
+
+            #chart-details-container{
+                max-height: 80vh;
+            }
         }
     </style>
 </head>
