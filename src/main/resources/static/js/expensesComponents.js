@@ -33,8 +33,10 @@ function renderExpenses(expenses, element) {
             responsive: true,
             maintainAspectRatio: false,
             onClick: function (event, array) {
-                let elementIndex = array[0]._index;
-                showExpenseDetails(expenseData.monthlyExpenses[elementIndex].expenses);
+                if(array.length > 0){
+                    let elementIndex = array[0]._index;
+                    showExpenseDetails(expenseData.monthlyExpenses[elementIndex].expenses);
+                }
             },
             scales: {
                 yAxes: [
