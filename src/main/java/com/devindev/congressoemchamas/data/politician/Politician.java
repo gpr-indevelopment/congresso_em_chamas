@@ -4,15 +4,13 @@ import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter
@@ -22,16 +20,14 @@ public class Politician extends Profile implements Comparable<Politician>  {
 
     private String schooling;
 
-    @OneToMany(mappedBy = "politician", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SUBSELECT)
-    @JsonManagedReference
-    private List<News> news = new ArrayList<>();
-
     @Transient
     private List<Proposition> propositions = new ArrayList<>();
 
     @Transient
     private List<MonthlyExpense> monthlyExpens;
+
+    @Transient
+    private Set<News> news;
 
     @Override
     public int compareTo(Politician o) {

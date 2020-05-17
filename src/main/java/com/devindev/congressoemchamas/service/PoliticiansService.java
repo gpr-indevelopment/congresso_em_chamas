@@ -6,7 +6,7 @@ import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.politician.PoliticianRepository;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
-import com.devindev.congressoemchamas.externalapi.google.GoogleSearchAPI;
+import com.devindev.congressoemchamas.externalapi.google.GoogleNewsAPI;
 import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +26,7 @@ public class PoliticiansService {
     private TwitterAPI twitterAPI;
 
     @Autowired
-    private GoogleSearchAPI googleSearchAPI;
+    private GoogleNewsAPI googleNewsAPI;
 
     @Value("${congresso.news.cache-expiration-minutes}")
     private Integer cacheExpirationMinutes;
@@ -35,9 +35,6 @@ public class PoliticiansService {
         Politician politician = politiciansRepository.findById(politicianId);
         if(Objects.isNull(politician)){
             politician = buildNewPoliticianAndSave(politicianId);
-        }
-        else if(newsInvalid(politician)){
-            politician = updateNewsAndSave(politician);
         }
         return politician;
     }
@@ -68,31 +65,14 @@ public class PoliticiansService {
         return monthlyExpenses;
     }
 
+    public List<News> findNewsByPoliticianId(Long politicianId){
+        Politician politician = findPolitician(politicianId);
+        return googleNewsAPI.requestNews(politician.getName());
+    }
+
     private Politician buildNewPoliticianAndSave(Long camaraPoliticianId){
         Politician politician = camaraAPI.requestPoliticianById(camaraPoliticianId);
         politician.setTwitterUsername(twitterAPI.requestTwitterUsernameByName(politician.getName()));
-        politician.setNews(googleSearchAPI.searchNewsByPoliticianName(politician.getName()));
-        for (News news : politician.getNews()) {
-            news.setPolitician(politician);
-        }
-        return politiciansRepository.save(politician);
-    }
-
-    private boolean newsInvalid(Politician politician){
-        List<News> politicianNews = politician.getNews();
-        return Objects.isNull(politicianNews) || politicianNews.isEmpty() || politicianNews.stream().anyMatch(news -> {
-            Calendar someTimeAgo = Calendar.getInstance();
-            someTimeAgo.add(Calendar.MINUTE, - cacheExpirationMinutes);
-            return news.getRequestTimestamp().before(someTimeAgo.getTime());
-        });
-    }
-
-    private Politician updateNewsAndSave(Politician politician){
-        List<News> requestedNews = googleSearchAPI.searchNewsByPoliticianName(politician.getName());
-        for (int i=0;i<politician.getNews().size();i++){
-            requestedNews.get(i).setId(politician.getNews().get(i).getId());
-        }
-        politician.setNews(requestedNews);
         return politiciansRepository.save(politician);
     }
 }
