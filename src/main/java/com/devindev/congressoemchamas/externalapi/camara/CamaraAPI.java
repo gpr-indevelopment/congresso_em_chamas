@@ -1,9 +1,11 @@
 package com.devindev.congressoemchamas.externalapi.camara;
 
 import com.devindev.congressoemchamas.data.expenses.Expense;
+import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.data.processing.Processing;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
+import com.devindev.congressoemchamas.externalapi.CustomURIBuilder;
 import com.devindev.congressoemchamas.externalapi.camara.functions.*;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import lombok.Getter;
@@ -17,9 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class CamaraAPI {
@@ -27,18 +27,10 @@ public class CamaraAPI {
     @Autowired
     private CamaraConfig camaraConfig;
 
-    @Getter
-    private Long currentLegislatureId;
-
-    @PostConstruct
-    private void init(){
-        this.currentLegislatureId = requestCurrentLegislatureId();
-    }
-
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
     @Cacheable(cacheNames = "politicianIdsByNameAndLegislatureId")
-    public List<Profile> requestProfilesByNameAndLegislatureId(String name, Long legislatureId){
+    public List<Profile> requestProfilesByNameAndLegislatureId(String name, Long legislatureId) {
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
@@ -56,7 +48,7 @@ public class CamaraAPI {
     }
 
     @Cacheable(cacheNames = "politicianById")
-    public Politician requestPoliticianById(Long id){
+    public Politician requestPoliticianById(Long id) {
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
@@ -71,7 +63,8 @@ public class CamaraAPI {
         }
     }
 
-    public Long requestCurrentLegislatureId(){
+    @Cacheable(cacheNames = "currentLegislatureId")
+    public Legislature requestCurrentLegislatureId() {
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
@@ -108,7 +101,7 @@ public class CamaraAPI {
     }
 
     @Cacheable(cacheNames = "propositionById")
-    public Proposition requestPropositionById(Long propositionId){
+    public Proposition requestPropositionById(Long propositionId) {
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
@@ -124,7 +117,7 @@ public class CamaraAPI {
     }
 
     @Cacheable(cacheNames = "authorsByPropositionId")
-    public List<String> requestAuthorsByPropositionId(Long propositionId){
+    public List<String> requestAuthorsByPropositionId(Long propositionId) {
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
@@ -140,7 +133,7 @@ public class CamaraAPI {
     }
 
     @Cacheable(cacheNames = "processingHistoryByPropositionId")
-    public List<Processing> requestProcessingHistoryByPropositionId(Long propositionId){
+    public List<Processing> requestProcessingHistoryByPropositionId(Long propositionId) {
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
@@ -156,24 +149,15 @@ public class CamaraAPI {
     }
 
     @Cacheable(cacheNames = "expensesByPropositionId")
-    public List<Expense> requestAllExpensesByPoliticianId(Long politicianId, int requestYear){
+    public List<Expense> requestAllExpensesByPoliticianId(Long politicianId, Integer[] requestMonths, Integer[] requestYears) {
         try {
-            URIBuilder builder = new URIBuilder();
+            CustomURIBuilder builder = new CustomURIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                    .addParameter("idLegislatura", getCurrentLegislatureId().toString())
-                    .addParameter("ano", String.valueOf(requestYear))
                     .setPathSegments("deputados", politicianId.toString(), "despesas");
-            GetAllExpensesByPoliticianId apiFunctionHandler = new GetAllExpensesByPoliticianId(new ArrayList<>());
-            List<Expense> expenses =  Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
-            for (int i = 0; i < expenses.size(); i++) {
-                Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis(expenses.get(i).getDate().getTime());
-                int expenseYear = cal.get(Calendar.YEAR);
-                if(requestYear != expenseYear){
-                    expenses.remove(i);
-                }
-            }
-            return expenses;
+            builder.addArrayParameter("mes", requestMonths);
+            builder.addArrayParameter("ano", requestYears);
+            GetAllExpensesByPoliticianId apiFunctionHandler = new GetAllExpensesByPoliticianId();
+            return Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the expenses list from CamaraAPI.");
@@ -181,4 +165,6 @@ public class CamaraAPI {
             return new ArrayList<>();
         }
     }
+
+
 }

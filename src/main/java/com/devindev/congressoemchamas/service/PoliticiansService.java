@@ -1,6 +1,5 @@
 package com.devindev.congressoemchamas.service;
 
-import com.devindev.congressoemchamas.data.expenses.Expense;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.politician.Politician;
@@ -12,7 +11,6 @@ import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -57,21 +55,16 @@ public class PoliticiansService {
         return propositions;
     }
 
-    public List<MonthlyExpense> findMonthlyExpensesByPoliticianId(Long politicianId){
-        int year = Calendar.getInstance().get(Calendar.YEAR);
+    public List<MonthlyExpense> findMonthlyExpensesByPoliticianId(Long politicianId, Integer[] months, Integer[] years){
         List<MonthlyExpense> monthlyExpenses = new ArrayList<>();
-        Map<Integer, List<Expense>> monthToExpense = new HashMap<>();
-        camaraAPI.requestAllExpensesByPoliticianId(politicianId, year).forEach(expense -> {
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(expense.getDate().getTime());
-            int currentMonth = cal.get(Calendar.MONTH) + 1;
-            monthToExpense.putIfAbsent(currentMonth, new ArrayList<>());
-            monthToExpense.get(currentMonth).add(expense);
+        Map<String, MonthlyExpense> hashToMonthlyExpense = new HashMap<>();
+        camaraAPI.requestAllExpensesByPoliticianId(politicianId, months, years).forEach(expense -> {
+            String keyHash = expense.getMonth().toString() + expense.getYear().toString();
+            hashToMonthlyExpense.putIfAbsent(keyHash, new MonthlyExpense(expense.getMonth(), expense.getYear()));
+            hashToMonthlyExpense.get(keyHash).getExpenses().add(expense);
         });
-        monthToExpense.forEach((month, expenses) -> {
-            MonthlyExpense monthlyExpense = new MonthlyExpense(month, year, expenses);
-            monthlyExpenses.add(monthlyExpense);
-        });
+        monthlyExpenses.addAll(hashToMonthlyExpense.values());
+        monthlyExpenses.forEach(monthlyExpense -> monthlyExpense.build());
         return monthlyExpenses;
     }
 

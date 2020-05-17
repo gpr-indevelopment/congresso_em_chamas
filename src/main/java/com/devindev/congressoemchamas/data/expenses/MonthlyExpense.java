@@ -6,28 +6,41 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 public class MonthlyExpense {
 
-    private int month;
+    @Getter
+    private Integer month;
 
-    private int year;
+    @Getter
+    private Integer year;
 
+    @Getter
     private double value = 0;
 
-    private List<Expense> expenses;
+    @Getter
+    private List<Expense> expenses = new ArrayList<>();
 
-    public MonthlyExpense(int month, int year, List<Expense> expenses) {
+    public MonthlyExpense(Integer month, Integer year) {
         this.month = month;
         this.year = year;
-        this.expenses = expenses;
-        expenses.forEach(expense -> {
-            addToValue(expense.getValue());
-        });
+    }
+
+    public void build(){
+        this.value = 0;
+        expenses.forEach(expense -> addToValue(expense.getValue()));
     }
 
     public void addToValue(double increment){
         value+=increment;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof MonthlyExpense){
+            MonthlyExpense castObj = (MonthlyExpense) obj;
+            return (castObj.month == this.month && castObj.year == this.year);
+        } else {
+            return super.equals(obj);
+        }
     }
 }

@@ -13,7 +13,9 @@ public class Expense {
 
     private double value;
 
-    private Timestamp date;
+    private Integer year;
+
+    private Integer month;
 
     private String type;
 

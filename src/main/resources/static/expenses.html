@@ -18,10 +18,11 @@
     <link rel="stylesheet" href="../css/footerStyles.css">
     <title>Despesas</title>
     <style>
-        .chart-container {
+        #chart-container {
             height: 80vh;
             min-width: 75%;
             flex: 1;
+            margin-bottom: 3.5rem;
         }
 
         #chart-details-container {
@@ -41,6 +42,10 @@
             color: rgba(255, 127, 39, 0.8);
         }
 
+        .expense-details-card {
+            min-width: 100%;
+        }
+
         @media only screen and (min-width: 768px) {
 
             /* For desktop */
@@ -49,8 +54,8 @@
                 overflow-y: scroll;
             }
 
-            #chart-details-container{
-                max-height: 80vh;
+            #chart-details-container {
+                max-height: 85vh;
             }
         }
     </style>
@@ -58,7 +63,24 @@
 
 <body>
     <main>
-        <div class="d-flex flex-wrap p-3" id="expenses-body"></div>
+        <div class="d-flex flex-wrap p-3" id="expenses-body">
+            <div class="mr-3 d-flex flex-column align-items-center" id="chart-container">
+                <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
+                    <label class="btn btn-outline-primary active btn-sm">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Esse ano
+                    </label>
+                    <label class="btn btn-outline-primary btn-sm">
+                        <input type="radio" name="options" id="option2" autocomplete="off"> Últimos 6 meses
+                    </label>
+                    <label class="btn btn-outline-primary btn-sm">
+                        <input type="radio" name="options" id="option3" autocomplete="off"> Legislatura
+                    </label>
+                </div>
+            </div>
+            <div class="border shadow d-flex justify-content-center align-items-center" id="chart-details-container">
+                <small class="text-center w-50">Clique em uma despesa no gráfico para visualizar os detalhes.</small>
+            </div>
+        </div>
     </main>
     <header>
         <div class="w-100 d-flex justify-content-between flex-wrap pb-1 align-items-center">
@@ -142,11 +164,17 @@
         $.get(`${baseUrl}politicians/${politicianId}`)
             .done(politician => {
                 renderProfile(document.getElementById("profile-container"), politician);
-                $.get(`${baseUrl}politicians/${politicianId}/monthlyexpenses`)
-                    .done(expenses => {
-                        renderExpenses(expenses, document.getElementById("expenses-body"));
+                $.ajax({
+                    url: `${baseUrl}politicians/${politicianId}/monthlyexpenses`,
+                    type: "get",
+                    data: {
+                        years: `${new Date().getFullYear()}`
+                    },
+                    success: function (expenses) {
+                        renderExpenses(expenses, document.getElementById("chart-container"), "line");
                         clearLoadingState();
-                    })
+                    },
+                })
             })
         initializeNavLinks(politicianId);
     </script>

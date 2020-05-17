@@ -15,6 +15,6 @@ public class ProfilesService {
     private Long currentLegislatureId;
 
     public List<Profile> findProfilesByName(String name){
-        return camaraAPI.requestProfilesByNameAndLegislatureId(name, camaraAPI.getCurrentLegislatureId());
+        return camaraAPI.requestProfilesByNameAndLegislatureId(name, camaraAPI.requestCurrentLegislatureId().getId());
     }
 }

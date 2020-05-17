@@ -14,7 +14,7 @@ public class ExternalAPICacheManager {
     @Scheduled(cron = "0 0 2 * * *")
     @CacheEvict(cacheNames = {"politicianIdsByNameAndLegislatureId",
     "politicianById", "propositionIdsByPoliticianId", "propositionById",
-    "authorsByPropositionId", "processingHistoryByPropositionId", "expensesByPropositionId"})
+    "authorsByPropositionId", "processingHistoryByPropositionId", "expensesByPropositionId", "currentLegislatureId"})
     private void cleanCache(){
         LOGGER.info("Scheduled time has arrived. Evicting cache from external API calls.");
     }

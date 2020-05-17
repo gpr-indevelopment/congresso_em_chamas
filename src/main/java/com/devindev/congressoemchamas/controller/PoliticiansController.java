@@ -33,7 +33,7 @@ public class PoliticiansController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/politicians/{politicianId}/monthlyexpenses", method = RequestMethod.GET)
-    public List<MonthlyExpense> getMonthlyExpensesByPoliticianId(@PathVariable Long politicianId){
-        return politiciansService.findMonthlyExpensesByPoliticianId(politicianId);
+    public List<MonthlyExpense> getMonthlyExpensesByPoliticianId(@PathVariable Long politicianId, @RequestParam(required = false) Integer[] months, @RequestParam(required = false) Integer[] years){
+        return politiciansService.findMonthlyExpensesByPoliticianId(politicianId, months, years);
     }
 }

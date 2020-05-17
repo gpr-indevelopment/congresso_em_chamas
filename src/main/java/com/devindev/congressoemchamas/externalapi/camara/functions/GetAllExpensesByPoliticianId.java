@@ -19,46 +19,31 @@ import java.util.Objects;
 
 public class GetAllExpensesByPoliticianId extends CongressoResponseHandler<List<Expense>> {
 
-    private List<Expense> expenses;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(GetAllExpensesByPoliticianId.class);
-
-    public GetAllExpensesByPoliticianId(List<Expense> expenses) {
-        this.expenses = expenses;
-    }
 
     @Override
     protected List<Expense> handleResponse(JsonObject jsonObject) {
-        requestPageRecursive(jsonObject);
+        List<Expense> expenses = new ArrayList<>();
+        requestPageRecursive(jsonObject, expenses);
         return expenses;
     }
 
-    private void requestPageRecursive(JsonObject jsonObject){
-        handlePageResponse(jsonObject);
-        String nextPageUrl = null;
+    private void requestPageRecursive(JsonObject jsonObject, List<Expense> expenses){
+        handlePageResponse(jsonObject, expenses);
         for (JsonElement link : jsonObject.get("links").getAsJsonArray()) {
             if(link.getAsJsonObject().get("rel").getAsString().equals("next")){
-                nextPageUrl = link.getAsJsonObject().get("href").getAsString();
+                expenses.addAll(requestPage(link.getAsJsonObject().get("href").getAsString()));
                 break;
             }
         }
-        if(Objects.nonNull(nextPageUrl)){
-            requestPage(nextPageUrl);
-        }
     }
 
-    private void handlePageResponse(JsonObject jsonObject){
+    private void handlePageResponse(JsonObject jsonObject, List<Expense> expenses){
         for (JsonElement data : jsonObject.get("dados").getAsJsonArray()) {
             JsonObject dataObject = data.getAsJsonObject();
             Expense expense = new Expense();
-            try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Timestamp timestamp = new Timestamp(dateFormat.parse(dataObject.get("dataDocumento").getAsString()).getTime());
-                expense.setDate(timestamp);
-            } catch (ParseException e) {
-                LOGGER.error(e.getMessage());
-                LOGGER.error("Unable to parse the date of an expense. Expense returning with a null date.");
-            }
+            expense.setMonth(dataObject.get("mes").getAsInt());
+            expense.setYear(dataObject.get("ano").getAsInt());
             expense.setDocumentNumber(nullCheckRetrievedStringValue(dataObject.get("numDocumento")));
             expense.setDocumentUrl(nullCheckRetrievedStringValue(dataObject.get("urlDocumento")));
             expense.setProvider(nullCheckRetrievedStringValue(dataObject.get("nomeFornecedor")));
@@ -70,7 +55,7 @@ public class GetAllExpensesByPoliticianId extends CongressoResponseHandler<List<
 
     private List<Expense> requestPage(String url){
         try {
-            GetAllExpensesByPoliticianId apiFunctionHandler = new GetAllExpensesByPoliticianId(expenses);
+            GetAllExpensesByPoliticianId apiFunctionHandler = new GetAllExpensesByPoliticianId();
             return Request.Get(url).execute().handleResponse(apiFunctionHandler);
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());

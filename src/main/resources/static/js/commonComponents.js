@@ -13,6 +13,12 @@ function clearLoadingState(){
     })
 }
 
+function initLoadingState(){
+    document.querySelectorAll(".global-overlay").forEach(globalOverlay => {
+        globalOverlay.style.display = "flex";
+    })
+}
+
 function renderProfile(element, politician) {
     element.innerHTML = "";
     element.insertAdjacentHTML("beforeend", `<div class="politician-profile-picture-container rounded-circle">
