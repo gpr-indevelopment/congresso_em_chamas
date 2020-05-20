@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -c-1 .",
+    "start": "browser-sync start --server --files \"./css/*.css\" --files \"./js/*.js\" --files \"./*.html\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,8 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "browser-sync": "^2.26.7",
     "chart.js": "^2.9.3",
-    "http-server": "^0.12.1",
     "jquery": "^3.4.1",
     "jquery-ui-dist": "^1.12.1"
   }

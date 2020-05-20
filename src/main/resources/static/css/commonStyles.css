@@ -23,11 +23,15 @@ header {
 }
 
 footer{
-    grid-area: footer;
+    grid-area: footer; 
 }
 
 p {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.congresso-title-text {
+    font-family: Domine-Bold;
 }
 
 .global-overlay{

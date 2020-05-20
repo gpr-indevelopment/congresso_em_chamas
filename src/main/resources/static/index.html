@@ -4,150 +4,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
-    <script src="../js/commonComponents.js"></script>
+    <script src="./js/commonComponents.js"></script>
+    <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
+    <script src="./js/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <link rel="stylesheet" href="./css/footerStyles.css">
+    <link rel="stylesheet" href="./css/commonStyles.css">
+    <link rel="stylesheet" href="./js/Semantic-UI-CSS-master/semantic.min.css">
     <link rel="stylesheet" href="./node_modules/jquery-ui-dist/jquery-ui.min.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <title>Frontpage</title>
     <style>
         body {
-            /* Deve assumir posição absoluta na pagina tomando tamanho inteiro
-            Assim, os filhos podem fazer posicionamento relativo e tomar 50% da tela.
-             */
-            position: absolute;
+            display: block;
+            overflow-x: hidden;
+        }
+
+        main {
+            background-color: transparent;
+        }
+
+        .title-row {
+            /* background-color: var(--theme-bg-color); */
             height: 100vh;
-            width: 100vw;
-            margin: 0px;
-            /* Todo o overflow vai ficar escondido na tela */
-            overflow: hidden;
-            background-color: black;
+        }
+
+        .congresso-title-text {
+            color: rgb(243, 243, 243);
+        }
+
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 10px solid;
+            border-image: linear-gradient(45deg, var(--theme-bg-color), rgb(255, 127, 39)) 1;
+        }
+
+        .description-row {
+            background-color: rgb(243, 243, 243);
+        }
+
+        .logo {
+            height: 20vh;
         }
 
         video {
-            /* Coloca em posição absoluta, desvinculado de todos os parents. */
             position: absolute;
-            /* Os heights e widths minimos fazem com que o video se ajuste ao tamanho da tela. */
-            min-height: 100vh;
-            min-width: 100vw;
-            /* Coloca em background na tela */
-            z-index: -100;
-            -webkit-filter: blur(5px);
-            -moz-filter: blur(5px);
-            -o-filter: blur(5px);
-            -ms-filter: blur(5px);
+            left: 0;
+            top: 0;
+            -webkit-filter: blur(6px);
+            -moz-filter: blur(6px);
+            -o-filter: blur(6px);
+            -ms-filter: blur(6px);
+            z-index: -1;
         }
 
-        #form-search {
-            width: 450px;
+        h1 {
+            color: white;
         }
 
-        #form-search-politician {
-            position: relative;
+        .fa-dollar-sign,
+        .fa-newspaper,
+        .fa-file-alt {
+            color: var(--theme-bg-color);
         }
 
-        #list-profiles {
-            position: relative;
-            overflow: hidden;
-            overflow-y: scroll;
-            max-height: calc(100% - 194px);
+        .card {
+            min-width: 280px;
+            border-color: rgb(255, 127, 39);
         }
 
-        #container-list-profiles {
-            height: calc(60vh + 42px);
+        @media (min-aspect-ratio: 16/9) {
+            video {
+                width: 100%;
+                height: auto;
+            }
         }
 
-        #img-profile {
-            border: .3rem solid rgba(7, 24, 68, 0.2);
+        @media (max-aspect-ratio: 16/9) {
+            video {
+                width: auto;
+                height: 100%;
+            }
         }
 
-        .full-screen {
-            height: 100vh;
-            width: 100vw;
-        }
+        @media (max-width: 767px) {
+            video {
+                display: none;
+            }
 
-        .bg-white {
-            background-color: white;
-        }
-
-        .bd-theme {
-            border: 15px solid;
-            border-image: linear-gradient(45deg, rgb(0, 143, 104), rgb(250, 224, 66)) 1;
-        }
-
-        form>input {
-            min-width: 300px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .btn-theme {
-            width: 100%;
-            background: url("../assets/stars.jpg");
-        }
-
-        form>img {
-            height: 150px;
-            margin-bottom: 5px;
+            .title-row {
+                background: url("./assets/poster.png");
+                background-size: cover;
+            }
         }
     </style>
 </head>
 
 <body>
-    <video autoplay loop muted>
-        <source src="assets/protests_240.mp4" type="video/mp4">
-        <source src="assets/protests_144.mp4" type="video/mp4">
-        This video is not available.
-    </video>
-    <div class="form-container d-flex flex-row justify-content-center align-items-center full-screen"
-        id="form-search-politician">
-        <form class="shadow p-3 bg-black bg-white form-container d-flex flex-column bd-theme" id="form-search">
-            <img src="assets/logo.png" alt="">
-            <input class="form-control" placeholder="Insira o nome de um parlamentar" politicianInput>
-            <button class="btn btn-primary btn-theme" politicianButton data-toggle="popover"
-                title="Nenhum político encontrado."
-                data-content="Por favor insira outra chave de pesquisa.">Enviar</button>
-        </form>
-    </div>
+    <main>
+        <div class="title-row d-flex flex-column justify-content-center align-items-center border p-3 shadow-lg">
+            <div
+                class="form-container pt-4 pl-4 pr-4 pb-3 d-flex flex-column justify-content-center align-items-center rounded">
+                <img src="./assets/perfil-nobackground.png" class="logo">
+                <h1 class="text-center mb-4">Congresso em chamas</h1>
+                <input class="form-control text-center mb-2" placeholder="Insira o nome de um parlamentar"
+                    id="politician-form">
+                <div class="ui inverted orange animated button w-100 mr-0" tabindex="0" id="send-button"
+                    data-toggle="popover" title="Entrada inválida"
+                    data-content="Por favor insira outra chave de pesquisa.">
+                    <div class="visible content">Enviar</div>
+                    <div class="hidden content">
+                        <i class="right arrow icon"></i>
+                    </div>
+                </div>
+            </div>
+            <video autoplay loop muted>
+                <source src="assets/protests_240.mp4" type="video/mp4">
+                <source src="assets/protests_144.mp4" type="video/mp4">
+                This video is not available.
+            </video>
+        </div>
+        <div class="description-row d-flex justify-content-around align-items-center flex-wrap p-5">
+            <div class="card-deck">
+                <div class="card shadow mb-4 mt-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fas fa-dollar-sign fa-7x mb-3"></i>
+                        </div>
+                        <h5 class="card-title">Despesas</h5>
+                        <p class="card-text">Acompanhe todas as despesas lançadas na cota parlamentar dos deputados
+                            federais.</p>
+                    </div>
+                </div>
+                <div class="card shadow mb-4 mt-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fas fa-newspaper fa-7x mb-3"></i>
+                        </div>
+                        <h5 class="card-title">Notícias</h5>
+                        <p class="card-text">Os últimos artigos e notícias dos deputados federais com a curadoria do
+                            Google News API.</p>
+                    </div>
+                </div>
+                <div class="card shadow mb-4 mt-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="far fa-file-alt fa-7x mb-3"></i>
+                        </div>
+                        <h5 class="card-title">Proposições</h5>
+                        <p class="card-text">Projetos de lei, resoluções, medidas provisórias e mais. Acompanhe a
+                            atividade dos deputados federais na câmara.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-theme d-flex p-3">
+        <div class="w-50 d-flex justify-content-end mr-5">
+            <div class="footer-about">
+                <div class="heading">
+                    Sobre Congresso em Chamas
+                </div>
+                <p class="common-text">
+                    Congresso em Chamas é um dashboard para acompanhamento dos principais indicadores dos deputados
+                    federais
+                    atualmente com mandato. Criado em 2020 por <span class="font-weight-bold">Gabriel Robaina</span>
+                    utilizando Spring Boot no backend e HTML, CSS e JS no frontend com componentes Bootstrap.
+                </p>
+            </div>
+        </div>
+        <div class="w-50">
+            <div class="heading">
+                Sobre o autor
+            </div>
+            <div class="d-flex flex-wrap">
+                <img src="../assets/devprofile.png" class="profile-picture rounded-circle mr-3 mb-3">
+                <div id="profile-details-container">
+                    <p class="author-title">
+                        Gabriel Pimenta Robaina
+                    </p>
+                    <div class="d-flex">
+                        <a href="https://www.linkedin.com/in/gabriel-robaina-8b6542114/" target="_blank">
+                            <img src="../assets/linkedin-icon.png" class="social-media-icon">
+                        </a>
+                        <a href="https://github.com/gpr-indevelopment/congresso_em_chamas" target="_blank">
+                            <img src="../assets/github-icon.png" class="social-media-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script>
-        var currentInput;
-        setupInitialScreen();
+        enablePopovers();
+        setupLandingPage();
 
-        function setupInitialScreen() {
-            currentInput = "";
-            document.querySelector('[politicianButton]').onclick = e => {
-                e.preventDefault();
-                document.querySelector('[politicianButton]').innerHTML = `<div class="spinner-border text-warning" style="width: 20px; height: 20px;" role="status"></div>`;
-                $.get(`${baseUrl}profiles?name=${currentInput}`)
-                    .done(profiles => {
-                        if (profiles.length > 1) {
-                            handleProfileSelectionState(profiles);
-                        } else if (profiles.length === 1) {
-                            window.location.href = `../expenses.html?politician=${profiles[0].id}`;
-                        } else {
-                            handleInvalidInput();
-                        }
-                    })
-            }
-            document.querySelector('[politicianInput]').oninput = e => {
-                currentInput = e.target.value;
-                let textField = document.querySelector('[politicianInput]');
-                if (currentInput) {
-                    textField.classList.remove("is-invalid");
-                    textField.classList.add("is-valid");
+        function setupLandingPage() {
+            document.getElementById("politician-form").addEventListener("keyup", (event) => {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    searchPolitician();
                 }
-                else {
-                    textField.classList.remove("is-valid");
-                }
+            })
+            document.getElementById("send-button").onclick = searchPolitician;
+        }
+
+        function searchPolitician() {
+            let value = document.getElementById("politician-form").value;
+            if (!value) {
+                handleInvalidInput();
             }
-            enablePopovers();
+            else {
+                window.location = "search.html?politicianName=" + value
+            }
         }
 
         function handleInvalidInput() {
-            document.querySelector('[politicianInput]').classList.add("is-invalid");
+            document.getElementById("politician-form").classList.add("is-invalid");
             $('[data-toggle="popover"]').popover('show')
-            document.querySelector('[politicianButton]').innerHTML = `Enviar`;
         }
 
         function enablePopovers() {
@@ -160,65 +236,6 @@
                     $('[data-toggle="popover"]').popover('hide');
                 }, 3000);
             });
-        }
-
-        function handleProfileSelectionState(profiles) {
-            $("#form-search-politician").animate({
-                left: 2000
-            }, {
-                duration: 800,
-                complete: () => {
-                    let mainDiv = document.getElementById("form-search-politician");
-                    mainDiv.innerHTML = "";
-                    mainDiv.insertAdjacentHTML('beforeend', `<div class="bd-theme p-2 bg-white" id="container-list-profiles">
-                                                                            <img src="assets/logo.png" alt="" height="150px">
-                                                                            <ul class="list-group" id="list-profiles"></ul>
-                                                                            <button class="btn btn-primary btn-theme mt-2 mb-2" id="btn-back">Voltar</button>
-                                                                        </div>`)
-                    let profilesList = document.getElementById("list-profiles");
-                    profiles.forEach(profile => {
-                        profilesList.insertAdjacentHTML('beforeend', `<a class="list-group-item list-group-item-action d-flex" href="../expenses.html?politician=${profile.id}">
-                                                                                    <img src="${profile.picture}" height="50" width="50" class="d-block img-profile rounded-circle" id="img-profile">
-                                                                                    <div class="ml-2">
-                                                                                        ${profile.name}
-                                                                                        <p class="mb-1"><span class="font-weight-bold">Partido: </span>${profile.party}</p>
-                                                                                    </div>                 
-                                                                                </a>`)
-                    })
-                    document.getElementById("btn-back").onclick = e => {
-                        triggerFirstState();
-                    }
-                    $("#form-search-politician").animate({
-                        left: 0
-                    }, {
-                        duration: 800
-                    })
-                }
-            })
-        }
-
-        function triggerFirstState() {
-            $("#form-search-politician").animate({
-                left: 2000
-            }, {
-                duration: 800,
-                complete: () => {
-                    let mainDiv = document.getElementById("form-search-politician");
-                    mainDiv.innerHTML = "";
-                    mainDiv.insertAdjacentHTML('beforeend', `<form class="shadow p-3 bg-black bg-white form-container d-flex flex-column bd-theme" id="form-search">
-                                                        <img src="assets/logo.png" alt="">
-                                                        <input class="form-control" placeholder="Insira o nome de um parlamentar" politicianInput>
-                                                        <button class="btn btn-primary btn-theme" politicianButton data-toggle="popover" title="Nenhum político encontrado."
-                                                            data-content="Por favor insira outra chave de pesquisa.">Enviar</button>
-                                                    </form>`)
-                    setupInitialScreen();
-                    $("#form-search-politician").animate({
-                        left: 0
-                    }, {
-                        duration: 800
-                    })
-                }
-            })
         }
     </script>
 </body>
