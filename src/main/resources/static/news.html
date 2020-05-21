@@ -18,13 +18,9 @@
     <link rel="stylesheet" href="../css/footerStyles.css">
     <title>Notícias</title>
     <style>
-        #news-list {
-            max-width: 700px;
-        }
-
         .news-image-container {
-            height: 100px;
-            width: 100px;
+            height: auto;
+            width: 100%;
             border: .2rem solid rgba(255, 127, 39, 0.8);
             background-color: rgba(255, 127, 39, 0.8);
             overflow: hidden;
@@ -36,17 +32,12 @@
             object-fit: cover
         }
 
-        #news-container{
-            min-height: 80vh;
-        }
     </style>
 </head>
 
 <body>
-    <main>
-        <div class="w-100 d-flex justify-content-center align-items-center" id="news-container">
-            <ul class="list-group" id="news-list"></ul>
-        </div>
+    <main class="d-flex justify-content-center pl-3 pr-3">
+        <div class="card-columns" id="news-list"></div>
     </main>
     <header>
         <div class="w-100 d-flex justify-content-between flex-wrap pb-1 align-items-center">

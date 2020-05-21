@@ -1,14 +1,16 @@
 function renderSearchList(listElement, profiles){
     listElement.innerHTML = "";
     profiles.forEach(profile => {
-        listElement.insertAdjacentHTML('beforeend', `<a href="expenses.html?politician=${profile.id}" class="list-group-item list-group-item-action d-flex">
-                                                        <div class="rounded-circle profile-image-container mr-3">
-                                                            <img src="${profile.picture}" class="profile-image">
-                                                        </div>
-                                                        <div>
-                                                            <h5 class="mt-3">${profile.name}</h5>
-                                                            <p class="font-weight-light">${profile.party}</p>
-                                                        </div>
+        listElement.insertAdjacentHTML('beforeend', `<a href="expenses.html?politician=${profile.id}" class="card list-group-item-action shadow mb-3 mt-3 p-4 border">
+                                                        <div class="d-flex flex-column justify-content-between align-items-center w-100">
+                                                            <div class="rounded-circle profile-image-container">
+                                                                <img src="${profile.picture}" class="profile-image">
+                                                            </div>
+                                                            <div>
+                                                                <h5 class="mt-3 text-center">${profile.name}</h5>
+                                                                <p class="font-weight-light text-center">${profile.party}</p>
+                                                            </div>
+                                                        </div>                                                
                                                     </a>`)
     });
 }

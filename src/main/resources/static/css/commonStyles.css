@@ -61,4 +61,12 @@ p {
     font-size: 12px;
 }
 
+.card-deck {
+    width: 100vw;
+}
+
+.card-columns {
+    width: 100vw;
+}
+
 

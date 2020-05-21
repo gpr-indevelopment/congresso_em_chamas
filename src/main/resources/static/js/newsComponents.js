@@ -19,13 +19,13 @@ function renderEmptyNews(newsListElement){
 }
 
 function renderNewsItem(news){
-    let innerHtml = `<a href="${news.link}" target="_blank" class="list-group-item list-group-item-action mb-2 border rounded-lg shadow">
+    let innerHtml = `<a href="${news.link}" target="_blank" class="card list-group-item-action rounded-lg shadow mb-3 mt-3 p-4 border">
                         <div class="d-flex flex-wrap mb-2 align-items-center">
-                            <div class="rounded-circle news-image-container mr-3">
+                            <div class="news-image-container mr-3">
                                 <img src="${news.imageLink}" class="news-image"> 
                             </div>
-                            <div style="width: calc(100% - 116px)">
-                                <p class="mt-2 mb-0 text-justify">${news.title}</p>
+                            <div>
+                                <p class="mt-2 mb-0 font-weight-bold">${news.title}</p>
                                 <small class="mt-1">${new Date(news.publishedDate).toLocaleDateString()} - ${news.sourceName}</small>
                             </div>
                         </div>

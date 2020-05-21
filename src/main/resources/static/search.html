@@ -32,10 +32,6 @@
             overflow: hidden;
         }
 
-        #search-results-list {
-            max-width: 700px;
-        }
-
         .btn-dark {
             background-color: rgb(255, 127, 39);
             border-color: rgb(255, 127, 39);
@@ -45,14 +41,17 @@
             background-color: rgb(7, 24, 68);
             color: white;
         }
+
+        #politician-form {
+            max-width: 350px;
+        }
+
     </style>
 </head>
 
 <body>
-    <main class="d-flex justify-content-center">
-        <ul class="list-group" id="search-results-list">
-
-        </ul>
+    <main class="d-flex justify-content-center pl-3 pr-3">
+        <div class="card-columns" id="search-results-list"></div>
     </main>
     <header class="d-flex align-items-center justify-content-between">
         <nav class="navbar navbar-expand-lg navbar-dark pb-1 pt-0">
@@ -67,11 +66,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <form class="form-inline my-2 my-lg-0 w-100">
-                    <input class="form-control text-center mr-2 mt-1" placeholder="Insira o nome de um deputado"
-                        id="politician-form">
-                    <button type="button" class="btn btn-dark mr-3 mt-1" id="send-button">Buscar</button>
-                </form>
+                <input class="form-control text-center mr-2 mt-1" placeholder="Insira o nome de um deputado"
+                    id="politician-form">
+                <button type="button" class="btn btn-dark mr-3 mt-1" id="send-button">Buscar</button>
             </div>
         </nav>
     </header>
@@ -152,7 +149,7 @@
                 handleInvalidInput();
             }
             else {
-                window.location = "search.html?politicianName=" + value
+                window.location = `search.html?politicianName=${value}`
             }
         }
 
