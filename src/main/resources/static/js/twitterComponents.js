@@ -8,7 +8,8 @@ async function renderTwitterTimeline(twitterUsername, twttr, timelineSection){
         timelineSection,
         {
             // chrome: "nofooter noheader",
-            // height: "100%"
+            // height: "80vh",
+            tweetLimit: 10,
         }
     );
 }
