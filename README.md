@@ -58,5 +58,12 @@ Ainda, relacionado ao frontend, adquiri conhecimentos de design, paletas de core
 
 Tambem aprendi muito sobre configuração e consumo de APIs públicas da web, principalmente quando essas não tem biblioteca client disponível em Java. 
 
+Não passei o fonte do projeto por uma análise estática de código, nem escrevi testes automatizados, pois o principal objetivo aqui foi o estudo de frontend. As refatorações de code smells e o desenvolvimento de testes automatizados serão necessárias uma vez que a aplicação tiver algum aumento no volume de acessos.
+
+# Trabalhos futuros
+
+1. **Requisitos incompletos**: Como citado anteriormente, o dashboard de indicadores de desempenho e o compilado de redes sociais dos deputados não foram totalmente implementados.
+2. **Testes automatizados e refatoração de code smells**: Como citado anteriormente, as refatorações de code smells e o desenvolvimento de testes automatizados serão necessárias uma vez que a aplicação tiver algum aumento no volume de acessos.
+
 # Contribua
 Pull requests são bem-vindos. Esse é um projeto pessoal para aprendizado de tecnologia, e serei grato por qualquer dica ou sugestão de escrita de código, arquitetura, padrões de projeto, etc.
