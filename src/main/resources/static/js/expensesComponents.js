@@ -80,7 +80,7 @@ function setupButtons(element) {
         let expensesAggregate = [];
         let numberOfMonths = 6;
         let callsMade = 0;
-        for (let i = (numberOfMonths - 1); i >= 0; i--) {
+        for (let i = (numberOfMonths); i >= 0; i--) {
             let pastDate = new Date(currentYear, currentMonth - i, 1);
             $.ajax({
                 url: `${baseUrl}politicians/${politicianId}/monthlyexpenses`,
@@ -93,7 +93,7 @@ function setupButtons(element) {
                 success: function (expenses) {
                     expenses.forEach(expense => expensesAggregate.push(expense));
                     callsMade++;
-                    if (callsMade == numberOfMonths) {
+                    if (callsMade == numberOfMonths + 1) {
                         renderExpenses(expensesAggregate, element, "bar");
                         clearLoadingState();
                     }
@@ -137,8 +137,7 @@ function showExpenseDetails(expenses) {
     let detailsList = document.getElementById("chart-details-list");
     expenses.sort((a, b) => b.value - a.value);
     expenses.forEach(expense => {
-        let expenseDate = new Date(expense.year, expense.month);
-        let formattedDate = expenseDate.getMonth() + "/" + expenseDate.getFullYear();
+        let formattedDate = expense.yearMonth.split("-")[1] + "/" + expense.yearMonth.split("-")[0];
         if (expense.documentUrl) {
             detailsList.insertAdjacentHTML("beforeend", `<a href="${expense.documentUrl}" target="_blank" class="list-group-item list-group-item-action rounded-lg shadow mb-2 expense-details-card">
                 <h6>${expense.provider}</h6>
@@ -174,11 +173,14 @@ function showExpenseDetails(expenses) {
 }
 
 function buildExpenseData(expenses, expenseData) {
-    expenses.sort((a, b) => new Date(a.year, a.month) - new Date(b.year, b.month))
+    expenses.sort((a, b) => {
+        return new Date(a.yearMonth.split("-")[0], a.yearMonth.split("-")[1]) - new Date(b.yearMonth.split("-")[0], b.yearMonth.split("-")[1]);
+    })
     expenses.forEach(expense => {
-        let currentMonth = (expense.month < 10) ? "0" + expense.month : expense.month;
+        let currentYear = expense.yearMonth.split("-")[0];
+        let currentMonth = expense.yearMonth.split("-")[1];
         expenseData.values.push(expense.value.toFixed(2));
-        expenseData.dates.push(`${currentMonth}/${expense.year}`)
+        expenseData.dates.push(`${currentMonth}/${currentYear}`)
         expenseData.monthlyExpenses.push(expense);
     });
     return expenseData;

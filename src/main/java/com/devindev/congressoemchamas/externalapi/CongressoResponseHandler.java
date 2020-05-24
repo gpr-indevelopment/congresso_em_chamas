@@ -9,6 +9,7 @@ import org.apache.http.client.ResponseHandler;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public abstract class CongressoResponseHandler<T> implements ResponseHandler<T> {
 
@@ -28,6 +29,6 @@ public abstract class CongressoResponseHandler<T> implements ResponseHandler<T> 
     protected abstract T handleResponse(JsonObject jsonObject);
 
     protected String nullCheckRetrievedStringValue(JsonElement jsonElement){
-        return ((jsonElement.isJsonNull()) ? null : jsonElement.getAsString());
+        return (Objects.isNull(jsonElement) || (jsonElement.isJsonNull()) ? null : jsonElement.getAsString());
     }
 }

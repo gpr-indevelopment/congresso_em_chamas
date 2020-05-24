@@ -4,6 +4,8 @@ import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.externalapi.CongressoResponseHandler;
 import com.google.gson.JsonObject;
 
+import java.sql.Timestamp;
+
 public class GetPoliticianById extends CongressoResponseHandler<Politician> {
 
     @Override
@@ -12,7 +14,7 @@ public class GetPoliticianById extends CongressoResponseHandler<Politician> {
                 .getAsJsonObject()
                 .get("ultimoStatus")
                 .getAsJsonObject());
-        politician.setSchooling(jsonObject.get("dados").getAsJsonObject().get("escolaridade").getAsString());
+        politician.setSchooling(nullCheckRetrievedStringValue(jsonObject.get("dados").getAsJsonObject().get("escolaridade")));
         return politician;
     }
 
@@ -20,16 +22,10 @@ public class GetPoliticianById extends CongressoResponseHandler<Politician> {
         Politician politician = new Politician();
         politician.setId(data.get("id").getAsLong());
         politician.setLegislatureId(data.get("idLegislatura").getAsLong());
-        politician.setName(retrieveStringFromMember(data, "nome"));
-        politician.setParty(retrieveStringFromMember(data, "siglaPartido"));
-        politician.setPicture(retrieveStringFromMember(data, "urlFoto"));
+        politician.setName(nullCheckRetrievedStringValue(data.get("nome")));
+        politician.setParty(nullCheckRetrievedStringValue(data.get("siglaPartido")));
+        politician.setPicture(nullCheckRetrievedStringValue(data.get("urlFoto")));
+        politician.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         return politician;
-    }
-
-    private String retrieveStringFromMember(JsonObject dataObject, String memberName) {
-        if (!dataObject.get(memberName).isJsonNull()) {
-            return dataObject.get(memberName).getAsString();
-        }
-        return null;
     }
 }

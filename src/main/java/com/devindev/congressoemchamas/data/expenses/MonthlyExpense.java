@@ -1,44 +1,82 @@
 package com.devindev.congressoemchamas.data.expenses;
 
+import com.devindev.congressoemchamas.data.legislature.Legislature;
+import com.devindev.congressoemchamas.data.politician.Politician;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Entity
+@Getter
+@Setter
 public class MonthlyExpense {
 
-    @Getter
-    private Integer month;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    @Getter
-    private Integer year;
+    private YearMonth yearMonth;
 
-    @Getter
     private double value = 0;
 
-    @Getter
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    @JsonBackReference
+    private Politician politician;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "id")
+    @JsonManagedReference
+    private Legislature legislature;
+
+    @OneToMany(mappedBy = "monthlyExpense", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Expense> expenses = new ArrayList<>();
 
-    public MonthlyExpense(Integer month, Integer year) {
-        this.month = month;
-        this.year = year;
+    public static List<MonthlyExpense> build(List<Expense> expenses) {
+        List<MonthlyExpense> monthlyExpenses = new ArrayList<>();
+        Map<YearMonth, MonthlyExpense> dateToMonthlyExpenses = new HashMap<>();
+        expenses.forEach(expense -> {
+            YearMonth currentYearMonth = expense.getYearMonth();
+            dateToMonthlyExpenses.putIfAbsent(currentYearMonth, new MonthlyExpense(currentYearMonth));
+            MonthlyExpense monthlyExpense = dateToMonthlyExpenses.get(currentYearMonth);
+            monthlyExpense.getExpenses().add(expense);
+            expense.setMonthlyExpense(monthlyExpense);
+        });
+        monthlyExpenses.addAll(dateToMonthlyExpenses.values());
+        monthlyExpenses.forEach(monthlyExpense -> monthlyExpense.build());
+        return monthlyExpenses;
     }
 
-    public void build(){
+    public MonthlyExpense() {
+    }
+
+    public MonthlyExpense(YearMonth yearMonth) {
+        this.yearMonth = yearMonth;
+    }
+
+    private void build() {
         this.value = 0;
         expenses.forEach(expense -> addToValue(expense.getValue()));
     }
 
-    public void addToValue(double increment){
-        value+=increment;
+    private void addToValue(double increment) {
+        value += increment;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof MonthlyExpense){
+        if (obj instanceof MonthlyExpense) {
             MonthlyExpense castObj = (MonthlyExpense) obj;
-            return (castObj.month == this.month && castObj.year == this.year);
+            return (this.getYearMonth().equals(castObj.getYearMonth()));
         } else {
             return super.equals(obj);
         }

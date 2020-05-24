@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,8 +43,7 @@ public class GetAllExpensesByPoliticianId extends CongressoResponseHandler<List<
         for (JsonElement data : jsonObject.get("dados").getAsJsonArray()) {
             JsonObject dataObject = data.getAsJsonObject();
             Expense expense = new Expense();
-            expense.setMonth(dataObject.get("mes").getAsInt());
-            expense.setYear(dataObject.get("ano").getAsInt());
+            expense.setYearMonth(YearMonth.of(dataObject.get("ano").getAsInt(), dataObject.get("mes").getAsInt()));
             expense.setDocumentNumber(nullCheckRetrievedStringValue(dataObject.get("numDocumento")));
             expense.setDocumentUrl(nullCheckRetrievedStringValue(dataObject.get("urlDocumento")));
             expense.setProvider(nullCheckRetrievedStringValue(dataObject.get("nomeFornecedor")));

@@ -19,9 +19,9 @@ public class GetPropositionsByPolitician extends CongressoResponseHandler<Propos
     protected Proposition handleResponse(JsonObject jsonObject) {
         Proposition proposition = new Proposition();
         JsonObject propositionResponse = jsonObject.get("dados").getAsJsonObject();
-        proposition.setTypeDescription(propositionResponse.get("descricaoTipo").getAsString());
-        proposition.setLink(propositionResponse.get("urlInteiroTeor").getAsString());
-        proposition.setTitle(propositionResponse.get("ementa").getAsString());
+        proposition.setTypeDescription(nullCheckRetrievedStringValue(propositionResponse.get("descricaoTipo")));
+        proposition.setLink(nullCheckRetrievedStringValue(propositionResponse.get("urlInteiroTeor")));
+        proposition.setTitle(nullCheckRetrievedStringValue(propositionResponse.get("ementa")));
         proposition.setId(propositionResponse.get("id").getAsLong());
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");

@@ -1,25 +1,34 @@
 package com.devindev.congressoemchamas.data.expenses;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import javax.persistence.*;
+import java.time.YearMonth;
 
-@Getter
-@Setter
+@Entity
+@Getter @Setter
 public class Expense {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String documentNumber;
 
     private double value;
 
-    private Integer year;
-
-    private Integer month;
+    private YearMonth yearMonth;
 
     private String type;
 
     private String provider;
 
     private String documentUrl;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    @JsonBackReference
+    private MonthlyExpense monthlyExpense;
 }

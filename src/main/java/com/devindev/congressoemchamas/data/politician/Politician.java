@@ -4,10 +4,12 @@ import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,11 +22,15 @@ public class Politician extends Profile implements Comparable<Politician>  {
 
     private String schooling;
 
-    @Transient
+    private Timestamp updatedAt;
+
+    @OneToMany(mappedBy = "politician", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Proposition> propositions = new ArrayList<>();
 
-    @Transient
-    private List<MonthlyExpense> monthlyExpens;
+    @OneToMany(mappedBy = "politician", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<MonthlyExpense> monthlyExpenses;
 
     @Transient
     private Set<News> news;

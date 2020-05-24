@@ -8,7 +8,6 @@ import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.CustomURIBuilder;
 import com.devindev.congressoemchamas.externalapi.camara.functions.*;
 import com.devindev.congressoemchamas.data.politician.Politician;
-import lombok.Getter;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
@@ -16,8 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.*;
 
@@ -42,8 +39,8 @@ public class CamaraAPI {
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve politician IDs by name on CamaraAPI.");
-            LOGGER.error("Returning empty politicians list.");
-            return new ArrayList<>();
+            LOGGER.error("Returning null instead of a politician object.");
+            return null;
         }
     }
 
@@ -95,8 +92,8 @@ public class CamaraAPI {
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve proposition IDs from CamaraAPI.");
-            LOGGER.error("Returning an empty propositions IDs list.");
-            return new ArrayList<>();
+            LOGGER.error("Returning null instead of proposition ids.");
+            return null;
         }
     }
 
@@ -127,8 +124,8 @@ public class CamaraAPI {
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the authors list of a proposition from CamaraAPI.");
-            LOGGER.error("Returning an empty authors list.");
-            return new ArrayList<>();
+            LOGGER.error("Returning null instead of a list of authors.");
+            return null;
         }
     }
 
@@ -143,28 +140,27 @@ public class CamaraAPI {
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the processing list of a proposition from CamaraAPI.");
-            LOGGER.error("Returning an empty processing list.");
-            return new ArrayList<>();
+            LOGGER.error("Returning null instead of a processing list.");
+            return null;
         }
     }
 
     @Cacheable(cacheNames = "expensesByPropositionId")
-    public List<Expense> requestAllExpensesByPoliticianId(Long politicianId, Integer[] requestMonths, Integer[] requestYears) {
+    public List<Expense> requestAllExpensesByPoliticianId(Long politicianId, List<Integer> requestMonths, List<Integer> requestYears) {
         try {
             CustomURIBuilder builder = new CustomURIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                    .setPathSegments("deputados", politicianId.toString(), "despesas");
-            builder.addArrayParameter("mes", requestMonths);
-            builder.addArrayParameter("ano", requestYears);
+                    .setPathSegments("deputados", politicianId.toString(), "despesas")
+                    .addParameter("itens", "100");
+            builder.addListParameter("mes", requestMonths);
+            builder.addListParameter("ano", requestYears);
             GetAllExpensesByPoliticianId apiFunctionHandler = new GetAllExpensesByPoliticianId();
             return Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the expenses list from CamaraAPI.");
-            LOGGER.error("Returning an empty expenses list.");
-            return new ArrayList<>();
+            LOGGER.error("Returning null instead of a expenses list.");
+            return null;
         }
     }
-
-
 }
