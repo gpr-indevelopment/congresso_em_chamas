@@ -36,7 +36,6 @@ public class CamaraAPIDataUpdater {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPIDataUpdater.class);
 
-    @PostConstruct
     private void init() {
         CustomStopWatch stopWatch = new CustomStopWatch();
         stopWatch.start("Fetching legislature");
