@@ -20,11 +20,15 @@ services:
         image: postgres
         environment:
             - POSTGRES_PASSWORD=password
+        volumes:
+            - congresso-db:/var/lib/postgresql/data
     pgadmin:
         image: dpage/pgadmin4
         environment: 
             - PGADMIN_DEFAULT_EMAIL=username
             - PGADMIN_DEFAULT_PASSWORD=password
+volumes: 
+    congresso-db:
 
 # Log in pgadmin using localhost:5050, and create postgres server with:
 # host: postgres
