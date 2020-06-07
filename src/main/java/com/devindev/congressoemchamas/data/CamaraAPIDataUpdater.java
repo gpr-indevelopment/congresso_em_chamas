@@ -1,6 +1,5 @@
 package com.devindev.congressoemchamas.data;
 
-import com.devindev.congressoemchamas.MainRepository;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.data.politician.Politician;
@@ -36,6 +35,7 @@ public class CamaraAPIDataUpdater {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPIDataUpdater.class);
 
+    @PostConstruct
     private void init() {
         CustomStopWatch stopWatch = new CustomStopWatch();
         stopWatch.start("Fetching legislature");

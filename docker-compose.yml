@@ -9,7 +9,7 @@ services:
             - GOOGLE_NEWS_API_URL=newsapi.org/v2/everything
             - JDBC_DATABASE_USERNAME=postgres
             - JDBC_DATABASE_PASSWORD=password
-            - JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/postgres?user=postgres&password=password
+            - JDBC_DATABASE_URL=jdbc:postgresql://postgres/postgres?user=postgres&password=password
             - TWITTER_ACCESS_TOKEN=42526425-BCMdBupTQ2E2RP6L8aKTsc2uP6FyPLMAubn9mznJv
             - TWITTER_ACCESS_TOKEN_SECRET=VFZaLSeDXSAgOLoWih8NBdHGiX5BDRVgaUMPs4HKouNxT
             - TWITTER_CONSUMER_KEY=mZPuiaSORinju4bY2QBQUhNJC
@@ -20,15 +20,11 @@ services:
         image: postgres
         environment:
             - POSTGRES_PASSWORD=password
-        ports: 
-            - "5432:5432"
     pgadmin:
         image: dpage/pgadmin4
         environment: 
             - PGADMIN_DEFAULT_EMAIL=username
             - PGADMIN_DEFAULT_PASSWORD=password
-        ports: 
-            - "5050:80"
 
 # Log in pgadmin using localhost:5050, and create postgres server with:
 # host: postgres
