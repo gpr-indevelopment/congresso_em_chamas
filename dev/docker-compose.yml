@@ -6,6 +6,8 @@ services:
             - POSTGRES_PASSWORD=password
         ports: 
             - "5432:5432"
+        volumes:
+            - congresso-db-dev:/var/lib/postgresql/data
     pgadmin:
         image: dpage/pgadmin4
         environment: 
@@ -13,7 +15,8 @@ services:
             - PGADMIN_DEFAULT_PASSWORD=password
         ports: 
             - "5050:80"
-
+volumes: 
+    congresso-db-dev:
 # Log in pgadmin using localhost:5050, and create postgres server with:
 # host: postgres
 # port: 5432

@@ -1,244 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
     <script src="./js/commonComponents.js"></script>
-    <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/166647642f.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="./js/Semantic-UI-CSS-master/semantic.min.js"></script>
-    <link rel="stylesheet" href="./css/footerStyles.css">
-    <link rel="stylesheet" href="./css/commonStyles.css">
-    <link rel="stylesheet" href="./js/Semantic-UI-CSS-master/semantic.min.css">
-    <link rel="stylesheet" href="./node_modules/jquery-ui-dist/jquery-ui.min.css">
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/footerStyles.css" />
+    <link rel="stylesheet" href="./css/commonStyles.css" />
+    <link
+      rel="stylesheet"
+      href="./js/Semantic-UI-CSS-master/semantic.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/jquery-ui-dist/jquery-ui.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
     <title>Congresso em chamas</title>
     <style>
-        body {
-            display: block;
-            overflow-x: hidden;
-        }
+      body {
+        display: block;
+        overflow-x: hidden;
+      }
 
-        main {
-            background-color: transparent;
+      main {
+        background-color: transparent;
+      }
+
+      .title-row {
+        /* background-color: var(--theme-bg-color); */
+        height: 100vh;
+      }
+
+      .congresso-title-text {
+        color: rgb(243, 243, 243);
+      }
+
+      .form-container {
+        background-color: rgba(0, 0, 0, 0.6);
+        border: 10px solid;
+        border-image: linear-gradient(
+            45deg,
+            var(--theme-bg-color),
+            rgb(255, 127, 39)
+          )
+          1;
+      }
+
+      .description-row {
+        background-color: rgb(243, 243, 243);
+      }
+
+      .logo {
+        height: 20vh;
+      }
+
+      video {
+        position: absolute;
+        left: 0;
+        top: 0;
+        -webkit-filter: blur(6px);
+        -moz-filter: blur(6px);
+        -o-filter: blur(6px);
+        -ms-filter: blur(6px);
+        z-index: -1;
+      }
+
+      h1 {
+        color: white;
+      }
+
+      .fa-dollar-sign,
+      .fa-newspaper,
+      .fa-file-alt {
+        color: var(--theme-bg-color);
+      }
+
+      .card {
+        min-width: 280px;
+        border-color: rgb(255, 127, 39);
+      }
+
+      @media (min-aspect-ratio: 16/9) {
+        video {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      @media (max-aspect-ratio: 16/9) {
+        video {
+          width: auto;
+          height: 100%;
+        }
+      }
+
+      @media (max-width: 767px) {
+        video {
+          display: none;
         }
 
         .title-row {
-            /* background-color: var(--theme-bg-color); */
-            height: 100vh;
+          background: url("./assets/poster.png");
+          background-size: cover;
         }
-
-        .congresso-title-text {
-            color: rgb(243, 243, 243);
-        }
-
-        .form-container {
-            background-color: rgba(0, 0, 0, 0.6);
-            border: 10px solid;
-            border-image: linear-gradient(45deg, var(--theme-bg-color), rgb(255, 127, 39)) 1;
-        }
-
-        .description-row {
-            background-color: rgb(243, 243, 243);
-        }
-
-        .logo {
-            height: 20vh;
-        }
-
-        video {
-            position: absolute;
-            left: 0;
-            top: 0;
-            -webkit-filter: blur(6px);
-            -moz-filter: blur(6px);
-            -o-filter: blur(6px);
-            -ms-filter: blur(6px);
-            z-index: -1;
-        }
-
-        h1 {
-            color: white;
-        }
-
-        .fa-dollar-sign,
-        .fa-newspaper,
-        .fa-file-alt {
-            color: var(--theme-bg-color);
-        }
-
-        .card {
-            min-width: 280px;
-            border-color: rgb(255, 127, 39);
-        }
-
-        @media (min-aspect-ratio: 16/9) {
-            video {
-                width: 100%;
-                height: auto;
-            }
-        }
-
-        @media (max-aspect-ratio: 16/9) {
-            video {
-                width: auto;
-                height: 100%;
-            }
-        }
-
-        @media (max-width: 767px) {
-            video {
-                display: none;
-            }
-
-            .title-row {
-                background: url("./assets/poster.png");
-                background-size: cover;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <main>
-        <div class="title-row d-flex flex-column justify-content-center align-items-center border p-3 shadow-lg">
-            <div
-                class="form-container pt-4 pl-4 pr-4 pb-3 d-flex flex-column justify-content-center align-items-center rounded">
-                <img src="./assets/perfil-nobackground.png" class="logo">
-                <h1 class="text-center mb-4">Congresso em chamas</h1>
-                <input class="form-control text-center mb-2" placeholder="Insira o nome de um deputado"
-                    id="politician-form">
-                <div class="ui inverted orange animated button w-100 mr-0" tabindex="0" id="send-button"
-                    data-toggle="popover" title="Entrada inválida"
-                    data-content="Por favor insira outra chave de pesquisa.">
-                    <div class="visible content">Enviar</div>
-                    <div class="hidden content">
-                        <i class="right arrow icon"></i>
-                    </div>
-                </div>
+      <div
+        class="title-row d-flex flex-column justify-content-center align-items-center border p-3 shadow-lg"
+      >
+        <div
+          class="form-container pt-4 pl-4 pr-4 pb-3 d-flex flex-column justify-content-center align-items-center rounded"
+        >
+          <img src="./assets/perfil-nobackground.png" class="logo" />
+          <h1 class="text-center mb-4">Congresso em chamas</h1>
+          <input
+            class="form-control text-center mb-2"
+            placeholder="Insira o nome de um deputado"
+            id="politician-form"
+          />
+          <div
+            class="ui inverted orange animated button w-100 mr-0"
+            tabindex="0"
+            id="send-button"
+            data-toggle="popover"
+            title="Entrada inválida"
+            data-content="Por favor insira outra chave de pesquisa."
+          >
+            <div class="visible content">Enviar</div>
+            <div class="hidden content">
+              <i class="right arrow icon"></i>
             </div>
-            <video autoplay loop muted>
-                <source src="assets/protests_240.mp4" type="video/mp4">
-                <source src="assets/protests_144.mp4" type="video/mp4">
-                This video is not available.
-            </video>
+          </div>
         </div>
-        <div class="description-row d-flex justify-content-around align-items-center flex-wrap p-5">
-            <div class="card-deck">
-                <div class="card shadow mb-4 mt-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-dollar-sign fa-7x mb-3"></i>
-                        </div>
-                        <h5 class="card-title">Despesas</h5>
-                        <p class="card-text">Acompanhe todas as despesas lançadas na cota parlamentar dos deputados
-                            federais.</p>
-                    </div>
-                </div>
-                <div class="card shadow mb-4 mt-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-newspaper fa-7x mb-3"></i>
-                        </div>
-                        <h5 class="card-title">Notícias</h5>
-                        <p class="card-text">Os últimos artigos e notícias dos deputados federais com a curadoria do
-                            Google News API.</p>
-                    </div>
-                </div>
-                <div class="card shadow mb-4 mt-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="far fa-file-alt fa-7x mb-3"></i>
-                        </div>
-                        <h5 class="card-title">Proposições</h5>
-                        <p class="card-text">Projetos de lei, resoluções, medidas provisórias e mais. Acompanhe a
-                            atividade dos deputados federais na câmara.</p>
-                    </div>
-                </div>
+        <video autoplay loop muted>
+          <source src="assets/protests_240.mp4" type="video/mp4" />
+          <source src="assets/protests_144.mp4" type="video/mp4" />
+          This video is not available.
+        </video>
+      </div>
+      <div
+        class="description-row d-flex justify-content-around align-items-center flex-wrap p-5"
+      >
+        <div class="card-deck">
+          <div class="card shadow mb-4 mt-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-center align-items-center">
+                <i class="fas fa-dollar-sign fa-7x mb-3"></i>
+              </div>
+              <h5 class="card-title">Despesas</h5>
+              <p class="card-text">
+                Acompanhe todas as despesas lançadas na cota parlamentar dos
+                deputados federais.
+              </p>
             </div>
+          </div>
+          <div class="card shadow mb-4 mt-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-center align-items-center">
+                <i class="fas fa-newspaper fa-7x mb-3"></i>
+              </div>
+              <h5 class="card-title">Notícias</h5>
+              <p class="card-text">
+                Os últimos artigos e notícias dos deputados federais com a
+                curadoria do Google News API.
+              </p>
+            </div>
+          </div>
+          <div class="card shadow mb-4 mt-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-center align-items-center">
+                <i class="far fa-file-alt fa-7x mb-3"></i>
+              </div>
+              <h5 class="card-title">Proposições</h5>
+              <p class="card-text">
+                Projetos de lei, resoluções, medidas provisórias e mais.
+                Acompanhe a atividade dos deputados federais na câmara.
+              </p>
+            </div>
+          </div>
         </div>
+      </div>
     </main>
     <footer class="bg-theme d-flex p-3">
-        <div class="w-50 d-flex justify-content-end mr-5">
-            <div class="footer-about">
-                <div class="heading">
-                    Sobre Congresso em Chamas
-                </div>
-                <p class="common-text">
-                    Congresso em Chamas é uma aplicação web que entrega ferramentas para o acompanhamento do trabalho
-                    dos deputados federais atualmente em mandato. Criado em 2020 por <span
-                        class="font-weight-bold">Gabriel Robaina</span>
-                    utilizando Spring Boot no backend e HTML, CSS e JS no frontend com componentes Bootstrap.
-                </p>
-            </div>
+      <div class="w-50 d-flex justify-content-end mr-5">
+        <div class="footer-about">
+          <div class="heading">
+            Sobre Congresso em Chamas
+          </div>
+          <p class="common-text">
+            Congresso em Chamas é uma aplicação web que entrega ferramentas para
+            o acompanhamento do trabalho dos deputados federais atualmente em
+            mandato. Visamos contribuir com a transparência da atividade do
+            legislativo.
+          </p>
         </div>
-        <div class="w-50">
-            <div class="heading">
-                Sobre o autor
-            </div>
-            <div class="d-flex flex-wrap">
-                <img src="../assets/devprofile.png" class="profile-picture rounded-circle mr-3 mb-3">
-                <div id="profile-details-container">
-                    <p class="author-title">
-                        Gabriel Pimenta Robaina
-                    </p>
-                    <div class="d-flex">
-                        <a href="https://www.linkedin.com/in/gabriel-robaina-8b6542114/" target="_blank">
-                            <img src="../assets/linkedin-icon.png" class="social-media-icon">
-                        </a>
-                        <a href="https://github.com/gpr-indevelopment/congresso_em_chamas" target="_blank">
-                            <img src="../assets/github-icon.png" class="social-media-icon">
-                        </a>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="w-50">
+        <div class="heading">
+          Contribua!
         </div>
+        <div class="d-flex flex-wrap w-50">
+          <div id="profile-details-container">
+            <p class="common-text">
+              Esse é um projeto de código aberto, sem fins lucrativos, que
+              depende de doações para manter sua infraestrutura. Agradecemos
+              contribuições financeiras ou de novas features.
+            </p>
+            <div class="d-flex">
+              <form
+                action="https://www.paypal.com/cgi-bin/webscr"
+                method="post"
+                target="_top"
+                class="mr-4"
+              >
+                <input type="hidden" name="cmd" value="_donations" />
+                <input type="hidden" name="business" value="DVUECCKXF39N6" />
+                <input
+                  type="hidden"
+                  name="item_name"
+                  value="Arrecadar fundos para manter a infraestrutura do site Congresso Em Chamas."
+                />
+                <input type="hidden" name="currency_code" value="BRL" />
+                <input
+                  type="image"
+                  src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif"
+                  border="0"
+                  name="submit"
+                  title="PayPal - The safer, easier way to pay online!"
+                  alt="Faça doações com o botão do PayPal"
+                />
+                <img
+                  alt=""
+                  border="0"
+                  src="https://www.paypal.com/pt_BR/i/scr/pixel.gif"
+                  width="1"
+                  height="1"
+                />
+              </form>
+              <a
+                href="https://github.com/gpr-indevelopment/congresso_em_chamas"
+                target="_blank"
+              >
+                <img
+                  src="../assets/github-icon.png"
+                  class="social-media-icon"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
     <script>
-        enablePopovers();
-        setupLandingPage();
+      enablePopovers();
+      setupLandingPage();
 
-        function setupLandingPage() {
-            document.getElementById("politician-form").addEventListener("keyup", (event) => {
-                if (event.keyCode == 13) {
-                    event.preventDefault();
-                    searchPolitician();
-                }
-            })
-            document.getElementById("send-button").onclick = searchPolitician;
-        }
-
-        function searchPolitician() {
-            let value = document.getElementById("politician-form").value;
-            if (!value) {
-                handleInvalidInput();
+      function setupLandingPage() {
+        document
+          .getElementById("politician-form")
+          .addEventListener("keyup", (event) => {
+            if (event.keyCode == 13) {
+              event.preventDefault();
+              searchPolitician();
             }
-            else {
-                window.location = "search.html?politicianName=" + value
-            }
-        }
+          });
+        document.getElementById("send-button").onclick = searchPolitician;
+      }
 
-        function handleInvalidInput() {
-            document.getElementById("politician-form").classList.add("is-invalid");
-            $('[data-toggle="popover"]').popover('show')
+      function searchPolitician() {
+        let value = document.getElementById("politician-form").value;
+        if (!value) {
+          handleInvalidInput();
+        } else {
+          window.location = "search.html?politicianName=" + value;
         }
+      }
 
-        function enablePopovers() {
-            let popover = $('[data-toggle="popover"]');
-            popover.popover({
-                trigger: "manual",
-            });
-            popover.on('shown.bs.popover', () => {
-                setTimeout(() => {
-                    $('[data-toggle="popover"]').popover('hide');
-                }, 3000);
-            });
-        }
+      function handleInvalidInput() {
+        document.getElementById("politician-form").classList.add("is-invalid");
+        $('[data-toggle="popover"]').popover("show");
+      }
+
+      function enablePopovers() {
+        let popover = $('[data-toggle="popover"]');
+        popover.popover({
+          trigger: "manual",
+        });
+        popover.on("shown.bs.popover", () => {
+          setTimeout(() => {
+            $('[data-toggle="popover"]').popover("hide");
+          }, 3000);
+        });
+      }
     </script>
-</body>
-
+  </body>
 </html>

@@ -93,38 +93,67 @@
     <footer class="bg-theme d-flex p-3">
         <div class="w-50 d-flex justify-content-end mr-5">
             <div class="footer-about">
-                <div class="heading">
-                    Sobre Congresso em Chamas
-                </div>
-                <p class="common-text">
-                    Congresso em Chamas é uma aplicação web que entrega ferramentas para o acompanhamento do trabalho
-                    dos deputados federais atualmente em mandato. Criado em 2020 por <span
-                        class="font-weight-bold">Gabriel Robaina</span>
-                    utilizando Spring Boot no backend e HTML, CSS e JS no frontend com componentes Bootstrap.
-                </p>
+              <div class="heading">
+                Sobre Congresso em Chamas
+              </div>
+              <p class="common-text">
+                Congresso em Chamas é uma aplicação web que entrega ferramentas para
+                o acompanhamento do trabalho dos deputados federais atualmente em
+                mandato. Visamos contribuir com a transparência da atividade do legislativo.
+              </p>
             </div>
-        </div>
-        <div class="w-50">
+          </div>
+          <div class="w-50">
             <div class="heading">
-                Sobre o autor
+              Contribua!
             </div>
-            <div class="d-flex flex-wrap">
-                <img src="../assets/devprofile.png" class="profile-picture rounded-circle mr-3 mb-3">
-                <div id="profile-details-container">
-                    <p class="author-title">
-                        Gabriel Pimenta Robaina
-                    </p>
-                    <div class="d-flex">
-                        <a href="https://www.linkedin.com/in/gabriel-robaina-8b6542114/" target="_blank">
-                            <img src="../assets/linkedin-icon.png" class="social-media-icon">
-                        </a>
-                        <a href="https://github.com/gpr-indevelopment/congresso_em_chamas" target="_blank">
-                            <img src="../assets/github-icon.png" class="social-media-icon">
-                        </a>
-                    </div>
+            <div class="d-flex flex-wrap w-50">
+              <div id="profile-details-container">
+                <p class="common-text">Esse é um projeto de código aberto, sem fins lucrativos, que depende de doações para manter sua infraestrutura. Agradecemos contribuições financeiras ou de novas features.</p>
+                <div class="d-flex">
+                  <form
+                    action="https://www.paypal.com/cgi-bin/webscr"
+                    method="post"
+                    target="_top"
+                    class="mr-4"
+                  >
+                    <input type="hidden" name="cmd" value="_donations" />
+                    <input type="hidden" name="business" value="DVUECCKXF39N6" />
+                    <input
+                      type="hidden"
+                      name="item_name"
+                      value="Arrecadar fundos para manter a infraestrutura do site Congresso Em Chamas."
+                    />
+                    <input type="hidden" name="currency_code" value="BRL" />
+                    <input
+                      type="image"
+                      src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif"
+                      border="0"
+                      name="submit"
+                      title="PayPal - The safer, easier way to pay online!"
+                      alt="Faça doações com o botão do PayPal"
+                    />
+                    <img
+                      alt=""
+                      border="0"
+                      src="https://www.paypal.com/pt_BR/i/scr/pixel.gif"
+                      width="1"
+                      height="1"
+                    />
+                  </form>
+                  <a
+                    href="https://github.com/gpr-indevelopment/congresso_em_chamas"
+                    target="_blank"
+                  >
+                    <img
+                      src="../assets/github-icon.png"
+                      class="social-media-icon"
+                    />
+                  </a>
                 </div>
+              </div>
             </div>
-        </div>
+          </div>
     </footer>
     <div class="global-overlay">
         <div class="spinner-border text-warning mt-3" role="status"></div>

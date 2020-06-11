@@ -1,132 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/bootstrap-treeview-1.2.0/dist/bootstrap-treeview.min.js"></script>
     <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <script src="https://kit.fontawesome.com/166647642f.js" crossorigin="anonymous"></script>
-    <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/166647642f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://platform.twitter.com/widgets.js"
+      charset="utf-8"
+    ></script>
     <script src="../js/newsComponents.js"></script>
     <script src="../js/commonComponents.js"></script>
-    <link rel="stylesheet" href="../css/commonStyles.css">
-    <link rel="stylesheet" href="../css/headerStyles.css">
-    <link rel="stylesheet" href="../css/footerStyles.css">
+    <link rel="stylesheet" href="../css/commonStyles.css" />
+    <link rel="stylesheet" href="../css/headerStyles.css" />
+    <link rel="stylesheet" href="../css/footerStyles.css" />
     <title>Congresso em chamas</title>
     <style>
-        .news-image-container {
-            height: auto;
-            width: 100%;
-            border: .2rem solid rgba(255, 127, 39, 0.8);
-            background-color: rgba(255, 127, 39, 0.8);
-            overflow: hidden;
-        }
+      .news-image-container {
+        height: auto;
+        width: 100%;
+        border: 0.2rem solid rgba(255, 127, 39, 0.8);
+        background-color: rgba(255, 127, 39, 0.8);
+        overflow: hidden;
+      }
 
-        .news-image {
-            height: 100%;
-            width: 100%;
-            object-fit: cover
-        }
-
+      .news-image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <main class="d-flex justify-content-center pl-3 pr-3">
-        <div class="card-columns" id="news-list"></div>
+      <div class="card-columns" id="news-list"></div>
     </main>
     <header>
-        <div class="w-100 d-flex justify-content-between flex-wrap pb-1 align-items-center">
-            <nav class="navbar navbar-expand-lg navbar-dark pb-0 pt-0">
-                <a class="navbar-brand" href="../index.html">
-                    <div class="congresso-header w-100">
-                        <img src="../assets/perfil-nobackground.png" width="48px" height="48px">
-                        <h5 class="text-light mb-0">Congresso em Chamas</h5>
-                    </div>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-                    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="./search.html">Busca</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./twitter.html">Twitter</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./news.html">Notícias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./proposals.html">Propostas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./expenses.html">Despesas<span
-                                    class="sr-only">(current)</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="d-flex justify-content-start align-items-center">
-                <div id="profile-container" class="d-flex"></div>
+      <div
+        class="w-100 d-flex justify-content-between flex-wrap pb-1 align-items-center"
+      >
+        <nav class="navbar navbar-expand-lg navbar-dark pb-0 pt-0">
+          <a class="navbar-brand" href="../index.html">
+            <div class="congresso-header w-100">
+              <img
+                src="../assets/perfil-nobackground.png"
+                width="48px"
+                height="48px"
+              />
+              <h5 class="text-light mb-0">Congresso em Chamas</h5>
             </div>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="./search.html">Busca</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./twitter.html">Twitter</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="./news.html">Notícias</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./proposals.html">Propostas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./expenses.html"
+                  >Despesas<span class="sr-only">(current)</span></a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="d-flex justify-content-start align-items-center">
+          <div id="profile-container" class="d-flex"></div>
         </div>
+      </div>
     </header>
     <footer class="bg-theme d-flex p-3">
-        <div class="w-50 d-flex justify-content-end mr-5">
-            <div class="footer-about">
-                <div class="heading">
-                    Sobre Congresso em Chamas
-                </div>
-                <p class="common-text">
-                    Congresso em Chamas é uma aplicação web que entrega ferramentas para o acompanhamento do trabalho dos deputados federais atualmente em mandato. Criado em 2020 por <span class="font-weight-bold">Gabriel Robaina</span>
-                    utilizando Spring Boot no backend e HTML, CSS e JS no frontend com componentes Bootstrap.
-                </p>
-            </div>
+      <div class="w-50 d-flex justify-content-end mr-5">
+        <div class="footer-about">
+          <div class="heading">
+            Sobre Congresso em Chamas
+          </div>
+          <p class="common-text">
+            Congresso em Chamas é uma aplicação web que entrega ferramentas para
+            o acompanhamento do trabalho dos deputados federais atualmente em
+            mandato. Visamos contribuir com a transparência da atividade do
+            legislativo.
+          </p>
         </div>
-        <div class="w-50">
-            <div class="heading">
-                Sobre o autor
-            </div>
-            <div class="d-flex flex-wrap">
-                <img src="../assets/devprofile.png" class="profile-picture rounded-circle mr-3 mb-3">
-                <div id="profile-details-container">
-                    <p class="author-title">
-                        Gabriel Pimenta Robaina
-                    </p>
-                    <div class="d-flex">
-                        <a href="https://www.linkedin.com/in/gabriel-robaina-8b6542114/" target="_blank">
-                            <img src="../assets/linkedin-icon.png" class="social-media-icon">
-                        </a>
-                        <a href="https://github.com/gpr-indevelopment/congresso_em_chamas" target="_blank">
-                            <img src="../assets/github-icon.png" class="social-media-icon">
-                        </a>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="w-50">
+        <div class="heading">
+          Contribua!
         </div>
+        <div class="d-flex flex-wrap w-50">
+          <div id="profile-details-container">
+            <p class="common-text">
+              Esse é um projeto de código aberto, sem fins lucrativos, que
+              depende de doações para manter sua infraestrutura. Agradecemos
+              contribuições financeiras ou de novas features.
+            </p>
+            <div class="d-flex">
+              <form
+                action="https://www.paypal.com/cgi-bin/webscr"
+                method="post"
+                target="_top"
+                class="mr-4"
+              >
+                <input type="hidden" name="cmd" value="_donations" />
+                <input type="hidden" name="business" value="DVUECCKXF39N6" />
+                <input
+                  type="hidden"
+                  name="item_name"
+                  value="Arrecadar fundos para manter a infraestrutura do site Congresso Em Chamas."
+                />
+                <input type="hidden" name="currency_code" value="BRL" />
+                <input
+                  type="image"
+                  src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif"
+                  border="0"
+                  name="submit"
+                  title="PayPal - The safer, easier way to pay online!"
+                  alt="Faça doações com o botão do PayPal"
+                />
+                <img
+                  alt=""
+                  border="0"
+                  src="https://www.paypal.com/pt_BR/i/scr/pixel.gif"
+                  width="1"
+                  height="1"
+                />
+              </form>
+              <a
+                href="https://github.com/gpr-indevelopment/congresso_em_chamas"
+                target="_blank"
+              >
+                <img
+                  src="../assets/github-icon.png"
+                  class="social-media-icon"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
     <div class="global-overlay">
-        <div class="spinner-border text-warning mt-3" role="status"></div>
+      <div class="spinner-border text-warning mt-3" role="status"></div>
     </div>
     <script>
-        initializeNavLinks(politicianId);
-        $.get(`${baseUrl}politicians/${politicianId}`)
-            .done(politician => {
-                renderProfile(document.getElementById("profile-container"), politician);
-                $.get(`${baseUrl}politicians/${politicianId}/news`)
-                    .done(news => {
-                        renderNews(news, document.getElementById("news-list"));
-                        clearLoadingState();
-                    })
-            })
+      initializeNavLinks(politicianId);
+      $.get(`${baseUrl}politicians/${politicianId}`).done((politician) => {
+        renderProfile(document.getElementById("profile-container"), politician);
+        $.get(`${baseUrl}politicians/${politicianId}/news`).done((news) => {
+          renderNews(news, document.getElementById("news-list"));
+          clearLoadingState();
+        });
+      });
     </script>
-</body>
-
+  </body>
 </html>
