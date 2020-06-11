@@ -13,15 +13,19 @@ import com.devindev.congressoemchamas.utils.CustomStopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.Scheduled;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
+@PropertySource("classpath:dataupdate.properties")
 public class CamaraAPIDataUpdater {
 
     @Autowired
@@ -33,10 +37,14 @@ public class CamaraAPIDataUpdater {
     @Autowired
     private TwitterAPI twitterAPI;
 
+    @Value("${data.update.politician-expiration-time-days}")
+    private Integer politicianExpirationTimeDays;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPIDataUpdater.class);
 
-    @PostConstruct
+    @Scheduled(cron = "0 0 3 * * SUN")
     private void init() {
+        LOGGER.error("Initiating data update scheduled job...");
         CustomStopWatch stopWatch = new CustomStopWatch();
         stopWatch.start("Fetching legislature");
         Legislature legislature = camaraAPI.requestCurrentLegislatureId();
@@ -46,20 +54,26 @@ public class CamaraAPIDataUpdater {
         stopWatch.stop();
         profiles.forEach(profile -> {
             Long currentId = profile.getId();
-            if (Objects.isNull(dao.findById(currentId).orElse(null))) {
+            Optional<Politician> politicianOpt = dao.findById(currentId);
+            if(!politicianOpt.isPresent() || eligibleForUpdate(politicianOpt.get())){
                 stopWatch.start("Filling in politician with id: " + currentId);
-                innerUpdatePolitician(currentId, legislature, null);
+                updatePolitician(currentId, legislature, null);
                 stopWatch.stop();
             }
         });
         LOGGER.info(stopWatch.prettyPrint());
     }
 
-    public Politician updatePolitician(Long id){
-        return innerUpdatePolitician(id, camaraAPI.requestCurrentLegislatureId(), null);
+    private boolean eligibleForUpdate(Politician politician){
+        boolean eligibleForUpdate = false;
+        LocalDateTime polUpdatedAt = politician.getUpdatedAt().toLocalDateTime();
+        if(polUpdatedAt.plusDays(politicianExpirationTimeDays).isBefore(LocalDateTime.now())){
+            eligibleForUpdate = true;
+        }
+        return eligibleForUpdate;
     }
 
-    private Politician innerUpdatePolitician(Long id, Legislature legislature, Long delay) {
+    private Politician updatePolitician(Long id, Legislature legislature, Long delay) {
         try {
             delay = Objects.nonNull(delay) ? delay : 0;
             TimeUnit.SECONDS.sleep(delay);
@@ -72,7 +86,7 @@ public class CamaraAPIDataUpdater {
             LOGGER.error(e.getMessage());
             LOGGER.error(e.getStackTrace()[0].toString());
             LOGGER.error("An error occurred when updating politician with id {}. Retrying...", id);
-            return innerUpdatePolitician(id, legislature,5l);
+            return updatePolitician(id, legislature,5l);
         }
     }
 
