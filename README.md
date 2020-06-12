@@ -1,4 +1,5 @@
 # Congresso em chamas
+![Java CI with Maven](https://github.com/gpr-indevelopment/congresso_em_chamas/workflows/Java%20CI%20with%20Maven/badge.svg)
 
 [Congresso em chamas](https://congresso-em-chamas.herokuapp.com/) é uma aplicação web, com código aberto, que entrega ferramentas para o acompanhamento do trabalho dos deputados federais atualmente em mandato. 
 
