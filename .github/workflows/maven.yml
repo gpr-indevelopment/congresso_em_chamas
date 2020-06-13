@@ -33,8 +33,7 @@ jobs:
     - name: Restart server
       uses: fifsky/ssh-action@v0.0.4
       with:
-        command: sudo -i ; cd git/congresso_em_chamas/ ; docker-compose down ; docker image pull pimentgabriel/congressoemchamas ; docker-compose up -d
+        command: sh deploy.sh
         host: ${{ secrets.CONGRESSO_SERVER_IP }}
-        user: centos
         key: ${{ secrets.CONGRESSO_SERVER_SSH }}
     
