@@ -22,10 +22,12 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Upload the Build Artifact
-      uses: actions/upload-artifact@v2
+    - name: Build and push image to Docker Hub
+      uses: docker/build-push-action@v1.1.0
       with:
-        name: Packaged Jar
-        path: /home/runner/work/congresso_em_chamas/congresso_em_chamas/target/CongressoEmChamas-0.0.1-SNAPSHOT.jar
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        repository: pimentgabriel/congressoemchamas
+        path: /home/runner/work/congresso_em_chamas/congresso_em_chamas/
       
     
