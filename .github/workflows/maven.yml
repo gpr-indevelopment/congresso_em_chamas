@@ -35,5 +35,5 @@ jobs:
       with:
         command: cd git/congresso_em_chamas/ ; docker-compose down ; docker image pull pimentgabriel/congressoemchamas ; docker-compose up -d
         host: ${{ secrets.CONGRESSO_SERVER_IP }}
-        key: ${{ secrets.CONGRESSO_SERVER_PRIVATE_KEY }}
+        key: ${{ secrets.CONGRESSO_SERVER_SSH }}
     
