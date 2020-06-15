@@ -1,0 +1,42 @@
+.container {
+    background-color: var(--theme-secondary-bg-color);
+    padding: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card {
+    min-width: 280px;
+    flex: 1 0 0%;
+    height: 250px;
+    background-color: #fff;
+    padding: 18px;
+    margin: 21px 15px 21px 15px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-color: rgb(255, 127, 39);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.description {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4285em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #212529;
+}

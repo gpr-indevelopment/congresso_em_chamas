@@ -1,0 +1,31 @@
+.video {
+  position: absolute;
+  left: 0;
+  top: 0;
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+  -moz-filter: blur(6px);
+  -o-filter: blur(6px);
+  -ms-filter: blur(6px);
+  z-index: -1;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .video {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .video {
+    width: auto;
+    height: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .video {
+    display: none;
+  }
+}

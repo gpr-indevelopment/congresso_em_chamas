@@ -1,0 +1,15 @@
+@import '~antd/dist/antd.css';
+
+#root {
+    --theme-bg-color: rgb(7, 24, 68);
+    --theme-title-color: white;
+    --theme-secondary-text-color: rgba(255,255,255,.5);
+    --theme-main-color: rgb(255, 127, 39);
+    --theme-secondary-bg-color: rgb(243, 243, 243);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+    
+body {
+    margin: 0;
+}

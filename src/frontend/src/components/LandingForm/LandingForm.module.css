@@ -1,0 +1,24 @@
+.logo {
+  height: 20vh;
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 10px solid;
+  border-image: linear-gradient(45deg, var(--theme-bg-color), rgb(255, 127, 39))
+    1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.title {
+  color: var(--theme-title-color);
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin-top: 0;
+}
