@@ -1,13 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import * as CongressoComponents from "./components/index";
+import * as Containers from "./redux/containers/index";
+import history from './history';
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
         <Route exact path="/">
-          <CongressoComponents.Landing />
+          <Containers.LandingContainer />
         </Route>
         <Route exact path="/search">
           <CongressoComponents.Search />

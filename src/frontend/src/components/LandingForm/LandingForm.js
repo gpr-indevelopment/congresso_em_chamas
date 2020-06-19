@@ -5,7 +5,7 @@ import { Input } from "antd";
 
 const {Search} = Input;
 
-function LandingForm() {
+function LandingForm(props) {
   return (
     <div className={styles.container}>
       <img src={LogoIcon} className={styles.logo} />
@@ -13,7 +13,7 @@ function LandingForm() {
       <Search
         placeholder="Insira o nome de um deputado"
         enterButton
-        onSearch={(value) => console.log(value)}
+        onSearch={(input) => props.handleSearchSubmit(input)}
       />
     </div>
   );
