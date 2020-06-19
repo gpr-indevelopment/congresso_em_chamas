@@ -6,7 +6,7 @@ function Landing(props) {
   return (
     <div>
       <div className={styles.container}>
-        <CongressoComponents.LandingForm handleSearchSubmit={props.handleSearchSubmit}/>
+        <CongressoComponents.LandingForm/>
         <CongressoComponents.LandingVideo />
       </div>
       <CongressoComponents.FeaturesShowcase/>

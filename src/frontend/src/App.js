@@ -9,10 +9,10 @@ function App() {
     <Router history={history}>
       <Switch>
         <Route exact path="/">
-          <Containers.LandingContainer />
+          <CongressoComponents.Landing />
         </Route>
         <Route exact path="/search">
-          <CongressoComponents.Search />
+          <Containers.SearchContainer />
         </Route>
         <Route exact path="/news">
           <CongressoComponents.News />

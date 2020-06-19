@@ -1,18 +1,17 @@
 import React from "react";
-import { Layout } from "antd";
 import * as CongressoComponents from "../index";
-const { Content, Footer } = Layout;
 
-function Search() {
+function Search(props) {
   return (
-    <Layout>
-      <Content>
-        <div>Search</div>
-      </Content>
-      <Footer>
-        <CongressoComponents.Footer />
-      </Footer>
-    </Layout>
+    <div>
+      <CongressoComponents.Header>
+        <CongressoComponents.SearchInput handleSearchSubmit={(input) => props.handleSearchSubmit(input)}/>
+      </CongressoComponents.Header>
+      <CongressoComponents.MainContent>
+        {props.politicianName ? props.politicianName : "nao tem politico"}
+      </CongressoComponents.MainContent>
+      <CongressoComponents.Footer />
+    </div>
   );
 }
 

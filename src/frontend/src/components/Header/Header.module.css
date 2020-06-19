@@ -1,0 +1,9 @@
+.container {
+    min-height: 83px;
+    border-bottom: 3px solid var(--theme-main-color);
+    background-color: var(--theme-bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px 0 16px;
+}

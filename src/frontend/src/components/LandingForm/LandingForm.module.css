@@ -1,5 +1,6 @@
 .logo {
-  height: 20vh;
+  height: 150px;
+  width: 150px;
 }
 
 .container {
@@ -21,4 +22,5 @@
   line-height: 1.2;
   font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
   margin-top: 0;
+  text-align: center;
 }

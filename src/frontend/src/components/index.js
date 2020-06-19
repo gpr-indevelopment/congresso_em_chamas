@@ -8,3 +8,6 @@ export { default as Footer } from "./Footer/Footer";
 export { default as LandingVideo } from "./LandingVideo/LandingVideo";
 export { default as LandingForm } from "./LandingForm/LandingForm";
 export { default as FeaturesShowcase } from "./FeaturesShowcase/FeaturesShowcase";
+export { default as MainContent } from "./MainContent/MainContent";
+export { default as HeaderLogo } from "./HeaderLogo/HeaderLogo";
+export { default as SearchInput } from "./SearchInput/SearchInput";

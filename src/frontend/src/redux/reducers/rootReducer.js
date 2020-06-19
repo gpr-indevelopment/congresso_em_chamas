@@ -1,7 +1,7 @@
-import landingReducer from "./landingReducer";
+import searchReducer from "./searchReducer";
 
 export default function rootReducer(state = {}, action){
     return {
-        landing: landingReducer(state.landing, action)
+        search: searchReducer(state.search, action)
     };
 }
