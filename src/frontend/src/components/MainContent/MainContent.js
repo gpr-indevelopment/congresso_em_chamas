@@ -2,9 +2,11 @@ import React from "react";
 import styles from "./MainContent.module.css";
 
 function MainContent(props) {
-  return <main className={styles.container}>
+  return (
+    <main className={styles.main}>
       {props.children}
-  </main>;
+    </main>
+  );
 }
 
 export default MainContent;

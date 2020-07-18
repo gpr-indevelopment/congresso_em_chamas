@@ -11,7 +11,7 @@ function App() {
         <Route exact path="/">
           <CongressoComponents.Landing />
         </Route>
-        <Route exact path="/search">
+        <Route path="/search">
           <Containers.SearchContainer />
         </Route>
         <Route exact path="/news">

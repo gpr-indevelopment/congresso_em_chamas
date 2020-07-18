@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { searchSubmit } from "../actions/searchActions";
 import Search from "../../components/Search/Search";
+import * as THUNK from "../thunk/searchThunk";
 
 const mapStateToProps = (state) => {
   return state.search;
@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSearchSubmit: (input) => dispatch(searchSubmit(input)),
+    handleSearchRequest: (input) => dispatch(THUNK.requestSearch(input)),
   };
 };
 

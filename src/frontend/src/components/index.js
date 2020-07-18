@@ -11,3 +11,4 @@ export { default as FeaturesShowcase } from "./FeaturesShowcase/FeaturesShowcase
 export { default as MainContent } from "./MainContent/MainContent";
 export { default as HeaderLogo } from "./HeaderLogo/HeaderLogo";
 export { default as SearchInput } from "./SearchInput/SearchInput";
+export { default as ProfileCard } from "./ProfileCard/ProfileCard";

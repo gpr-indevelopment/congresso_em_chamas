@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { searchSubmit } from "../actions/searchActions";
+import { searchSubmit } from "../actions/landingActions";
 import SearchInput from "../../components/SearchInput/SearchInput"
 
 const mapStateToProps = (state) => {

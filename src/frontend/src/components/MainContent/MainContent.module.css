@@ -1,3 +1,4 @@
-.container {
+.main {
     min-height: 80vh;
+    background-color: var(--theme-secondary-bg-color);
 }
