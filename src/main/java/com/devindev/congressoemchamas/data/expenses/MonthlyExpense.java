@@ -41,6 +41,13 @@ public class MonthlyExpense {
     @JsonManagedReference
     private List<Expense> expenses = new ArrayList<>();
 
+    public MonthlyExpense() {
+    }
+
+    public MonthlyExpense(YearMonth yearMonth) {
+        this.yearMonth = yearMonth;
+    }
+
     public static List<MonthlyExpense> build(List<Expense> expenses) {
         List<MonthlyExpense> monthlyExpenses = new ArrayList<>();
         Map<YearMonth, MonthlyExpense> dateToMonthlyExpenses = new HashMap<>();
@@ -54,13 +61,6 @@ public class MonthlyExpense {
         monthlyExpenses.addAll(dateToMonthlyExpenses.values());
         monthlyExpenses.forEach(monthlyExpense -> monthlyExpense.build());
         return monthlyExpenses;
-    }
-
-    public MonthlyExpense() {
-    }
-
-    public MonthlyExpense(YearMonth yearMonth) {
-        this.yearMonth = yearMonth;
     }
 
     private void build() {

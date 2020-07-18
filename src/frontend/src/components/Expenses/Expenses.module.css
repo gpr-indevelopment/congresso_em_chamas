@@ -1,0 +1,13 @@
+.container {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-height: 80vh;
+}
+
+.chart {
+    min-width: 75%;
+    margin-bottom: 3.5rem;
+    height: 80vh;
+}

@@ -14,7 +14,6 @@ export default function landingReducer(state = initialState, action) {
         loading: true
       });
     case SEARCH_ACTIONS.RECEIVE_SEARCH:
-      console.log(action.response)
       return Object.assign({}, state, {
         loading: false,
         profiles: action.response

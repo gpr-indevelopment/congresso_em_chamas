@@ -12,3 +12,6 @@ export { default as MainContent } from "./MainContent/MainContent";
 export { default as HeaderLogo } from "./HeaderLogo/HeaderLogo";
 export { default as SearchInput } from "./SearchInput/SearchInput";
 export { default as ProfileCard } from "./ProfileCard/ProfileCard";
+export { default as ExpensesGraph } from "./ExpensesGraph/ExpensesGraph";
+export { default as ExpensesDetailsSection } from "./ExpensesDetailsSection/ExpensesDetailsSection";
+export { default as ExpenseDetails } from "./ExpenseDetails/ExpenseDetails";

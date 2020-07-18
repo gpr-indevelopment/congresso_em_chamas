@@ -1,0 +1,22 @@
+.card {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.money {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.date {
+    display: flex;
+}
+
+.moneyIcon{
+    margin-right: 0.5rem;
+    color: green;
+}
+
+.icon {
+    margin-right: 0.5rem;
+}

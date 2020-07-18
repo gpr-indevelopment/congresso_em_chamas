@@ -21,7 +21,7 @@ function App() {
           <CongressoComponents.Propositions />
         </Route>
         <Route exact path="/expenses">
-          <CongressoComponents.Expenses />
+          <Containers.ExpensesContainer />
         </Route>
       </Switch>
     </Router>

@@ -1,0 +1,19 @@
+.container {
+    margin-left: 0.5rem;
+    min-width: 300px;
+    min-height: 350px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    border: 1px solid #dee2e6;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 0.5rem;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 85vh;
+}
+
+.click {
+    margin-top: 20px;
+    text-align: center;
+}
