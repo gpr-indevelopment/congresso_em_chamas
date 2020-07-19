@@ -23,9 +23,9 @@ public class TwitterAPI {
                 return usersFound.get(0).getScreenName();
             }
             return null;
-        } catch (TwitterException twitterException) {
-            LOGGER.error(String.format("An exception was thrown while searching Twitter for users. Status code: %d.", twitterException.getStatusCode()));
-            LOGGER.error(twitterException.getMessage());
+        } catch (Exception exception) {
+            LOGGER.error(String.format("An exception was thrown while searching {} Twitter for users.", politicianName));
+            LOGGER.error(exception.getMessage());
             return null;
         }
     }

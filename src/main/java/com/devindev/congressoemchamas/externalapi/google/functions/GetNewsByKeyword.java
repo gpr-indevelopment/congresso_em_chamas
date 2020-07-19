@@ -32,11 +32,11 @@ public class GetNewsByKeyword extends CongressoResponseHandler<List<News>> {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime publishedDate = LocalDateTime.parse(StringUtils.substring(jsonObject.get("publishedAt").getAsString(), 0, 19), inputFormatter);
         newsPiece.setPublishedDate(Timestamp.valueOf(publishedDate));
-        newsPiece.setTitle(jsonObject.get("title").getAsString());
-        newsPiece.setLink(jsonObject.get("url").getAsString());
-        newsPiece.setImageLink(jsonObject.get("urlToImage").getAsString());
-        newsPiece.setDescription(jsonObject.get("description").getAsString());
-        newsPiece.setSourceName(jsonObject.get("source").getAsJsonObject().get("name").getAsString());
+        newsPiece.setTitle(nullCheckRetrievedStringValue(jsonObject.get("title")));
+        newsPiece.setLink(nullCheckRetrievedStringValue(jsonObject.get("url")));
+        newsPiece.setImageLink(nullCheckRetrievedStringValue(jsonObject.get("urlToImage")));
+        newsPiece.setDescription(nullCheckRetrievedStringValue(jsonObject.get("description")));
+        newsPiece.setSourceName(nullCheckRetrievedStringValue(jsonObject.get("source").getAsJsonObject().get("name")));
         return newsPiece;
     }
 }
