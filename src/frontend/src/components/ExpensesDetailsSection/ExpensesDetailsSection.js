@@ -6,7 +6,7 @@ function ExpensesDetails(props) {
 
   let detailsList = [];
   props.data.forEach(dataElement => {
-    detailsList.push(<CongressoComponents.ExpenseDetails data={dataElement} key={dataElement.documentNumber}/>)
+    detailsList.push(<CongressoComponents.ExpenseDetailsCard data={dataElement} key={dataElement.documentNumber}/>)
   });
   return (
     <div className={styles.container}>

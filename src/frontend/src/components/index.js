@@ -14,4 +14,5 @@ export { default as SearchInput } from "./SearchInput/SearchInput";
 export { default as ProfileCard } from "./ProfileCard/ProfileCard";
 export { default as ExpensesGraph } from "./ExpensesGraph/ExpensesGraph";
 export { default as ExpensesDetailsSection } from "./ExpensesDetailsSection/ExpensesDetailsSection";
-export { default as ExpenseDetails } from "./ExpenseDetails/ExpenseDetails";
+export { default as ExpenseDetailsCard } from "./ExpenseDetailsCard/ExpenseDetailsCard";
+export { default as NewsCard } from "./NewsCard/NewsCard";

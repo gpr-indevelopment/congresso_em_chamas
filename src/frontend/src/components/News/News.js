@@ -1,21 +1,34 @@
-import React from "react";
-import { Layout } from "antd";
+import React, { useEffect } from "react";
+import { Spin } from "antd";
 import * as CongressoComponents from "../index";
-const { Header, Content, Footer } = Layout;
+import styles from "./News.module.css";
 
-function News() {
+function News(props) {
+  useEffect(() => {
+    let politicianId = new URLSearchParams(window.location.search).get(
+      "politician"
+    );
+    props.handleExpensesRequest(politicianId);
+  }, []);
+
+  let buildNewsCards = (news) => {
+    let cards = [];
+    news.forEach(newsElement => {
+      cards.push(<CongressoComponents.NewsCard data={newsElement}/>);
+    })
+    return cards;
+  }
+
   return (
-    <Layout>
-      <Header>
-        <CongressoComponents.Header />
-      </Header>
-      <Content>
-        <div>News</div>
-      </Content>
-      <Footer>
-        <CongressoComponents.Footer />
-      </Footer>
-    </Layout>
+    <Spin spinning={props.loading} tip="Carregando...">
+      <CongressoComponents.Header />
+      <CongressoComponents.MainContent>
+        <div className={styles.container}>
+          {buildNewsCards(props.data)}
+        </div>
+      </CongressoComponents.MainContent>
+      <CongressoComponents.Footer />
+    </Spin>
   );
 }
 

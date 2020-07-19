@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Tooltip } from "antd";
-import styles from "./ExpenseDetails.module.css";
+import styles from "./ExpenseDetailsCard.module.css";
 import { WarningOutlined } from "@ant-design/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";

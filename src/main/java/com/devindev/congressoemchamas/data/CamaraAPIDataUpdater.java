@@ -73,8 +73,9 @@ public class CamaraAPIDataUpdater {
         return eligibleForUpdate;
     }
 
-    private Politician updatePolitician(Long id, Legislature legislature, Long delay) {
+    public Politician updatePolitician(Long id, Legislature legislature, Long delay) {
         try {
+            legislature = Objects.isNull(legislature) ? camaraAPI.requestCurrentLegislatureId() : legislature;
             delay = Objects.nonNull(delay) ? delay : 0;
             TimeUnit.SECONDS.sleep(delay);
             Politician politician = camaraAPI.requestPoliticianById(id);

@@ -1,0 +1,13 @@
+.card {
+  width: 300px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ant-card-meta-title {
+  white-space: normal !important;
+}
+
+.meta {
+    margin-bottom: 0.5rem;
+}

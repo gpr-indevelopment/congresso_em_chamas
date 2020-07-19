@@ -4,7 +4,7 @@ const baseUrl = "http://localhost:8080/"
 
 export function requestExpenses(politicianId) {
     return (dispatch) => {
-        dispatch(EXPENSES_ACTIONS.requestExpenses(politicianId));
+        dispatch(EXPENSES_ACTIONS.requestExpenses());
         fetch(`${baseUrl}politicians/${politicianId}/monthlyexpenses`).then((response) => {
             if(response.ok){
                 return response.json();
