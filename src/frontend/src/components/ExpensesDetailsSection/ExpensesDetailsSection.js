@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "./ExpensesDetailsSection.module.css";
-import * as CongressoComponents from "../index";
+import { ExpenseDetailsCard } from "../index";
 
 function ExpensesDetails(props) {
-
   let detailsList = [];
-  props.data.forEach(dataElement => {
-    detailsList.push(<CongressoComponents.ExpenseDetailsCard data={dataElement} key={dataElement.documentNumber}/>)
+  props.data.forEach((dataElement) => {
+    detailsList.push(
+      <ExpenseDetailsCard data={dataElement} key={dataElement.documentNumber} />
+    );
   });
   return (
     <div className={styles.container}>

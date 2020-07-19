@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import * as CongressoComponents from "../index";
+import {
+  Header,
+  MainContent,
+  ExpensesGraph,
+  ExpensesDetailsSection,
+  Footer,
+} from "../index";
 import styles from "./Expenses.module.css";
 import { Spin } from "antd";
 
@@ -13,19 +19,23 @@ function Expenses(props) {
 
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
-      <CongressoComponents.Header />
-      <CongressoComponents.MainContent>
+      <Header />
+      <MainContent>
         <div className={styles.container}>
           <div className={styles.chart}>
-            <CongressoComponents.ExpensesGraph
+            <ExpensesGraph
               data={props.expenseData}
-              onDataClick={(event, array) => array.length > 0 && props.handleDetailsClick(array[0]._index)}
+              onDataClick={(event, array) =>
+                array.length > 0 && props.handleDetailsClick(array[0]._index)
+              }
             />
           </div>
-          <CongressoComponents.ExpensesDetailsSection data={props.detailsData}/>
+          <ExpensesDetailsSection
+            data={props.detailsData}
+          />
         </div>
-      </CongressoComponents.MainContent>
-      <CongressoComponents.Footer />
+      </MainContent>
+      <Footer />
     </Spin>
   );
 }

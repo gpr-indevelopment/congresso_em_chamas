@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import * as CongressoComponents from "../../components/index";
+import { Search } from "../../components/index";
 import * as THUNK from "../thunk/searchThunk";
 
 const mapStateToProps = (state) => {
@@ -12,5 +12,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const SearchContainer = connect(mapStateToProps, mapDispatchToProps)(CongressoComponents.Search);
+const SearchContainer = connect(mapStateToProps, mapDispatchToProps)(Search);
 export default SearchContainer;

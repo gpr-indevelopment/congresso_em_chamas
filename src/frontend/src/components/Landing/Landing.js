@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./Landing.module.css";
-import * as CongressoComponents from "../index";
+import { LandingForm, LandingVideo, FeaturesShowcase, Footer } from "../index";
 
 function Landing(props) {
   return (
     <div>
       <div className={styles.container}>
-        <CongressoComponents.LandingForm/>
-        <CongressoComponents.LandingVideo />
+        <LandingForm />
+        <LandingVideo />
       </div>
-      <CongressoComponents.FeaturesShowcase/>
-      <CongressoComponents.Footer />
+      <FeaturesShowcase />
+      <Footer />
     </div>
   );
 }

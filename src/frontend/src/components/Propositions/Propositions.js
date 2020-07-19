@@ -1,21 +1,16 @@
 import React from "react";
-import { Layout } from "antd";
-import * as CongressoComponents from "../index";
-const { Header, Content, Footer } = Layout;
+import { Spin } from "antd";
+import { Header, Footer, MainContent } from "../index";
 
 function Propositions() {
   return (
-    <Layout>
-      <Header>
-        <CongressoComponents.Header />
-      </Header>
-      <Content>
+    <Spin spinning={false}>
+      <Header />
+      <MainContent>
         <div>Propositions</div>
-      </Content>
-      <Footer>
-        <CongressoComponents.Footer />
-      </Footer>
-    </Layout>
+      </MainContent>
+      <Footer />
+    </Spin>
   );
 }
 

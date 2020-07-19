@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import * as CongressoComponents from "../index";
+import {
+  ProfileCard,
+  Header,
+  SearchInput,
+  MainContent,
+  Footer,
+} from "../index";
 import { Spin } from "antd";
 import styles from "./Search.module.css";
 
@@ -16,22 +22,22 @@ function Search(props) {
   let buildDataCards = (profiles) => {
     let cards = [];
     profiles.forEach((profile) => {
-      cards.push(<CongressoComponents.ProfileCard profile={profile} />);
+      cards.push(<ProfileCard profile={profile} />);
     });
     return cards;
   };
 
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
-      <CongressoComponents.Header>
-        <CongressoComponents.SearchInput
+      <Header>
+        <SearchInput
           handleSearchSubmit={(input) => props.handleSearchRequest(input)}
         />
-      </CongressoComponents.Header>
-      <CongressoComponents.MainContent>
+      </Header>
+      <MainContent>
         <div className={styles.container}>{buildDataCards(props.profiles)}</div>
-      </CongressoComponents.MainContent>
-      <CongressoComponents.Footer />
+      </MainContent>
+      <Footer />
     </Spin>
   );
 }

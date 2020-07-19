@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import * as CongressoComponents from "../../components/index";
-import * as THUNK from "../thunk/newsThunk"
+import { News } from "../../components/index";
+import * as THUNK from "../thunk/newsThunk";
 
 const mapStateToProps = (state) => {
   return state.news;
@@ -8,9 +8,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleExpensesRequest: (politicianId) => dispatch(THUNK.requestNews(politicianId))
+    handleExpensesRequest: (politicianId) =>
+      dispatch(THUNK.requestNews(politicianId)),
   };
 };
 
-const NewsContainer = connect(mapStateToProps, mapDispatchToProps)(CongressoComponents.News);
+const NewsContainer = connect(mapStateToProps, mapDispatchToProps)(News);
 export default NewsContainer;
