@@ -1,11 +1,10 @@
 import * as NEWS_ACTIONS from "../actions/newsActions";
-
-const baseUrl = "http://localhost:8080/"
+import { config } from "../../constants";
 
 export function requestNews(politicianId) {
     return (dispatch) => {
         dispatch(NEWS_ACTIONS.requestNews());
-        fetch(`${baseUrl}politicians/${politicianId}/news`).then((response) => {
+        fetch(`${config.url}/politicians/${politicianId}/news`).then((response) => {
             if(response.ok){
                 return response.json();
             } else {

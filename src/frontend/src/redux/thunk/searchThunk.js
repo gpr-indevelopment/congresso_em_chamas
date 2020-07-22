@@ -1,11 +1,10 @@
 import * as SEARCH_ACTIONS from "../actions/searchActions";
-
-const baseUrl = "http://localhost:8080/"
+import { config } from "../../constants";
 
 export function requestSearch(politicianName) {
     return (dispatch) => {
         dispatch(SEARCH_ACTIONS.requestSearch(politicianName));
-        fetch(`${baseUrl}/profiles?name=${politicianName}`).then((response) => {
+        fetch(`${config.url}/profiles?name=${politicianName}`).then((response) => {
             if(response.ok){
                 return response.json();
             } else {
