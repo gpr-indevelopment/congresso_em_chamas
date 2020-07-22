@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { Search } from "../";
+import Search from "./Search";
 import * as THUNK from "../../redux/thunk/searchThunk";
 
 const mapStateToProps = (state) => {
