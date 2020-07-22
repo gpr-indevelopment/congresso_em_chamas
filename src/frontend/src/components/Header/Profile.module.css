@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+}
+
+h4 {
+    text-align: center;
+    color: var(--theme-title-color);
+    font-weight: 700;
+}
+
+h5 {
+    text-align: center;
+    color: rgba(255,255,255,.5);
+}
+
+.image {
+    border: .2rem solid rgba(255, 127, 39, 0.8);
+    margin-right: 20px;
+}

@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
 import { Header, MainContent, Footer } from "../";
-
 import ExpensesGraph from "./ExpensesGraph";
 import ExpensesDetailsSection from "./ExpensesDetailsSection";
 import styles from "./Expenses.module.css";
 import { Spin } from "antd";
 
 function Expenses(props) {
-  let { handleExpensesRequest } = props;
+  const { handleExpensesRequest } = props;
+  const politicianId = new URLSearchParams(window.location.search).get(
+    "politician"
+  );
   useEffect(() => {
-    let politician = new URLSearchParams(window.location.search).get(
-      "politician"
-    );
-    handleExpensesRequest(politician);
-  }, [handleExpensesRequest]);
+    handleExpensesRequest(politicianId);
+  }, [handleExpensesRequest, politicianId]);
 
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
-      <Header />
+      <Header politicianId={politicianId} />
       <MainContent>
         <div className={styles.container}>
           <div className={styles.chart}>

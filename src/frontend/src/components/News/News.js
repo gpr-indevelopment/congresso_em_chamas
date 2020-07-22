@@ -6,12 +6,12 @@ import styles from "./News.module.css";
 
 function News(props) {
   let { handleExpensesRequest } = props;
+  let politicianId = new URLSearchParams(window.location.search).get(
+    "politician"
+  );
   useEffect(() => {
-    let politicianId = new URLSearchParams(window.location.search).get(
-      "politician"
-    );
     handleExpensesRequest(politicianId);
-  }, [handleExpensesRequest]);
+  }, [handleExpensesRequest, politicianId]);
 
   let buildNewsCards = (news) => {
     let cards = [];
@@ -23,7 +23,7 @@ function News(props) {
 
   return (
     <Spin spinning={props.loading} tip="Carregando...">
-      <Header />
+      <Header politicianId={politicianId}/>
       <MainContent>
         <div className={styles.container}>{buildNewsCards(props.data)}</div>
       </MainContent>
