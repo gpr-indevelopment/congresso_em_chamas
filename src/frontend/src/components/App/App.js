@@ -1,8 +1,7 @@
 import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
-import { Landing, Propositions } from "./components/index";
-import * as Containers from "./redux/containers/index";
-import history from "./history";
+import { Landing, Propositions, SearchContainer, NewsContainer, ExpensesContainer } from "../";
+import history from "../../history";
 
 function App() {
   return (
@@ -12,16 +11,16 @@ function App() {
           <Landing />
         </Route>
         <Route path="/search">
-          <Containers.SearchContainer />
+          <SearchContainer />
         </Route>
         <Route exact path="/news">
-          <Containers.NewsContainer />
+          <NewsContainer />
         </Route>
         <Route exact path="/propositions">
           <Propositions />
         </Route>
         <Route exact path="/expenses">
-          <Containers.ExpensesContainer />
+          <ExpensesContainer />
         </Route>
       </Switch>
     </Router>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Spin } from "antd";
-import { Header, Footer, MainContent } from "../index";
+import { Header, Footer, MainContent } from "../";
 
 function Propositions() {
   return (

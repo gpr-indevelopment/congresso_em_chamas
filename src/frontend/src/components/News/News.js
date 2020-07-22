@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Spin } from "antd";
-import { Header, MainContent, Footer, NewsCard } from "../index";
+import { Header, MainContent, Footer } from "../";
+import NewsCard from "./NewsCard";
 import styles from "./News.module.css";
 
 function News(props) {

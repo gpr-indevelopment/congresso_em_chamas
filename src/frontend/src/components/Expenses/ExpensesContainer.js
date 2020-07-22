@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import * as THUNK from "../thunk/expensesThunk";
-import { Expenses } from "../../components/index";
-import * as EXPENSES_ACTIONS from "../actions/expensesActions";
+import * as THUNK from "../../redux/thunk/expensesThunk";
+import Expenses from "./Expenses";
+import * as EXPENSES_ACTIONS from "../../redux/actions/expensesActions";
 
 const mapStateToProps = (state) => {
   return state.expenses;

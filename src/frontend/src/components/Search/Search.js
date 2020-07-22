@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
-import {
-  ProfileCard,
-  Header,
-  SearchInput,
-  MainContent,
-  Footer,
-} from "../index";
+import { Header, PoliticianSearch, MainContent, Footer } from "../";
 import { Spin } from "antd";
+import ProfileCard from "./ProfileCard";
 import styles from "./Search.module.css";
 
 function Search(props) {
@@ -30,7 +25,7 @@ function Search(props) {
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
       <Header>
-        <SearchInput
+        <PoliticianSearch
           handleSearchSubmit={(input) => props.handleSearchRequest(input)}
         />
       </Header>

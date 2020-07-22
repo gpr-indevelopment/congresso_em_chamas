@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { News } from "../../components/index";
-import * as THUNK from "../thunk/newsThunk";
+import News from "./News";
+import * as THUNK from "../../redux/thunk/newsThunk";
 
 const mapStateToProps = (state) => {
   return state.news;

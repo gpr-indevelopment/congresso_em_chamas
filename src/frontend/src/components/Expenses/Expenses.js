@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import {
   Header,
   MainContent,
-  ExpensesGraph,
-  ExpensesDetailsSection,
   Footer,
-} from "../index";
+} from "../";
+
+import ExpensesGraph from "./ExpensesGraph";
+import ExpensesDetailsSection from "./ExpensesDetailsSection";
 import styles from "./Expenses.module.css";
 import { Spin } from "antd";
 

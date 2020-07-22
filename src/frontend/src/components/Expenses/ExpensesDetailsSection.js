@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ExpensesDetailsSection.module.css";
-import { ExpenseDetailsCard } from "../index";
+import ExpenseDetailsCard from "./ExpenseDetailsCard";
 
 function ExpensesDetails(props) {
   let detailsList = [];

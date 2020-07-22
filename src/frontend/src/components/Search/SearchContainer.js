@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { Search } from "../../components/index";
-import * as THUNK from "../thunk/searchThunk";
+import { Search } from "../";
+import * as THUNK from "../../redux/thunk/searchThunk";
 
 const mapStateToProps = (state) => {
   return state.search;

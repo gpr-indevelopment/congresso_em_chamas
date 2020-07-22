@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Space } from "antd";
+import { Card } from "antd";
 import styles from "./NewsCard.module.css";
 const { Meta } = Card;
 

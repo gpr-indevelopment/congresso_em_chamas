@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "antd";
 
-function SearchInput(props) {
+function PoliticianSearch(props) {
   let { Search } = Input;
   return (
     <Search
@@ -12,4 +12,4 @@ function SearchInput(props) {
   );
 }
 
-export default SearchInput;
+export default PoliticianSearch;
