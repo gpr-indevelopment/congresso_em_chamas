@@ -45,7 +45,7 @@ function Footer() {
                 alt="Faça doações com o botão do PayPal"
               />
               <img
-                alt=""
+                alt="Not available"
                 border="0"
                 src="https://www.paypal.com/pt_BR/i/scr/pixel.gif"
                 width="1"
@@ -55,8 +55,9 @@ function Footer() {
             <a
               href="https://github.com/gpr-indevelopment/congresso_em_chamas"
               target="_blank"
+              rel="noopener noreferrer"
             >
-              <img src={GitHubIcon} height={30} width={30} />
+              <img src={GitHubIcon} height={30} width={30} alt="Not available"/>
             </a>
           </div>
         </div>

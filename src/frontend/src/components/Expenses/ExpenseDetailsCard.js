@@ -19,7 +19,7 @@ function ExpenseDetails(props) {
       actions={[
         props.data.documentUrl ? (
           <Tooltip title="Comprovante">
-            <a href={props.data.documentUrl} target="_blank">
+            <a href={props.data.documentUrl} target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faFileAlt} key="document" size={"lg"} />
             </a>
           </Tooltip>

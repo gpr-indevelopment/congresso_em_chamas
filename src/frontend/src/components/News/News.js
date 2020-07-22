@@ -5,12 +5,13 @@ import NewsCard from "./NewsCard";
 import styles from "./News.module.css";
 
 function News(props) {
+  let { handleExpensesRequest } = props;
   useEffect(() => {
     let politicianId = new URLSearchParams(window.location.search).get(
       "politician"
     );
-    props.handleExpensesRequest(politicianId);
-  }, []);
+    handleExpensesRequest(politicianId);
+  }, [handleExpensesRequest]);
 
   let buildNewsCards = (news) => {
     let cards = [];

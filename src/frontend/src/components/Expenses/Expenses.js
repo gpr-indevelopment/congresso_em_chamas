@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Header,
-  MainContent,
-  Footer,
-} from "../";
+import { Header, MainContent, Footer } from "../";
 
 import ExpensesGraph from "./ExpensesGraph";
 import ExpensesDetailsSection from "./ExpensesDetailsSection";
@@ -11,12 +7,13 @@ import styles from "./Expenses.module.css";
 import { Spin } from "antd";
 
 function Expenses(props) {
+  let { handleExpensesRequest } = props;
   useEffect(() => {
     let politician = new URLSearchParams(window.location.search).get(
       "politician"
     );
-    props.handleExpensesRequest(politician);
-  }, []);
+    handleExpensesRequest(politician);
+  }, [handleExpensesRequest]);
 
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
@@ -31,9 +28,7 @@ function Expenses(props) {
               }
             />
           </div>
-          <ExpensesDetailsSection
-            data={props.detailsData}
-          />
+          <ExpensesDetailsSection data={props.detailsData} />
         </div>
       </MainContent>
       <Footer />

@@ -5,14 +5,15 @@ import ProfileCard from "./ProfileCard";
 import styles from "./Search.module.css";
 
 function Search(props) {
+  let { handleSearchRequest } = props;
   useEffect(() => {
     let politicianName = new URLSearchParams(window.location.search).get(
       "politicianName"
     );
     if (politicianName) {
-      props.handleSearchRequest(politicianName);
+      handleSearchRequest(politicianName);
     }
-  }, []);
+  }, [handleSearchRequest]);
 
   let buildDataCards = (profiles) => {
     let cards = [];
