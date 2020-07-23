@@ -5,7 +5,7 @@ import HeaderLogo from "./HeaderLogo";
 import { Link } from "react-router-dom";
 
 export default function Header(props) {
-  let { handleProfileLoading, politicianId } = props;
+  let { handleProfileLoading, politicianId, loading } = props;
   useEffect(() => {
     politicianId && handleProfileLoading(politicianId);
   }, [handleProfileLoading, politicianId]);
@@ -15,7 +15,9 @@ export default function Header(props) {
         <HeaderLogo />
       </Link>
       <div>{props.children}</div>
-      {politicianId && <Profile profile={props.profile} />}
+      {politicianId && (
+        <Profile profile={props.profile} loading={politicianId && loading} />
+      )}
     </div>
   );
 }
