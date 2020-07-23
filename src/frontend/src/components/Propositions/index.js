@@ -1,1 +1,1 @@
-export { default } from "./Propositions";
+export { default } from "./PropositionsContainer";
