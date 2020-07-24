@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tree, Timeline, Badge } from "antd";
 
 function PropositionTree(props) {
+  const [expandedKeys, setExpandedKeys] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState([]);
   let buildTreeFromProposition = (proposition) => {
     let baseTree = [
       {
@@ -66,7 +68,26 @@ function PropositionTree(props) {
       return [20, 0];
     }
   };
-  return <Tree treeData={buildTreeFromProposition(props.proposition)} />;
+
+  let onSelect = (selectedKeys, { node }) => {
+    if (node.props.isLeaf) {
+      setSelectedKeys(selectedKeys);
+    } else {
+      node.props.expanded
+        ? setExpandedKeys(expandedKeys.filter((k) => k !== node.props.eventKey))
+        : setExpandedKeys(expandedKeys.concat(node.props.eventKey));
+    }
+  };
+
+  return (
+    <Tree
+      treeData={buildTreeFromProposition(props.proposition)}
+      onSelect={(selectedKeys, e) => onSelect(selectedKeys, e)}
+      onExpand={(keys) => setExpandedKeys(keys)}
+      selectedKeys={selectedKeys}
+      expandedKeys={expandedKeys}
+    />
+  );
 }
 
 export default PropositionTree;

@@ -13,9 +13,7 @@ function PropositionsCard(props) {
     return title.length > maxTitleLength;
   };
   return (
-    <Card
-      className={styles.card}
-    >
+    <Card className={styles.card}>
       <h3>
         {isTitleLong(title)
           ? title.substring(0, maxTitleLength) + "..."
@@ -24,9 +22,11 @@ function PropositionsCard(props) {
       <h4 className={styles.type}>{typeDescription}</h4>
       <div className={styles.details}>
         <PropositionTree proposition={props.proposition} />
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <FilePdfOutlined className={styles.pdf} />
-        </a>
+        <div>
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            <FilePdfOutlined className={styles.pdf} />
+          </a>
+        </div>
       </div>
     </Card>
   );
