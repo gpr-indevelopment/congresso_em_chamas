@@ -2,13 +2,13 @@
     display: flex;
 }
 
-h4 {
+.name {
     text-align: center;
     color: var(--theme-title-color);
     font-weight: 700;
 }
 
-h5 {
+.party {
     text-align: center;
     color: rgba(255,255,255,.5);
 }

@@ -1,0 +1,25 @@
+.card {
+  width: 500px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.type {
+    font-weight: 300;
+}
+
+.pdf {
+    font-size: 35px;
+    color: var(--theme-bg-color);
+    transition: all .2s ease-in-out;
+}
+
+.pdf:hover {
+    transform: scale(1.2, 1.2);
+    color: var(--theme-main-color);
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+}

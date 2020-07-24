@@ -20,8 +20,8 @@ export default function Profile(props) {
             className={styles.image}
           />
           <div>
-            <h4>{props.profile.name}</h4>
-            <h5>{props.profile.party}</h5>
+            <h4 className={styles.name}>{props.profile.name}</h4>
+            <h5 className={styles.party}>{props.profile.party}</h5>
           </div>
         </div>
       )}
