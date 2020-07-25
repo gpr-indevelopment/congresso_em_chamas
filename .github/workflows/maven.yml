@@ -33,7 +33,7 @@ jobs:
     - name: Restart server
       uses: fifsky/ssh-action@v0.0.4
       with:
-        command: sh deploy.sh
+        command: export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} ; export PGADMIN_PASSWORD=${{ secrets.PGADMIN_PASSWORD }} ; sh deploy.sh
         host: ${{ secrets.CONGRESSO_SERVER_IP }}
         key: ${{ secrets.CONGRESSO_SERVER_SSH }}
     

@@ -7,8 +7,7 @@ services:
             - CAMARA_API_URL=dadosabertos.camara.leg.br/api/v2
             - GOOGLE_NEWS_API_KEY=d97966c338b44bffbeb4957480bd0d74
             - GOOGLE_NEWS_API_URL=newsapi.org/v2/everything
-            - JDBC_DATABASE_USERNAME=postgres
-            - JDBC_DATABASE_PASSWORD=password
+            - JDBC_DATABASE_PASSWORD=${POSTGRES_PASSWORD}
             - JDBC_DATABASE_URL=jdbc:postgresql://postgres/postgres?user=postgres&password=password
             - TWITTER_ACCESS_TOKEN=42526425-BCMdBupTQ2E2RP6L8aKTsc2uP6FyPLMAubn9mznJv
             - TWITTER_ACCESS_TOKEN_SECRET=VFZaLSeDXSAgOLoWih8NBdHGiX5BDRVgaUMPs4HKouNxT
@@ -19,14 +18,17 @@ services:
     postgres:
         image: postgres
         environment:
-            - POSTGRES_PASSWORD=password
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
         volumes:
             - congresso-db:/var/lib/postgresql/data
     pgadmin:
         image: dpage/pgadmin4
         environment: 
-            - PGADMIN_DEFAULT_EMAIL=username
-            - PGADMIN_DEFAULT_PASSWORD=password
+            - PGADMIN_DEFAULT_EMAIL=congressoemchamas
+            - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+        ports: 
+            - "5050:80"
+
 volumes: 
     congresso-db:
 
