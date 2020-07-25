@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Header, PoliticianSearch, MainContent, Footer } from "../";
-import { Spin } from "antd";
+import { Spin, Result } from "antd";
 import ProfileCard from "./ProfileCard";
 import styles from "./Search.module.css";
 
@@ -23,6 +23,12 @@ function Search(props) {
     return cards;
   };
 
+  let buildEmptyProfiles = () => {
+    return(
+      <Result status="404" title="Nenhum político foi encontrado. Tente novamente com outro nome."/>
+    )
+  }
+
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
       <Header>
@@ -31,7 +37,7 @@ function Search(props) {
         />
       </Header>
       <MainContent>
-        <div className={styles.container}>{buildDataCards(props.profiles)}</div>
+        <div className={styles.container}>{props.profiles.length > 0 ? buildDataCards(props.profiles) : buildEmptyProfiles()}</div>
       </MainContent>
       <Footer />
     </Spin>
