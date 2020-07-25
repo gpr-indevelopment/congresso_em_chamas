@@ -27,13 +27,14 @@ function HeaderDrawer(props) {
       }
     >
       <Menu>
-        <Menu.Item disabled={pathname === "/search"}>
+          <div className={styles.search}>
           <PoliticianSearch
-            handleSearchSubmit={(input) =>
-              window.open(`/search?politicianName=${input}`)
-            }
-          />
-        </Menu.Item>
+          handleSearchSubmit={(input) =>
+            window.location.href = `/search?politicianName=${input}`
+          }
+        />
+          </div>
+        
         <Menu.Item disabled={pathname === "/expenses"}>
           <Link to={`/expenses?politician=${politicianId}`}>
             <Row>

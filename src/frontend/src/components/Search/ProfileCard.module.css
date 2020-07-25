@@ -1,5 +1,5 @@
 .card {
     width: 300px;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin-right: 1rem !important;
+    margin-bottom: 1rem !important;
 }

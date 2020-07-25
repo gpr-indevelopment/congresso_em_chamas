@@ -1,7 +1,7 @@
 .card {
   width: 500px;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
+  margin-right: 1rem !important;
+  margin-bottom: 1rem !important;
 }
 
 .type {
@@ -10,13 +10,13 @@
 
 .pdf {
     font-size: 35px;
-    color: var(--theme-bg-color);
+    color: var(--theme-bg-color) !important;
     transition: all .2s ease-in-out;
 }
 
 .pdf:hover {
     transform: scale(1.2, 1.2);
-    color: var(--theme-main-color);
+    color: var(--theme-main-color) !important;
 }
 
 .details {

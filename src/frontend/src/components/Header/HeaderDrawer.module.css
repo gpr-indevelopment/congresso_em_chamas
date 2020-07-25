@@ -8,3 +8,7 @@
     display: grid;
     place-items: center;
 }
+
+.search {
+    margin-bottom: 13px;
+}

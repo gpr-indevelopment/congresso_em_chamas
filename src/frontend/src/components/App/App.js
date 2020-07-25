@@ -2,6 +2,7 @@ import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { Landing, Propositions, SearchContainer, NewsContainer, ExpensesContainer } from "../";
 import history from "../../history";
+import "./App.less";
 
 function App() {
   return (

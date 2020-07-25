@@ -5,7 +5,7 @@ function PoliticianSearch(props) {
   let { Search } = Input;
   return (
     <Search
-      placeholder="Insira o nome de um deputado"
+      placeholder="Deputado federal"
       enterButton
       onSearch={(input) => props.handleSearchSubmit(input)}
     />
