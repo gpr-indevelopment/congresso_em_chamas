@@ -4,9 +4,7 @@ services:
         image: pimentgabriel/congressoemchamas
         environment: 
             - PORT=80
-            - CAMARA_API_URL=dadosabertos.camara.leg.br/api/v2
             - GOOGLE_NEWS_API_KEY=d97966c338b44bffbeb4957480bd0d74
-            - GOOGLE_NEWS_API_URL=newsapi.org/v2/everything
             - JDBC_DATABASE_URL=jdbc:postgresql://postgres/postgres?user=postgres&password=${POSTGRES_PASSWORD}
             - TWITTER_ACCESS_TOKEN=42526425-BCMdBupTQ2E2RP6L8aKTsc2uP6FyPLMAubn9mznJv
             - TWITTER_ACCESS_TOKEN_SECRET=VFZaLSeDXSAgOLoWih8NBdHGiX5BDRVgaUMPs4HKouNxT
