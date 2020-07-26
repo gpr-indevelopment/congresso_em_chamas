@@ -16,12 +16,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: React build
-      uses: actions/setup-node@v2.1.1
+    - uses: actions/setup-node@v2.1.1
       with:
         node-version: '12'
-    - run: npm run-script build
-    - name: Move react build to Java
+    - name: React build
+      run: npm run-script build --prefix /frontend
+    - name: Copy frontend build to Java
       run: cp -R /home/runner/work/congresso_em_chamas/congresso_em_chamas/frontend/build/ /home/runner/work/congresso_em_chamas/congresso_em_chamas/backend/src/main/resources/static/
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
