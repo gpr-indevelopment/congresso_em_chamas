@@ -16,6 +16,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2.1.1
+      with:
+        node-version: '12'
+    - name: Install frontend dependencies
+      run: npm i --prefix /home/runner/work/congresso_em_chamas/congresso_em_chamas/frontend
+    - name: React build
+      run: npm run-script build --prefix /home/runner/work/congresso_em_chamas/congresso_em_chamas/frontend
+    - name: Copy frontend build to Java
+      run: cp -R /home/runner/work/congresso_em_chamas/congresso_em_chamas/frontend/build/ /home/runner/work/congresso_em_chamas/congresso_em_chamas/backend/src/main/resources/static/
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
