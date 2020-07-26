@@ -20,7 +20,7 @@ jobs:
       with:
         node-version: '12'
     - name: React build
-      run: npm run-script build --prefix /frontend
+      run: npm run-script build --prefix /home/runner/work/congresso_em_chamas/congresso_em_chamas/frontend
     - name: Copy frontend build to Java
       run: cp -R /home/runner/work/congresso_em_chamas/congresso_em_chamas/frontend/build/ /home/runner/work/congresso_em_chamas/congresso_em_chamas/backend/src/main/resources/static/
     - name: Set up JDK 1.8
