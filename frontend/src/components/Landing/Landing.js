@@ -10,7 +10,7 @@ function Landing(props) {
     <div>
       <div className={styles.container}>
         <LandingForm />
-        <LandingVideo />
+        {/* <LandingVideo /> */}
       </div>
       <FeaturesShowcase />
       <Footer />
