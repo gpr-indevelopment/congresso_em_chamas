@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Landing.module.css";
 import { Footer } from "../";
 import LandingForm from "./LandingForm";
-import LandingVideo from "./LandingVideo";
 import FeaturesShowcase from "./FeaturesShowcase";
 
 function Landing(props) {
