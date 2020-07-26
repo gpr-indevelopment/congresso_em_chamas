@@ -7,6 +7,7 @@ import { faFileAlt } from "@fortawesome/free-regular-svg-icons";
 import { faNewspaper, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PoliticianSearch from "../PoliticianSearch";
+import history from "../../history";
 
 function HeaderDrawer(props) {
   let pathname = window.location.pathname;
@@ -27,14 +28,14 @@ function HeaderDrawer(props) {
       }
     >
       <Menu>
-          <div className={styles.search}>
+        <div className={styles.search}>
           <PoliticianSearch
-          handleSearchSubmit={(input) =>
-            window.location.href = `/search?politicianName=${input}`
-          }
-        />
-          </div>
-        
+            handleSearchSubmit={(input) =>
+              history.push(`/search?politicianName=${input}`)
+            }
+          />
+        </div>
+
         <Menu.Item disabled={pathname === "/expenses"}>
           <Link to={`/expenses?politician=${politicianId}`}>
             <Row>
