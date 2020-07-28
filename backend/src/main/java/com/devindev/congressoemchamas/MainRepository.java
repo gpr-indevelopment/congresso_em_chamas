@@ -1,6 +1,8 @@
 package com.devindev.congressoemchamas;
 
 import com.devindev.congressoemchamas.data.CamaraAPIDataUpdater;
+import com.devindev.congressoemchamas.data.accesslog.AccessLog;
+import com.devindev.congressoemchamas.data.accesslog.AccessLogDAO;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.politician.PoliticianDAO;
@@ -22,6 +24,9 @@ public class MainRepository {
     @Autowired
     private CamaraAPIDataUpdater camaraAPIDataUpdater;
 
+    @Autowired
+    private AccessLogDAO accessLogDAO;
+
     public Politician findById(Long id){
         return politicianDAO.findById(id).orElseGet(() -> camaraAPIDataUpdater.updatePolitician(id, null, null));
     }
@@ -36,5 +41,9 @@ public class MainRepository {
 
     public List<MonthlyExpense> findExpensesByPoliticianAndLegislature(Long politicianId, Long legislatureId){
         return politicianDAO.findAllExpensesByPoliticianAndLegislature(politicianId, legislatureId);
+    }
+
+    public AccessLog saveAccessLog(AccessLog accessLog){
+        return accessLogDAO.save(accessLog);
     }
 }
