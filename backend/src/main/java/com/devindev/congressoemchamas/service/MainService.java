@@ -27,10 +27,10 @@ public class MainService {
     private CamaraAPI camaraAPI;
 
     @Autowired
-    private TwitterAPI twitterAPI;
+    private GoogleNewsAPI googleNewsAPI;
 
     @Autowired
-    private GoogleNewsAPI googleNewsAPI;
+    private MonthlyExpenseService monthlyExpenseService;
 
     public Politician findById(Long politicianId){
         return politiciansRepository.findById(politicianId);
@@ -55,14 +55,14 @@ public class MainService {
         } else {
             expenses = requestExpensesByLastMonths(politicianId, lastMonths);
         }
-        return MonthlyExpense.build(expenses);
+        return monthlyExpenseService.computeMonthlyExpenses(expenses);
     }
 
-    private List<Expense> requestExpensesByYears(Long politicianId, List<Integer> years) {
+    List<Expense> requestExpensesByYears(Long politicianId, List<Integer> years) {
         return camaraAPI.requestAllExpensesByPoliticianId(politicianId, null, years);
     }
 
-    private List<Expense> requestExpensesByCurrentLegislature(Long politicianId) {
+    List<Expense> requestExpensesByCurrentLegislature(Long politicianId) {
         List<Integer> years = new ArrayList<>();
         Legislature legislature = camaraAPI.requestCurrentLegislature();
         int startYear = legislature.getStartDate().getYear();
@@ -73,7 +73,7 @@ public class MainService {
         return camaraAPI.requestAllExpensesByPoliticianId(politicianId, null, years);
     }
 
-    private List<Expense> requestExpensesByLastMonths(Long politicianId, Integer lastMonths) {
+    List<Expense> requestExpensesByLastMonths(Long politicianId, Integer lastMonths) {
         List<Expense> expenses = new ArrayList<>();
         LocalDate now = LocalDate.now();
         for (int i = 0; i < lastMonths; i++) {

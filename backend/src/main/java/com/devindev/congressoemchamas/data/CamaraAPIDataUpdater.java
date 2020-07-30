@@ -9,6 +9,7 @@ import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
+import com.devindev.congressoemchamas.service.MonthlyExpenseService;
 import com.devindev.congressoemchamas.utils.CustomStopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,9 @@ public class CamaraAPIDataUpdater {
 
     @Autowired
     private TwitterAPI twitterAPI;
+
+    @Autowired
+    private MonthlyExpenseService monthlyExpenseService;
 
     @Value("${data.update.politician-expiration-time-days}")
     private Integer politicianExpirationTimeDays;
@@ -138,7 +142,7 @@ public class CamaraAPIDataUpdater {
             Long id = politician.getId();
             delay = Objects.nonNull(delay) ? delay : 0;
             TimeUnit.SECONDS.sleep(delay);
-            List<MonthlyExpense> monthlyExpenses = MonthlyExpense.build(camaraAPI.requestAllExpensesByPoliticianId(id, null, years));
+            List<MonthlyExpense> monthlyExpenses = monthlyExpenseService.computeMonthlyExpenses(camaraAPI.requestAllExpensesByPoliticianId(id, null, years));
             monthlyExpenses.forEach(monthlyExpense -> {
                 monthlyExpense.setPolitician(politician);
                 monthlyExpense.setLegislature(legislature);

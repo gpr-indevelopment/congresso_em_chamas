@@ -41,37 +41,6 @@ public class MonthlyExpense {
     @JsonManagedReference
     private List<Expense> expenses = new ArrayList<>();
 
-    public MonthlyExpense() {
-    }
-
-    public MonthlyExpense(YearMonth yearMonth) {
-        this.yearMonth = yearMonth;
-    }
-
-    public static List<MonthlyExpense> build(List<Expense> expenses) {
-        List<MonthlyExpense> monthlyExpenses = new ArrayList<>();
-        Map<YearMonth, MonthlyExpense> dateToMonthlyExpenses = new HashMap<>();
-        expenses.forEach(expense -> {
-            YearMonth currentYearMonth = expense.getYearMonth();
-            dateToMonthlyExpenses.putIfAbsent(currentYearMonth, new MonthlyExpense(currentYearMonth));
-            MonthlyExpense monthlyExpense = dateToMonthlyExpenses.get(currentYearMonth);
-            monthlyExpense.getExpenses().add(expense);
-            expense.setMonthlyExpense(monthlyExpense);
-        });
-        monthlyExpenses.addAll(dateToMonthlyExpenses.values());
-        monthlyExpenses.forEach(monthlyExpense -> monthlyExpense.build());
-        return monthlyExpenses;
-    }
-
-    private void build() {
-        this.value = 0;
-        expenses.forEach(expense -> addToValue(expense.getValue()));
-    }
-
-    private void addToValue(double increment) {
-        value += increment;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof MonthlyExpense) {
