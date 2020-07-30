@@ -4,6 +4,7 @@ import { faFileAlt } from "@fortawesome/free-regular-svg-icons";
 import { faNewspaper, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { Card, Avatar, Tooltip } from "antd";
 import { Link } from "react-router-dom";
+import { UserOutlined } from '@ant-design/icons';
 
 import React from "react";
 
@@ -33,7 +34,7 @@ function ProfileCard(props) {
       ]}
     >
       <Meta
-        avatar={<Avatar size={96} src={props.profile.picture} />}
+        avatar={<Avatar size={96} src={props.profile.picture} icon={<UserOutlined />}/>}
         title={props.profile.name}
         description={props.profile.party}
       />
