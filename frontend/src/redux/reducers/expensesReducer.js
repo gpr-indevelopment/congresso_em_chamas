@@ -5,7 +5,7 @@ const initialState = {
   rawData: [],
   expenseData: {},
   detailsData: [],
-  activeRadio: 1
+  activeRadio: 1,
 };
 
 export default function expensesReducer(state = initialState, action) {
@@ -13,6 +13,7 @@ export default function expensesReducer(state = initialState, action) {
     case EXPENSES_ACTIONS.REQUEST_EXPENSES:
       return Object.assign({}, state, {
         loading: true,
+        detailsData: [],
       });
     case EXPENSES_ACTIONS.RECEIVE_EXPENSES:
       return Object.assign({}, state, {
@@ -30,7 +31,7 @@ export default function expensesReducer(state = initialState, action) {
       });
     case EXPENSES_ACTIONS.RADIO_CHANGED:
       return Object.assign({}, state, {
-        activeRadio: action.value
+        activeRadio: action.value,
       });
     default:
       return Object.assign({}, state);
