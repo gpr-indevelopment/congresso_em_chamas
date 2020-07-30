@@ -51,7 +51,7 @@ function PropositionTree(props) {
     proposition.processingHistory.sort((a, b) => b.sequence - a.sequence);
     let items = proposition.processingHistory.map((ph) => {
       return (
-        <Timeline.Item color="var(--theme-bg-color)" label={new Date(ph.timestamp).toLocaleDateString()}>
+        <Timeline.Item color="var(--theme-bg-color)" label={new Date(ph.timestamp).toLocaleDateString()} key={ph.id}>
           {ph.description}
         </Timeline.Item>
       );

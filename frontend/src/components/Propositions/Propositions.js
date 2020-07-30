@@ -17,7 +17,7 @@ function Propositions(props) {
 
   let buildPropositionCards = (propositions) => {
     return propositions.map((proposition) => (
-      <PropositionsCard proposition={proposition} />
+      <PropositionsCard proposition={proposition} key={proposition.id}/>
     ));
   };
 

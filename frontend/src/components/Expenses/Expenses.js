@@ -15,7 +15,6 @@ function Expenses(props) {
     handleExpensesRequest(politicianId);
   }, [handleExpensesRequest, politicianId]);
 
-  console.log(props.expenseData);
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
       <Header politicianId={politicianId} />
