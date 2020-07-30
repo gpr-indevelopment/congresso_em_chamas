@@ -11,3 +11,9 @@
     margin-bottom: 3.5rem;
     height: 80vh;
 }
+
+.empty {
+    height: 80vh;
+    display: grid;
+    place-items: center;
+}

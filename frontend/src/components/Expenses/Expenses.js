@@ -3,7 +3,7 @@ import { Header, MainContent, Footer } from "../";
 import ExpensesGraph from "./ExpensesGraph";
 import ExpensesDetailsSection from "./ExpensesDetailsSection";
 import styles from "./Expenses.module.css";
-import { Spin } from "antd";
+import { Spin, Empty } from "antd";
 
 function Expenses(props) {
   const { handleExpensesRequest } = props;
@@ -14,21 +14,29 @@ function Expenses(props) {
     handleExpensesRequest(politicianId);
   }, [handleExpensesRequest, politicianId]);
 
+  console.log(props.expenseData);
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
       <Header politicianId={politicianId} />
       <MainContent>
-        <div className={styles.container}>
-          <div className={styles.chart}>
-            <ExpensesGraph
-              data={props.expenseData}
-              onDataClick={(event, array) =>
-                array.length > 0 && props.handleDetailsClick(array[0]._index)
-              }
-            />
+        {props.expenseData.monthlyExpenses &&
+        props.expenseData.monthlyExpenses.length > 0 ? (
+          <div className={styles.container}>
+            <div className={styles.chart}>
+              <ExpensesGraph
+                data={props.expenseData}
+                onDataClick={(event, array) =>
+                  array.length > 0 && props.handleDetailsClick(array[0]._index)
+                }
+              />
+            </div>
+            <ExpensesDetailsSection data={props.detailsData} />
           </div>
-          <ExpensesDetailsSection data={props.detailsData} />
-        </div>
+        ) : (
+          <div className={styles.empty}>
+            <Empty description="Sem dados" />
+          </div>
+        )}
       </MainContent>
       <Footer />
     </Spin>
