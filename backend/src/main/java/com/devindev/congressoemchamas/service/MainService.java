@@ -1,6 +1,7 @@
 package com.devindev.congressoemchamas.service;
 
 import com.devindev.congressoemchamas.data.MainRepository;
+import com.devindev.congressoemchamas.data.expenses.Expense;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.data.news.News;
@@ -12,6 +13,8 @@ import com.devindev.congressoemchamas.externalapi.google.GoogleNewsAPI;
 import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -41,19 +44,48 @@ public class MainService {
         return googleNewsAPI.requestNews(politiciansRepository.findById(politicianId).getName());
     }
 
-    public List<MonthlyExpense> findByLegislature(Long politicianId, Long legislatureId) {
-        return politiciansRepository.findExpensesByPoliticianAndLegislature(politicianId, legislatureId);
+    public List<MonthlyExpense> findMonthlyExpensesByPoliticianId(Long politicianId, List<Integer> years, Integer lastMonths) {
+        List<Expense> expenses;
+        if(Objects.isNull(lastMonths)){
+            if(Objects.isNull(years) || years.isEmpty()) {
+                expenses = requestExpensesByCurrentLegislature(politicianId);
+            } else {
+                expenses = requestExpensesByYears(politicianId, years);
+            }
+        } else {
+            expenses = requestExpensesByLastMonths(politicianId, lastMonths);
+        }
+        return MonthlyExpense.build(expenses);
     }
 
-    public List<MonthlyExpense> findMonthlyExpensesByPoliticianId(Long politicianId, List<Integer> months, List<Integer> years) {
-        return MonthlyExpense.build(camaraAPI.requestAllExpensesByPoliticianId(politicianId, months, years));
+    private List<Expense> requestExpensesByYears(Long politicianId, List<Integer> years) {
+        return camaraAPI.requestAllExpensesByPoliticianId(politicianId, null, years);
     }
 
-    public Legislature getCurrentLegislature(){
-        return camaraAPI.requestCurrentLegislatureId();
+    private List<Expense> requestExpensesByCurrentLegislature(Long politicianId) {
+        List<Integer> years = new ArrayList<>();
+        Legislature legislature = camaraAPI.requestCurrentLegislature();
+        int startYear = legislature.getStartDate().getYear();
+        int legislatureDurationYears = 4;
+        for (int i = 0; i < legislatureDurationYears; i++) {
+            years.add(startYear + i);
+        }
+        return camaraAPI.requestAllExpensesByPoliticianId(politicianId, null, years);
+    }
+
+    private List<Expense> requestExpensesByLastMonths(Long politicianId, Integer lastMonths) {
+        List<Expense> expenses = new ArrayList<>();
+        LocalDate now = LocalDate.now();
+        for (int i = 0; i < lastMonths; i++) {
+            LocalDate ld = now.minusMonths(i);
+            int month = ld.getMonthValue();
+            int year = ld.getYear();
+            expenses.addAll(camaraAPI.requestAllExpensesByPoliticianId(politicianId, Arrays.asList(month), Arrays.asList(year)));
+        }
+        return expenses;
     }
 
     public List<Profile> findProfilesByName(String name){
-        return camaraAPI.requestProfilesByNameAndLegislatureId(name, camaraAPI.requestCurrentLegislatureId().getId());
+        return camaraAPI.requestProfilesByNameAndLegislatureId(name, camaraAPI.requestCurrentLegislature().getId());
     }
 }

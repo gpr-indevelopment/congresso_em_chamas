@@ -47,7 +47,7 @@ public class CamaraAPIDataUpdater {
         LOGGER.error("Initiating data update scheduled job...");
         CustomStopWatch stopWatch = new CustomStopWatch();
         stopWatch.start("Fetching legislature");
-        Legislature legislature = camaraAPI.requestCurrentLegislatureId();
+        Legislature legislature = camaraAPI.requestCurrentLegislature();
         stopWatch.stop();
         stopWatch.start("Fetching profiles");
         List<Profile> profiles = camaraAPI.requestProfilesByNameAndLegislatureId(null, legislature.getId());
@@ -75,7 +75,7 @@ public class CamaraAPIDataUpdater {
 
     public Politician updatePolitician(Long id, Legislature legislature, Long delay) {
         try {
-            legislature = Objects.isNull(legislature) ? camaraAPI.requestCurrentLegislatureId() : legislature;
+            legislature = Objects.isNull(legislature) ? camaraAPI.requestCurrentLegislature() : legislature;
             delay = Objects.nonNull(delay) ? delay : 0;
             TimeUnit.SECONDS.sleep(delay);
             Politician politician = camaraAPI.requestPoliticianById(id);

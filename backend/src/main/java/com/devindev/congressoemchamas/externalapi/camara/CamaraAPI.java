@@ -61,7 +61,7 @@ public class CamaraAPI {
     }
 
     @Cacheable(cacheNames = "currentLegislatureId")
-    public Legislature requestCurrentLegislatureId() {
+    public Legislature requestCurrentLegislature() {
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
