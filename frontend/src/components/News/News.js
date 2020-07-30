@@ -17,7 +17,7 @@ function News(props) {
   let buildNewsCards = (news) => {
     let cards = [];
     news.forEach((newsElement) => {
-      cards.push(<NewsCard data={newsElement} />);
+      cards.push(<NewsCard data={newsElement} key={newsElement.link}/>);
     });
     return cards;
   };
