@@ -7,7 +7,16 @@
 }
 
 .chart {
+    height: 80vh;
+}
+
+.left {
     min-width: 75%;
     margin-bottom: 3.5rem;
-    height: 80vh;
+}
+
+.radio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
