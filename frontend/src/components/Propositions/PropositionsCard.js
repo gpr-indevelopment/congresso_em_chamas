@@ -7,21 +7,12 @@ import PropositionTree from "./PropositionTree";
 function PropositionsCard(props) {
   const { title, link, typeDescription } = props.proposition;
 
-  const maxTitleLength = 140;
-
-  let isTitleLong = (title) => {
-    return title.length > maxTitleLength;
-  };
   return (
     <Card className={styles.card}>
-      <h3>
-        {isTitleLong(title)
-          ? title.substring(0, maxTitleLength) + "..."
-          : title}
-      </h3>
+      <h3>{title}</h3>
       <h4 className={styles.type}>{typeDescription}</h4>
       <div className={styles.details}>
-        <PropositionTree proposition={props.proposition}/>
+        <PropositionTree proposition={props.proposition} />
         <div>
           <a href={link} target="_blank" rel="noopener noreferrer">
             <FilePdfOutlined className={styles.pdf} />
