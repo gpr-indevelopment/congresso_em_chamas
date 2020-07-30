@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleThisYearExpensesRequest: (politicianId, query) =>
+    handleExpensesRequest: (politicianId, query) =>
       dispatch(THUNK.requestExpenses(politicianId, query)),
     handleDetailsClick: (index) =>
       dispatch(EXPENSES_ACTIONS.showDetails(index)),
