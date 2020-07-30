@@ -1,10 +1,12 @@
 import * as EXPENSES_ACTIONS from "../actions/expensesActions";
 import { config } from "../../constants";
 
-export function requestExpenses(politicianId) {
+export function requestExpenses(politicianId, query) {
   return (dispatch) => {
     dispatch(EXPENSES_ACTIONS.requestExpenses());
-    fetch(`${config.url}/politicians/${politicianId}/monthlyexpenses`)
+    let url = new URL(`${config.url}/politicians/${politicianId}/monthlyexpenses`);
+    url.search = new URLSearchParams(query).toString();
+    fetch(url)
       .then((response) => {
         if (response.ok) {
           return response.json();

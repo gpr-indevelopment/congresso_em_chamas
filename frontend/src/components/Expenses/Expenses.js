@@ -7,7 +7,7 @@ import { Spin, Radio, Space } from "antd";
 import EmptyData from "../EmptyData";
 
 function Expenses(props) {
-  const { handleExpensesRequest, activeRadio } = props;
+  const { handleThisYearExpensesRequest, activeRadio } = props;
   const politicianId = new URLSearchParams(window.location.search).get(
     "politician"
   );
@@ -18,10 +18,12 @@ function Expenses(props) {
       case 3:
         break;
       default:
-        handleExpensesRequest(politicianId);
+        handleThisYearExpensesRequest(politicianId, {
+          years: new Date().getFullYear()
+        });
         break;
     }
-  }, [handleExpensesRequest, politicianId, activeRadio]);
+  }, [handleThisYearExpensesRequest, politicianId, activeRadio]);
 
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
