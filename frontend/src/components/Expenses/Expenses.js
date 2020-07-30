@@ -3,7 +3,8 @@ import { Header, MainContent, Footer } from "../";
 import ExpensesGraph from "./ExpensesGraph";
 import ExpensesDetailsSection from "./ExpensesDetailsSection";
 import styles from "./Expenses.module.css";
-import { Spin, Empty } from "antd";
+import { Spin } from "antd";
+import EmptyData from "../EmptyData";
 
 function Expenses(props) {
   const { handleExpensesRequest } = props;
@@ -33,9 +34,7 @@ function Expenses(props) {
             <ExpensesDetailsSection data={props.detailsData} />
           </div>
         ) : (
-          <div className={styles.empty}>
-            <Empty description="Sem dados" />
-          </div>
+          <EmptyData/>
         )}
       </MainContent>
       <Footer />
