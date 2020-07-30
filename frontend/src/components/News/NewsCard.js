@@ -1,7 +1,6 @@
 import React from "react";
 import { Card } from "antd";
 import styles from "./NewsCard.module.css";
-const { Meta } = Card;
 
 function NewsCard(props) {
   return (
@@ -11,8 +10,13 @@ function NewsCard(props) {
       hoverable
       onClick={() => window.open(props.data.link, "_blank")}
     >
-      <Meta title={props.data.title} description={props.data.sourceName + " - " + new Date(props.data.publishedDate).toLocaleDateString()} className={styles.meta}/>
-      <p>{props.data.description}</p>
+      <h4 className={styles.title}>{props.data.title}</h4>
+      <small>
+        {props.data.sourceName +
+          " - " +
+          new Date(props.data.publishedDate).toLocaleDateString()}
+      </small>
+      <p className={styles.description}>{props.data.description}</p>
     </Card>
   );
 }

@@ -4,10 +4,11 @@
   margin-bottom: 1rem !important;
 }
 
-.ant-card-meta-title {
-  white-space: normal !important;
+.title {
+  font-size: 15px;
+  font-weight: 600;
 }
 
-.meta {
-    margin-bottom: 0.5rem;
+.description {
+  margin-top: 5px;
 }
