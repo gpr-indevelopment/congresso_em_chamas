@@ -9,7 +9,9 @@ import { faCalendarAlt, faFileAlt } from "@fortawesome/free-regular-svg-icons";
 function ExpenseDetails(props) {
   return (
     <Card
-      title={props.data.provider}
+      title={
+        <Tooltip title={props.data.provider}>{props.data.provider}</Tooltip>
+      }
       className={styles.card}
       hoverable={props.data.documentUrl}
       onClick={
@@ -19,7 +21,11 @@ function ExpenseDetails(props) {
       actions={[
         props.data.documentUrl ? (
           <Tooltip title="Comprovante">
-            <a href={props.data.documentUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={props.data.documentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FontAwesomeIcon icon={faFileAlt} key="document" size={"lg"} />
             </a>
           </Tooltip>
