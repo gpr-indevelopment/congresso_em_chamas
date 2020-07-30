@@ -12,23 +12,22 @@ function ProfileCard(props) {
   const { Meta } = Card;
   return (
     <Card
-      id={props.profile.id}
       hoverable={true}
       className={styles.card}
       actions={[
         <Tooltip title="Despesas">
           <Link to={`/expenses?politician=${props.profile.id}`}>
-            <FontAwesomeIcon icon={faDollarSign} key="expenses" size={"lg"} />
+            <FontAwesomeIcon icon={faDollarSign} size={"lg"} />
           </Link>
         </Tooltip>,
-        <Tooltip title="Notícias">
+        <Tooltip title="Notícias" key="news">
           <Link to={`/news?politician=${props.profile.id}`}>
-            <FontAwesomeIcon icon={faNewspaper} key="news" size={"lg"} />
+            <FontAwesomeIcon icon={faNewspaper} size={"lg"} />
           </Link>
         </Tooltip>,
-        <Tooltip title="Proposições">
+        <Tooltip title="Proposições" key="propositions">
           <Link to={`/propositions?politician=${props.profile.id}`}>
-            <FontAwesomeIcon icon={faFileAlt} key="proposals" size={"lg"} />
+            <FontAwesomeIcon icon={faFileAlt} size={"lg"} />
           </Link>
         </Tooltip>,
       ]}

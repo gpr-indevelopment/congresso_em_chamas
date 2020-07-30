@@ -18,7 +18,7 @@ function Search(props) {
   let buildDataCards = (profiles) => {
     let cards = [];
     profiles.forEach((profile) => {
-      cards.push(<ProfileCard profile={profile} />);
+      cards.push(<ProfileCard profile={profile} key={profile.id}/>);
     });
     return cards;
   };
