@@ -1,5 +1,6 @@
-package com.devindev.congressoemchamas;
+package com.devindev.congressoemchamas.web;
 
+import com.devindev.congressoemchamas.data.MainRepository;
 import com.devindev.congressoemchamas.data.accesslog.AccessLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

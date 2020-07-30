@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas;
+package com.devindev.congressoemchamas.web;
 
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.legislature.Legislature;
@@ -6,6 +6,7 @@ import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
+import com.devindev.congressoemchamas.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,5 +1,6 @@
-package com.devindev.congressoemchamas;
+package com.devindev.congressoemchamas.service;
 
+import com.devindev.congressoemchamas.data.MainRepository;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.data.news.News;

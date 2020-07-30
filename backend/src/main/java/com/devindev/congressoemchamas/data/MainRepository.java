@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas;
+package com.devindev.congressoemchamas.data;
 
 import com.devindev.congressoemchamas.data.CamaraAPIDataUpdater;
 import com.devindev.congressoemchamas.data.accesslog.AccessLog;
