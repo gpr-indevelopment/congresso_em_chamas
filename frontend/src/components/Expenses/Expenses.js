@@ -7,13 +7,21 @@ import { Spin, Radio, Space } from "antd";
 import EmptyData from "../EmptyData";
 
 function Expenses(props) {
-  const { handleExpensesRequest } = props;
+  const { handleExpensesRequest, activeRadio } = props;
   const politicianId = new URLSearchParams(window.location.search).get(
     "politician"
   );
   useEffect(() => {
-    handleExpensesRequest(politicianId);
-  }, [handleExpensesRequest, politicianId]);
+    switch (activeRadio) {
+      case 2:
+        break;
+      case 3:
+        break;
+      default:
+        handleExpensesRequest(politicianId);
+        break;
+    }
+  }, [handleExpensesRequest, politicianId, activeRadio]);
 
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
@@ -24,10 +32,14 @@ function Expenses(props) {
           <div className={styles.container}>
             <Space direction="vertical" className={styles.left}>
               <div className={styles.radio}>
-                <Radio.Group defaultValue="1" buttonStyle="solid">
-                  <Radio.Button value="1">Esse ano</Radio.Button>
-                  <Radio.Button value="2">Últimos 6 meses</Radio.Button>
-                  <Radio.Button value="3">Legislatura</Radio.Button>
+                <Radio.Group
+                  defaultValue={props.activeRadio}
+                  buttonStyle="solid"
+                  onChange={(e) => props.handleRadioChanged(e.target.value)}
+                >
+                  <Radio.Button value={1}>Esse ano</Radio.Button>
+                  <Radio.Button value={2}>Últimos 6 meses</Radio.Button>
+                  <Radio.Button value={3}>Legislatura</Radio.Button>
                 </Radio.Group>
               </div>
               <div className={styles.chart}>

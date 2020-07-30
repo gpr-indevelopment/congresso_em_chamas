@@ -13,6 +13,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(THUNK.requestExpenses(politicianId)),
     handleDetailsClick: (index) =>
       dispatch(EXPENSES_ACTIONS.showDetails(index)),
+    handleRadioChanged: (value) =>
+      dispatch(EXPENSES_ACTIONS.radioChanged(value)),
   };
 };
 

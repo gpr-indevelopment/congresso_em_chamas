@@ -28,3 +28,11 @@ export function showDetails(index){
     index: index
   }
 }
+
+export const RADIO_CHANGED = "EXPENSES_ACTIONS.RADIO_CHANGED";
+export function radioChanged(value) {
+  return {
+    type: RADIO_CHANGED,
+    value: value
+  }
+}
