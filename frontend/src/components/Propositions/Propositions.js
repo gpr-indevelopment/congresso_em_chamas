@@ -3,6 +3,7 @@ import { Spin } from "antd";
 import { Header, Footer, MainContent } from "../";
 import PropositionsCard from "./PropositionsCard";
 import styles from "./Propositions.module.css";
+import EmptyData from "../EmptyData";
 
 function Propositions(props) {
   const { handlePropositionsRequest } = props;
@@ -24,7 +25,13 @@ function Propositions(props) {
     <Spin spinning={props.loading} tip="Carregando...">
       <Header politicianId={politicianId} />
       <MainContent>
-        <div className={styles.container}>{buildPropositionCards(props.propositions)}</div>
+        {(props.propositions.length > 0) ? (
+          <div className={styles.container}>
+            {buildPropositionCards(props.propositions)}
+          </div>
+        ) : (
+          <EmptyData/>
+        )}
       </MainContent>
       <Footer />
     </Spin>
