@@ -8,7 +8,7 @@ import java.util.Objects;
 public class CustomURIBuilder extends URIBuilder {
 
     public void addListParameter(String key, List<? extends Object> values){
-        if(Objects.nonNull(values)){
+        if(Objects.nonNull(values) && !values.isEmpty()){
             for (Object value : values) {
                 addParameter(key, value.toString());
             }
