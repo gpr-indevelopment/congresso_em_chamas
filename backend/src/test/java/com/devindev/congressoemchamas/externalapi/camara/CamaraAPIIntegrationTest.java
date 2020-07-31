@@ -17,8 +17,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {CamaraAPI.class, CamaraConfig.class})
-public class CamaraAPITest {
+@ContextConfiguration(classes = {CamaraAPI.class, CamaraConfig.class, RequestsSender.class})
+public class CamaraAPIIntegrationTest {
 
     @Autowired
     private CamaraAPI camaraAPI;

@@ -24,6 +24,9 @@ public class CamaraAPI {
     @Autowired
     private CamaraConfig camaraConfig;
 
+    @Autowired
+    private RequestsSender requestsSender;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
     @Cacheable(cacheNames = "politicianIdsByNameAndLegislatureId")
@@ -36,7 +39,7 @@ public class CamaraAPI {
                     .addParameter("nome", name)
                     .addParameter("idLegislatura", legislatureId.toString());
             GetProfilesByName apiFunctionHandler = new GetProfilesByName();
-            return Request.Get(builder.build()).execute().handleResponse(apiFunctionHandler);
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve politician IDs by name on CamaraAPI.");
@@ -52,7 +55,7 @@ public class CamaraAPI {
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
                     .setPathSegments("deputados", id.toString());
             GetPoliticianById apiFunctionHandler = new GetPoliticianById();
-            return Request.Get(builder.build()).execute().handleResponse(apiFunctionHandler);
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve politician by id on CamaraAPI.");
@@ -70,7 +73,7 @@ public class CamaraAPI {
                     .addParameter("ordem", "DESC")
                     .addParameter("ordenarPor", "id");
             GetCurrentLegislature apiFunctionHandler = new GetCurrentLegislature();
-            return Request.Get(builder.build()).execute().handleResponse(apiFunctionHandler);
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the current legislature ID from CamaraAPI.");
@@ -89,7 +92,7 @@ public class CamaraAPI {
                     .addParameter("ordem", "DESC")
                     .addParameter("ordenarPor", "id");
             GetPropositionsIdsByPoliticianId apiFunctionHandler = new GetPropositionsIdsByPoliticianId();
-            return Request.Get(builder.build()).execute().handleResponse(apiFunctionHandler);
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve proposition IDs from CamaraAPI.");
@@ -105,8 +108,8 @@ public class CamaraAPI {
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
                     .setPathSegments("proposicoes", propositionId.toString());
             GetPropositionsByPolitician apiFunctionHandler = new GetPropositionsByPolitician();
-            return Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
-        } catch (IOException exception) {
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
+        } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve a proposition from CamaraAPI.");
             LOGGER.error("Returning a null proposition.");
@@ -121,7 +124,7 @@ public class CamaraAPI {
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
                     .setPathSegments("proposicoes", propositionId.toString(), "autores");
             GetAuthorsByPropositionId apiFunctionHandler = new GetAuthorsByPropositionId();
-            return Request.Get(builder.build()).execute().handleResponse(apiFunctionHandler);
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the authors list of a proposition from CamaraAPI.");
@@ -137,8 +140,8 @@ public class CamaraAPI {
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
                     .setPathSegments("proposicoes", propositionId.toString(), "tramitacoes");
             GetProcessingHistoryByPropisitionId apiFunctionHandler = new GetProcessingHistoryByPropisitionId();
-            return Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
-        } catch (IOException exception) {
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
+        } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the processing list of a proposition from CamaraAPI.");
             LOGGER.error("Returning null instead of a processing list.");
@@ -156,8 +159,8 @@ public class CamaraAPI {
             builder.addListParameter("mes", requestMonths);
             builder.addListParameter("ano", requestYears);
             GetAllExpensesByPoliticianId apiFunctionHandler = new GetAllExpensesByPoliticianId();
-            return Request.Get(builder.toString()).execute().handleResponse(apiFunctionHandler);
-        } catch (IOException exception) {
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
+        } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("Unable to retrieve the expenses list from CamaraAPI.");
             LOGGER.error("Returning null instead of a expenses list.");
