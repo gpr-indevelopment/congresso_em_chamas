@@ -29,6 +29,7 @@ public class CamaraAPI {
     @Cacheable(cacheNames = "politicianIdsByNameAndLegislatureId")
     public List<Profile> requestProfilesByNameAndLegislatureId(String name, Long legislatureId) {
         try {
+            legislatureId = Objects.isNull(legislatureId) ? requestCurrentLegislature().getId() : legislatureId;
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
                     .setPath("deputados")
