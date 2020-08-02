@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import twitter4j.ResponseList;
-import twitter4j.TwitterException;
 import twitter4j.User;
 
 @Component
@@ -18,7 +17,7 @@ public class TwitterAPI {
 
     public String requestTwitterUsernameByName(String politicianName) {
         try {
-            ResponseList<User> usersFound = twitterConfig.getTwitter().searchUsers(politicianName, 0);
+            ResponseList<User> usersFound = twitterConfig.searchUsers(politicianName, 0);
             if(!usersFound.isEmpty()) {
                 return usersFound.get(0).getScreenName();
             }

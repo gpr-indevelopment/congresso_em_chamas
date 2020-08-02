@@ -3,8 +3,7 @@ package com.devindev.congressoemchamas.externalapi.twitter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
+import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
 import javax.annotation.PostConstruct;
@@ -37,7 +36,7 @@ public class TwitterConfig {
         this.twitterFactory = new TwitterFactory(cb.build());
     }
 
-    public Twitter getTwitter(){
-        return twitterFactory.getInstance();
+    public ResponseList<User> searchUsers(String searchKey, int i) throws TwitterException {
+        return twitterFactory.getInstance().searchUsers(searchKey, i);
     }
 }
