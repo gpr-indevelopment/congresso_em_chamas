@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.externalapi.camara;
+package com.devindev.congressoemchamas.externalapi;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.fluent.Request;

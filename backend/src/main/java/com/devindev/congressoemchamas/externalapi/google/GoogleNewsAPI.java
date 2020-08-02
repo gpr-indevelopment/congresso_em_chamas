@@ -1,6 +1,7 @@
 package com.devindev.congressoemchamas.externalapi.google;
 
 import com.devindev.congressoemchamas.data.news.News;
+import com.devindev.congressoemchamas.externalapi.RequestsSender;
 import com.devindev.congressoemchamas.externalapi.google.functions.GetNewsByKeyword;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
@@ -18,6 +19,9 @@ public class GoogleNewsAPI {
     @Autowired
     private GoogleNewsConfig googleNewsConfig;
 
+    @Autowired
+    private RequestsSender requestsSender;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleNewsAPI.class);
 
     public List<News> requestNews(String keyword){
@@ -29,7 +33,7 @@ public class GoogleNewsAPI {
                     .addParameter("q", "Deputado " + keyword)
                     .addParameter("sortBy", "publishedAt");
             GetNewsByKeyword apiFunctionHandler = new GetNewsByKeyword();
-            return Request.Get(builder.build()).execute().handleResponse(apiFunctionHandler);
+            return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             LOGGER.error("An error occurred on requesting news from Google News API. Returning an empty news list.");

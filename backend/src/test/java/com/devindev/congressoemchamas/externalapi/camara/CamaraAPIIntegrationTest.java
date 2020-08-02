@@ -6,6 +6,7 @@ import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.processing.Processing;
 import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
+import com.devindev.congressoemchamas.externalapi.RequestsSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

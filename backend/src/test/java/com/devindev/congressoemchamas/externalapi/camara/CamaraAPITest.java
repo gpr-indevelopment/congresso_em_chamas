@@ -3,6 +3,7 @@ package com.devindev.congressoemchamas.externalapi.camara;
 import com.devindev.congressoemchamas.TestUtils;
 import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.exceptions.InvalidRequestException;
+import com.devindev.congressoemchamas.externalapi.RequestsSender;
 import com.devindev.congressoemchamas.externalapi.camara.functions.GetCurrentLegislature;
 import org.apache.http.client.ResponseHandler;
 import org.junit.Before;

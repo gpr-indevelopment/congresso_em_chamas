@@ -7,16 +7,16 @@ import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.exceptions.InvalidRequestException;
 import com.devindev.congressoemchamas.externalapi.CustomURIBuilder;
+import com.devindev.congressoemchamas.externalapi.RequestsSender;
 import com.devindev.congressoemchamas.externalapi.camara.functions.*;
 import com.devindev.congressoemchamas.data.politician.Politician;
-import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
-import java.io.IOException;
+
 import java.util.*;
 
 @Component
