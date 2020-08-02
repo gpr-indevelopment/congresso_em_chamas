@@ -1,8 +1,11 @@
 package com.devindev.congressoemchamas;
 
 import com.devindev.congressoemchamas.data.expenses.Expense;
+import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.data.news.News;
 import com.devindev.congressoemchamas.data.politician.Politician;
+import com.devindev.congressoemchamas.data.processing.Processing;
+import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import net.bytebuddy.utility.RandomString;
 
@@ -58,5 +61,37 @@ public class TestUtils {
         news.setSourceName(RandomString.make());
         news.setTitle(RandomString.make());
         return news;
+    }
+
+    public static Legislature generateRandomLegislature() {
+        Random rand = new Random();
+        Legislature legislature = new Legislature();
+        legislature.setId(rand.nextLong());
+        legislature.setEndDate(YearMonth.now());
+        legislature.setStartDate(YearMonth.now().minusYears(1));
+        return legislature;
+    }
+
+    public static Processing generateRandomProcessing() {
+        Random rand = new Random();
+        Processing processing = new Processing();
+        processing.setId(rand.nextLong());
+        processing.setDescription(RandomString.make());
+        processing.setEntityInitials(RandomString.make());
+        processing.setSequence(rand.nextInt());
+        processing.setTitle(RandomString.make());
+        processing.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        return processing;
+    }
+
+    public static Profile generateRandomProfile() {
+        Random rand = new Random();
+        Profile profile = new Profile();
+        profile.setName(RandomString.make());
+        profile.setId(rand.nextLong());
+        profile.setLegislatureId(rand.nextLong());
+        profile.setParty(RandomString.make());
+        profile.setPicture(RandomString.make());
+        return profile;
     }
 }
