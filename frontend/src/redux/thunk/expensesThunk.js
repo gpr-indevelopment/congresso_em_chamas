@@ -4,9 +4,9 @@ import { config } from "../../constants";
 export function requestExpenses(politicianId, query) {
   return (dispatch) => {
     dispatch(EXPENSES_ACTIONS.requestExpenses());
-    let url = new URL(`${config.url}/politicians/${politicianId}/monthlyexpenses`);
-    url.search = new URLSearchParams(query).toString();
-    fetch(url)
+    let url = `${config.url}/politicians/${politicianId}/monthlyexpenses`;
+    let search = new URLSearchParams(query).toString();
+    fetch(`${url}?${search}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
