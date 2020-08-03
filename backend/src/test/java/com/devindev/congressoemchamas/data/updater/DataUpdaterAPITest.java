@@ -48,7 +48,7 @@ public class DataUpdaterAPITest {
     @After
     public void stopAndAssertStopWatch() {
         stopWatch.stop();
-        assertThat(stopWatch.getLastTaskTimeMillis()).isGreaterThan(5000);
+        assertThat(stopWatch.getLastTaskTimeMillis()).isGreaterThan(4999);
     }
 
     @Test
