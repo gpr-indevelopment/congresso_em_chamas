@@ -23,7 +23,7 @@ public class TwitterAPI {
             }
             return null;
         } catch (Exception exception) {
-            LOGGER.error(String.format("An exception was thrown while searching {} Twitter for users.", politicianName));
+            LOGGER.error(String.format("An exception was thrown while searching %s on Twitter.", politicianName));
             LOGGER.error(exception.getMessage());
             return null;
         }
