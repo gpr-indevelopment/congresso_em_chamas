@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio {
+    display: flex !important;
+    justify-content: center;
+    flex-wrap: wrap;
+}

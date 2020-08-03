@@ -3,8 +3,9 @@ import { Header, MainContent, Footer } from "../";
 import ExpensesGraph from "./ExpensesGraph";
 import ExpensesDetailsSection from "./ExpensesDetailsSection";
 import styles from "./Expenses.module.css";
-import { Spin, Radio, Space } from "antd";
+import { Spin, Space } from "antd";
 import EmptyData from "../EmptyData";
+import ExpensesRadio from "./ExpensesRadio";
 
 function Expenses(props) {
   const { handleExpensesRequest, activeRadio } = props;
@@ -36,18 +37,8 @@ function Expenses(props) {
         {props.expenseData.monthlyExpenses &&
         props.expenseData.monthlyExpenses.length > 0 ? (
           <div className={styles.container}>
-            <Space direction="vertical" className={styles.left}>
-              <div className={styles.radio}>
-                <Radio.Group
-                  defaultValue={props.activeRadio}
-                  buttonStyle="solid"
-                  onChange={(e) => props.handleRadioChanged(e.target.value)}
-                >
-                  <Radio.Button value={1}>Esse ano</Radio.Button>
-                  <Radio.Button value={2}>Últimos 6 meses</Radio.Button>
-                  <Radio.Button value={3}>Legislatura</Radio.Button>
-                </Radio.Group>
-              </div>
+            <Space direction="vertical" className={styles.left} size="middle">
+              <ExpensesRadio active={props.activeRadio} onChange={props.handleRadioChanged}/>
               <div className={styles.chart}>
                 <ExpensesGraph
                   data={props.expenseData}
