@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Tree, Timeline, Badge } from "antd";
 import styles from "./PropositionTree.module.css";
+import { DownOutlined } from '@ant-design/icons';
 
 function PropositionTree(props) {
   const [expandedKeys, setExpandedKeys] = useState([]);
@@ -10,7 +11,7 @@ function PropositionTree(props) {
       {
         title: (
           <Badge
-            style={{ backgroundColor: "var(--theme-main-color)" }}
+            style={{ backgroundColor: "var(--theme-bg-color)" }}
             count={proposition.authors.length}
             offset={calculateBadgeOffset(proposition.authors.length)}
           >
@@ -23,7 +24,7 @@ function PropositionTree(props) {
       {
         title: (
           <Badge
-            style={{ backgroundColor: "var(--theme-main-color)" }}
+            style={{ backgroundColor: "var(--theme-bg-color)" }}
             count={proposition.processingHistory.length}
             offset={calculateBadgeOffset(proposition.processingHistory.length)}
           >
@@ -95,6 +96,7 @@ function PropositionTree(props) {
       onExpand={(keys) => setExpandedKeys(keys)}
       selectedKeys={selectedKeys}
       expandedKeys={expandedKeys}
+      switcherIcon={<DownOutlined className={styles.switcher}/>}
     />
   );
 }

@@ -13,11 +13,9 @@ function PropositionsCard(props) {
       <h4 className={styles.type}>{typeDescription}</h4>
       <div className={styles.details}>
         <PropositionTree proposition={props.proposition} />
-        <div>
-          <a href={link} target="_blank" rel="noopener noreferrer">
-            <FilePdfOutlined className={styles.pdf} />
-          </a>
-        </div>
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          <FilePdfOutlined className={styles.pdf} />
+        </a>
       </div>
     </Card>
   );

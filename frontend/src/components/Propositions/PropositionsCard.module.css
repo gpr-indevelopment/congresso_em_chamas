@@ -10,13 +10,15 @@
 
 .pdf {
     font-size: 35px;
-    color: var(--theme-bg-color) !important;
+    color: var(--theme-main-color) !important;
     transition: all .2s ease-in-out;
+    display: flex;
+    justify-content: center;
 }
 
 .pdf:hover {
     transform: scale(1.2, 1.2);
-    color: var(--theme-main-color) !important;
+    color: var(--theme-bg-color) !important;
 }
 
 .details {

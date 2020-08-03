@@ -1,3 +1,7 @@
 .timeline {
     min-width: 200px !important;
 }
+
+.switcher {
+    color: var(--theme-main-color) !important;
+}
