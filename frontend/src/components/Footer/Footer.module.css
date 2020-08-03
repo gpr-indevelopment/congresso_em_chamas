@@ -9,11 +9,13 @@
 .left {
   max-width: 250px;
   margin-right: 21px;
+  width: 45%;
 }
 
 .right {
   max-width: 250px;
   margin-left: 21px;
+  width: 45%;
 }
 
 .title {
@@ -36,8 +38,11 @@
 
 .links {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .links > * {
     margin-right: 21px;
+    margin-bottom: 11px;
 }
