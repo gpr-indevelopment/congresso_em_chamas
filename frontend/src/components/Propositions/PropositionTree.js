@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Tree, Timeline, Badge } from "antd";
+import styles from "./PropositionTree.module.css";
 
 function PropositionTree(props) {
   const [expandedKeys, setExpandedKeys] = useState([]);
@@ -51,12 +52,20 @@ function PropositionTree(props) {
     proposition.processingHistory.sort((a, b) => b.sequence - a.sequence);
     let items = proposition.processingHistory.map((ph) => {
       return (
-        <Timeline.Item color="var(--theme-bg-color)" label={new Date(ph.timestamp).toLocaleDateString()} key={ph.id}>
-          {ph.description}
+        <Timeline.Item
+          color="var(--theme-bg-color)"
+          label={new Date(ph.timestamp).toLocaleDateString()}
+          key={ph.id}
+        >
+          <p>{ph.description}</p>
         </Timeline.Item>
       );
     });
-    return <Timeline mode="right">{items}</Timeline>;
+    return (
+      <Timeline mode="right" className={styles.timeline}>
+        {items}
+      </Timeline>
+    );
   };
 
   let calculateBadgeOffset = (length) => {
