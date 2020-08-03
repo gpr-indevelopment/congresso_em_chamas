@@ -44,14 +44,12 @@ public class DataUpdaterManagerTest {
         when(dataUpdaterAPI.requestPoliticianById(1L)).thenReturn(pol);
         doNothing().when(dataUpdater).updateExpenses(pol, leg);
         doNothing().when(dataUpdater).updatePropositions(pol);
-        doNothing().when(dataUpdater).updateTwitterUsername(pol);
         when(dao.save(pol)).thenReturn(TestUtils.generateRandomPolitician());
         // then
         Politician returnedPol = dataUpdaterManager.updatePolitician(1L, leg);
         assertThat(returnedPol).isNotEqualTo(pol);
         verify(dataUpdater).updateExpenses(pol, leg);
         verify(dataUpdater).updatePropositions(pol);
-        verify(dataUpdater).updateTwitterUsername(pol);
     }
 
     @Test
@@ -64,14 +62,12 @@ public class DataUpdaterManagerTest {
         when(dataUpdaterAPI.requestPoliticianById(1L)).thenReturn(pol);
         doNothing().when(dataUpdater).updateExpenses(pol, leg);
         doNothing().when(dataUpdater).updatePropositions(pol);
-        doNothing().when(dataUpdater).updateTwitterUsername(pol);
         when(dao.save(pol)).thenReturn(TestUtils.generateRandomPolitician());
         // then
         Politician returnedPol = dataUpdaterManager.updatePolitician(1L, null);
         assertThat(returnedPol).isNotEqualTo(pol);
         verify(dataUpdater).updateExpenses(pol, leg);
         verify(dataUpdater).updatePropositions(pol);
-        verify(dataUpdater).updateTwitterUsername(pol);
     }
 
     @Test
@@ -92,10 +88,8 @@ public class DataUpdaterManagerTest {
         when(dataUpdaterAPI.requestPoliticianById(prof2.getId())).thenReturn(pol2);
         doNothing().when(dataUpdater).updateExpenses(pol1, leg);
         doNothing().when(dataUpdater).updatePropositions(pol1);
-        doNothing().when(dataUpdater).updateTwitterUsername(pol1);
         doNothing().when(dataUpdater).updateExpenses(pol2, leg);
         doNothing().when(dataUpdater).updatePropositions(pol2);
-        doNothing().when(dataUpdater).updateTwitterUsername(pol2);
         when(dao.save(pol1)).thenReturn(TestUtils.generateRandomPolitician());
         when(dao.save(pol2)).thenReturn(TestUtils.generateRandomPolitician());
         // then
@@ -103,7 +97,6 @@ public class DataUpdaterManagerTest {
         verify(dataUpdater, times(0)).eligibleForUpdate(any(Politician.class));
         verify(dataUpdater, times(2)).updateExpenses(any(Politician.class), any(Legislature.class));
         verify(dataUpdater, times(2)).updatePropositions(any(Politician.class));
-        verify(dataUpdater, times(2)).updateTwitterUsername(any(Politician.class));
         verify(dao, times(2)).save(any(Politician.class));
     }
 
