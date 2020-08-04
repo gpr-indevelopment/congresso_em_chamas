@@ -13,6 +13,10 @@ function Footer() {
           mandato. Visamos contribuir com a transparência da atividade do
           legislativo.
         </p>
+        <div className={styles.title}>Contato e suporte</div>
+        <p className={styles.text}>
+          Envie um e-mail para: sitecongressoemchamas@gmail.com
+        </p>
       </div>
       <div className={styles.right}>
         <div className={styles.title}>Contribua!</div>
