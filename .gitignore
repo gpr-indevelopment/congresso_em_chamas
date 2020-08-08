@@ -33,4 +33,5 @@ mvnw.cmd
 /.mvn
 CongressoEmChamas.iml
 backend/src/main/resources/static/*
+_old
 
