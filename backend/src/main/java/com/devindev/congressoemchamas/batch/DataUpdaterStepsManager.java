@@ -21,7 +21,7 @@ public class DataUpdaterStepsManager {
     private CamaraWriter camaraWriter;
 
     @Bean
-    public Step updateEligibility() {
+    public Step loadDatabasePolitician() {
         return factory.get("someStep")
                 .<Long, Long>chunk(10)
                 .reader(camaraReader)
@@ -30,7 +30,7 @@ public class DataUpdaterStepsManager {
     }
 
     @Bean
-    public Step loadFromPolitician() {
+    public Step loadCamaraPolitician() {
         return factory.get("someStep")
                 .<Long, Long>chunk(10)
                 .reader(camaraReader)
@@ -39,7 +39,7 @@ public class DataUpdaterStepsManager {
     }
 
     @Bean
-    public Step loadFromExpenses() {
+    public Step loadCamaraExpenses() {
         return factory.get("someStep")
                 .<Long, Long>chunk(10)
                 .reader(camaraReader)
@@ -48,7 +48,7 @@ public class DataUpdaterStepsManager {
     }
 
     @Bean
-    public Step loadFromPropositions() {
+    public Step loadCamaraPropositions() {
         return factory.get("someStep")
                 .<Long, Long>chunk(10)
                 .reader(camaraReader)
@@ -57,7 +57,7 @@ public class DataUpdaterStepsManager {
     }
 
     @Bean
-    public Step politicianPersistence() {
+    public Step savePolitician() {
         return factory.get("someStep")
                 .<Long, Long>chunk(10)
                 .reader(camaraReader)

@@ -23,9 +23,9 @@ public class DataUpdaterJobManager {
     @Bean
     public Job updatePoliticianData() {
         return factory.get("someJob")
-                .start(dataUpdaterStepsManager.updateEligibility())
+                .start(dataUpdaterStepsManager.loadDatabasePolitician())
                 .on("INELIGIBLE").end()
-                .from(dataUpdaterStepsManager.updateEligibility())
+                .from(dataUpdaterStepsManager.loadDatabasePolitician())
                 .on("ELIGIBLE").to(politicianDataUpdateFlow())
                 .end()
                 .build();
@@ -33,10 +33,10 @@ public class DataUpdaterJobManager {
 
     private Flow politicianDataUpdateFlow() {
         return new FlowBuilder<SimpleFlow>("politicianDataUpdateFlow")
-                .start(dataUpdaterStepsManager.loadFromPolitician())
-                .next(dataUpdaterStepsManager.loadFromExpenses())
-                .next(dataUpdaterStepsManager.loadFromPropositions())
-                .next(dataUpdaterStepsManager.politicianPersistence())
+                .start(dataUpdaterStepsManager.loadCamaraPolitician())
+                .next(dataUpdaterStepsManager.loadCamaraExpenses())
+                .next(dataUpdaterStepsManager.loadCamaraPropositions())
+                .next(dataUpdaterStepsManager.savePolitician())
                 .build();
     }
 }
