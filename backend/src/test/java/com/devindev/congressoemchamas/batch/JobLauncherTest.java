@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {CamaraWriter.class, CamaraReader.class, DataUpdaterStepsManager.class, DataUpdaterJobManager.class})
+@ContextConfiguration(classes = {UpdateEligibilityDecider.class, CamaraWriter.class, CamaraReader.class, DataUpdaterStepsManager.class, DataUpdaterJobManager.class})
 public class JobLauncherTest {
 
     @Autowired
