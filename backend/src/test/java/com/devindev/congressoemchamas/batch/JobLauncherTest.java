@@ -5,6 +5,7 @@ import com.devindev.congressoemchamas.batch.writer.CamaraWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,6 +23,8 @@ public class JobLauncherTest {
 
     @Test
     public void testBatch() throws Exception {
-        launcher.run(dataUpdaterJobManager.updatePoliticianData(), new JobParameters());
+        JobParametersBuilder parametersBuilder = new JobParametersBuilder();
+        parametersBuilder.addLong("politicianId", 5L);
+        launcher.run(dataUpdaterJobManager.updatePoliticianData(), parametersBuilder.toJobParameters());
     }
 }

@@ -1,17 +1,22 @@
 package com.devindev.congressoemchamas.batch.reader;
 
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
+import com.devindev.congressoemchamas.data.politician.Politician;
+import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.item.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CamaraReader implements ItemReader<Long> {
+@StepScope
+public class CamaraReader implements ItemReader<Politician> {
+
+    @Value("#{jobParameters['politicianId']}")
+    private Long politicianId;
 
     @Override
-    public Long read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        System.out.println("Reading something!!");
+    public Politician read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         return null;
     }
 }

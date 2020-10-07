@@ -2,6 +2,7 @@ package com.devindev.congressoemchamas.batch;
 
 import com.devindev.congressoemchamas.batch.reader.CamaraReader;
 import com.devindev.congressoemchamas.batch.writer.CamaraWriter;
+import com.devindev.congressoemchamas.data.politician.Politician;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,9 @@ public class DataUpdaterStepsManager {
     private CamaraWriter camaraWriter;
 
     @Bean
-    public Step loadDatabasePolitician() {
-        return factory.get("loadDatabasePolitician")
-                .<Long, Long>chunk(10)
-                .reader(camaraReader)
-                .writer(camaraWriter)
-                .build();
-    }
-
-    @Bean
     public Step loadCamaraPolitician() {
         return factory.get("loadCamaraPolitician")
-                .<Long, Long>chunk(10)
+                .<Politician, Long>chunk(10)
                 .reader(camaraReader)
                 .writer(camaraWriter)
                 .build();
@@ -41,7 +33,7 @@ public class DataUpdaterStepsManager {
     @Bean
     public Step loadCamaraExpenses() {
         return factory.get("loadCamaraExpenses")
-                .<Long, Long>chunk(10)
+                .<Politician, Long>chunk(10)
                 .reader(camaraReader)
                 .writer(camaraWriter)
                 .build();
@@ -50,7 +42,7 @@ public class DataUpdaterStepsManager {
     @Bean
     public Step loadCamaraPropositions() {
         return factory.get("loadCamaraPropositions")
-                .<Long, Long>chunk(10)
+                .<Politician, Long>chunk(10)
                 .reader(camaraReader)
                 .writer(camaraWriter)
                 .build();
@@ -59,7 +51,7 @@ public class DataUpdaterStepsManager {
     @Bean
     public Step savePolitician() {
         return factory.get("savePolitician")
-                .<Long, Long>chunk(10)
+                .<Politician, Long>chunk(10)
                 .reader(camaraReader)
                 .writer(camaraWriter)
                 .build();
