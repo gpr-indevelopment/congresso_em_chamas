@@ -1,7 +1,6 @@
 package com.devindev.congressoemchamas.batch.rpw;
 
 import com.devindev.congressoemchamas.data.politician.Politician;
-import org.springframework.batch.item.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,7 +8,7 @@ import java.util.Objects;
 public class UpdatePoliticianRPW extends UpdaterRPW<Politician, Politician>{
 
     @Override
-    public Politician read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+    protected Politician innerRead() {
         return getCamaraAPI().requestPoliticianById(getPoliticianId());
     }
 

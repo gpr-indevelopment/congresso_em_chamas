@@ -7,9 +7,7 @@ import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +25,8 @@ public abstract class UpdaterRPW <A, B> implements ItemReader<A>, ItemProcessor<
 
     private Long politicianId;
 
+    private boolean isAllowedToRead = true;
+
     public static final String POLITICIAN_ID_KEY = "politicianId";
 
     @BeforeStep
@@ -36,6 +36,18 @@ public abstract class UpdaterRPW <A, B> implements ItemReader<A>, ItemProcessor<
             throw new CongressoBatchException("This RPW expects a politicianId parameter");
         }
     }
+
+    @Override
+    public A read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+        if(isAllowedToRead) {
+            isAllowedToRead = false;
+            return innerRead();
+        } else {
+            return null;
+        }
+    }
+
+    protected abstract A innerRead();
 
     public CamaraAPI getCamaraAPI() {
         return camaraAPI;
