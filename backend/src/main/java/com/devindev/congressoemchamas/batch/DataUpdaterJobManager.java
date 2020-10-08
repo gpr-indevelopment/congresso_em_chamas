@@ -30,7 +30,7 @@ public class DataUpdaterJobManager {
     @Bean
     public Job updatePoliticianData() {
         return factory.get("someJob")
-                .start(dataUpdaterStepsManager.loadCurrentLegislature())
+                .start(dataUpdaterStepsManager.updatePoliticianStep())
                 .next(dataUpdaterStepsManager.loadCamaraPolitician())
                 .next(updateEligibilityDecider).on(INELIGIBLE_STATUS).end()
                 .from(updateEligibilityDecider).on(ELIGIBLE_STATUS).to(politicianDataUpdateFlow())

@@ -6,7 +6,6 @@ import com.devindev.congressoemchamas.batch.reader.PoliticianReader;
 import com.devindev.congressoemchamas.batch.rpw.UpdatePoliticianRPW;
 import com.devindev.congressoemchamas.batch.tasklet.LoadCurrentLegislatureTasklet;
 import com.devindev.congressoemchamas.batch.writer.CamaraWriter;
-import com.devindev.congressoemchamas.batch.writer.LegislatureWriter;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -33,9 +32,6 @@ public class DataUpdaterStepsManager {
 
     @Autowired
     private CurrentLegislatureReader currentLegislatureReader;
-
-    @Autowired
-    private LegislatureWriter legislatureWriter;
 
     @Autowired
     private LoadCurrentLegislatureTasklet loadCurrentLegislatureTasklet;

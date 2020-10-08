@@ -1,10 +1,14 @@
 package com.devindev.congressoemchamas.batch.rpw;
 
 import com.devindev.congressoemchamas.data.politician.Politician;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 
+@Component
+@StepScope
 public class UpdatePoliticianRPW extends UpdaterRPW<Politician, Politician>{
 
     @Override
