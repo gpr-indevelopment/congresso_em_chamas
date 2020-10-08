@@ -3,6 +3,7 @@ package com.devindev.congressoemchamas.batch;
 import com.devindev.congressoemchamas.batch.reader.CamaraReader;
 import com.devindev.congressoemchamas.batch.reader.CurrentLegislatureReader;
 import com.devindev.congressoemchamas.batch.reader.PoliticianReader;
+import com.devindev.congressoemchamas.batch.reader.UpdatePoliticianRPW;
 import com.devindev.congressoemchamas.batch.tasklet.LoadCurrentLegislatureTasklet;
 import com.devindev.congressoemchamas.batch.writer.CamaraWriter;
 import com.devindev.congressoemchamas.batch.writer.LegislatureWriter;
@@ -43,6 +44,19 @@ public class DataUpdaterStepsManager {
     @Autowired
     @Qualifier("currentLegislaturePromotionListener")
     private ExecutionContextPromotionListener executionContextPromotionListener;
+
+    @Autowired
+    private UpdatePoliticianRPW updatePoliticianRPW;
+
+    @Bean
+    public Step updatePoliticianStep() {
+        return factory.get("updatePoliticianStep")
+                .<Politician, Politician>chunk(1)
+                .reader(updatePoliticianRPW)
+                .processor(updatePoliticianRPW)
+                .writer(updatePoliticianRPW)
+                .build();
+    }
 
     @Bean
     public Step loadCurrentLegislature() {
