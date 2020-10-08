@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.batch.reader;
+package com.devindev.congressoemchamas.batch.rpw;
 
 import com.devindev.congressoemchamas.batch.CongressoBatchException;
 import com.devindev.congressoemchamas.data.MainRepository;
