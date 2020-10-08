@@ -57,11 +57,6 @@ public class DataUpdater {
     public void updateExpenses(Politician politician, Legislature legislature){
         List<Integer> years = new ArrayList<>();
         if(Objects.nonNull(politician) && Objects.nonNull(legislature)){
-            while(legislature.getStartDate().getYear() < legislature.getEndDate().getYear()){
-                years.add(legislature.getStartDate().getYear());
-                legislature.setStartDate(legislature.getStartDate().plusYears(1l));
-            }
-            legislature.setStartDate(legislature.getStartDate().minusYears(4l));
             Long id = politician.getId();
             List<Expense> expenses = dataUpdaterAPI.requestAllExpensesByPoliticianId(id, null, years);
             List<MonthlyExpense> monthlyExpenses = monthlyExpenseService.computeMonthlyExpenses(expenses);
