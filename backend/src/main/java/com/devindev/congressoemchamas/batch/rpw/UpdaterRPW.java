@@ -27,9 +27,11 @@ public abstract class UpdaterRPW <A, B> implements ItemReader<A>, ItemProcessor<
 
     private Long politicianId;
 
+    public static final String POLITICIAN_ID_KEY = "politicianId";
+
     @BeforeStep
     private void beforeStep(StepExecution stepExecution) {
-        this.politicianId = stepExecution.getJobParameters().getLong("politicianId");
+        this.politicianId = stepExecution.getJobParameters().getLong(POLITICIAN_ID_KEY);
         if(Objects.isNull(politicianId)) {
             throw new CongressoBatchException("This RPW expects a politicianId parameter");
         }
