@@ -20,9 +20,6 @@ public class DataUpdaterJobManager {
     @Autowired
     private DataUpdaterStepsManager dataUpdaterStepsManager;
 
-    @Autowired
-    private UpdateEligibilityDecider updateEligibilityDecider;
-
     public static final String ELIGIBLE_STATUS = "ELIGIBLE";
 
     public static final String INELIGIBLE_STATUS = "INELIGIBLE";
