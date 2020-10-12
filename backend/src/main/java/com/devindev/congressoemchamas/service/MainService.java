@@ -33,7 +33,7 @@ public class MainService {
     private MonthlyExpenseService monthlyExpenseService;
 
     public Politician findById(Long politicianId){
-        return politiciansRepository.findById(politicianId);
+        return politiciansRepository.findById(politicianId).orElseGet(null);
     }
 
     public List<Proposition> findPropositionsByPoliticianId(Long politicianId){
@@ -41,7 +41,9 @@ public class MainService {
     }
 
     public List<News> findNewsByPoliticianId(Long politicianId){
-        return googleNewsAPI.requestNews(politiciansRepository.findById(politicianId).getName());
+        List<News> news = new ArrayList<>();
+        politiciansRepository.findById(politicianId).ifPresent(politician -> news.addAll(googleNewsAPI.requestNews(politician.getName())));
+        return news;
     }
 
     public List<MonthlyExpense> findMonthlyExpensesByPoliticianId(Long politicianId, List<Integer> years, Integer lastMonths) {

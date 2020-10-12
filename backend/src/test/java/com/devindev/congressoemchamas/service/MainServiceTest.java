@@ -24,6 +24,7 @@ import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,7 +60,7 @@ public class MainServiceTest {
         Long validPoliticianId = 1L;
         Politician expectedPol = TestUtils.generateRandomPolitician();
         // when
-        when(politiciansRepository.findById(validPoliticianId)).thenReturn(expectedPol);
+        when(politiciansRepository.findById(validPoliticianId)).thenReturn(Optional.of(expectedPol));
         // then
         Politician actualResponse = mainService.findById(validPoliticianId);
         assertThat(actualResponse).isEqualToComparingFieldByField(expectedPol);
@@ -88,7 +89,7 @@ public class MainServiceTest {
         pol.setName("testName");
         News expectedNews = TestUtils.generateRandomNews();
         // when
-        when(politiciansRepository.findById(politicianId)).thenReturn(pol);
+        when(politiciansRepository.findById(politicianId)).thenReturn(Optional.of(pol));
         when(googleNewsAPI.requestNews(pol.getName())).thenReturn(Collections.singletonList(expectedNews));
         // then
         List<News> actualOutput = mainService.findNewsByPoliticianId(politicianId);

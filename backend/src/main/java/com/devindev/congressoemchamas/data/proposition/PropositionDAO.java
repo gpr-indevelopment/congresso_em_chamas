@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PropositionDAO extends JpaRepository<Proposition, Long> {
 
-    List<Proposition> findAllByPolitician(Politician politician);
+    List<Proposition> findAllByPoliticianId(Long politicianId);
 }

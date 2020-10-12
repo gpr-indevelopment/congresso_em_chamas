@@ -6,7 +6,7 @@ import com.devindev.congressoemchamas.data.proposition.Proposition;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 public class UpdatePropositionsRPW extends UpdaterRPW<List<Proposition>, Politician> {
 
@@ -21,13 +21,16 @@ public class UpdatePropositionsRPW extends UpdaterRPW<List<Proposition>, Politic
 
     @Override
     public Politician process(List<Proposition> propositions) throws Exception {
-        Politician currentPolitician = getMainRepository().findById(getPoliticianId());
-        if(Objects.isNull(currentPolitician)) {
+        Optional<Politician> currentPoliticianOpt = getMainRepository().findById(getPoliticianId());
+        if(currentPoliticianOpt.isPresent()) {
+            Politician currentPolitician = currentPoliticianOpt.get();
+            currentPolitician.setPropositions(propositions);
+            propositions.forEach(proposition -> proposition.setPolitician(currentPolitician));
+            return currentPolitician;
+        }
+        else {
             throw new CongressoBatchException("Update propositions requires a pre-existing politician in the database.");
         }
-        currentPolitician.setPropositions(propositions);
-        propositions.forEach(proposition -> proposition.setPolitician(currentPolitician));
-        return currentPolitician;
     }
 
     @Override

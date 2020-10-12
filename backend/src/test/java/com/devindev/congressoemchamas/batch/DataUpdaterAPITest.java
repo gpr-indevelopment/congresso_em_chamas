@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.data.updater;
+package com.devindev.congressoemchamas.batch;
 
 import com.devindev.congressoemchamas.TestUtils;
 import com.devindev.congressoemchamas.batch.DataUpdaterAPI;
@@ -49,7 +49,7 @@ public class DataUpdaterAPITest {
     @After
     public void stopAndAssertStopWatch() {
         stopWatch.stop();
-        assertThat(stopWatch.getLastTaskTimeMillis()).isGreaterThan(4999);
+        assertThat(stopWatch.getLastTaskTimeMillis()).isGreaterThan(4995);
     }
 
     @Test

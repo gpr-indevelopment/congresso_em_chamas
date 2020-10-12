@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class UpdateExpensesRPW extends UpdaterRPW<List<Expense>, Politician> {
 
@@ -25,17 +26,20 @@ public class UpdateExpensesRPW extends UpdaterRPW<List<Expense>, Politician> {
 
     @Override
     public Politician process(List<Expense> expenses) throws Exception {
-        Politician currentPolitician = getMainRepository().findById(getPoliticianId());
-        if(Objects.isNull(currentPolitician)) {
+        Optional<Politician> currentPoliticianOpt = getMainRepository().findById(getPoliticianId());
+        if(currentPoliticianOpt.isPresent()) {
+            Politician currentPolitician = currentPoliticianOpt.get();
+            List<MonthlyExpense> monthlyExpenses = monthlyExpenseService.computeMonthlyExpenses(expenses);
+            currentPolitician.setMonthlyExpenses(monthlyExpenses);
+            monthlyExpenses.forEach(monthlyExpense -> {
+                monthlyExpense.setPolitician(currentPolitician);
+                monthlyExpense.setLegislature(currentLegislature);
+            });
+            return currentPolitician;
+        }
+        else {
             throw new CongressoBatchException("Update expenses requires a pre-existing politician in the database.");
         }
-        List<MonthlyExpense> monthlyExpenses = monthlyExpenseService.computeMonthlyExpenses(expenses);
-        currentPolitician.setMonthlyExpenses(monthlyExpenses);
-        monthlyExpenses.forEach(monthlyExpense -> {
-            monthlyExpense.setPolitician(currentPolitician);
-            monthlyExpense.setLegislature(currentLegislature);
-        });
-        return null;
     }
 
     @Override
