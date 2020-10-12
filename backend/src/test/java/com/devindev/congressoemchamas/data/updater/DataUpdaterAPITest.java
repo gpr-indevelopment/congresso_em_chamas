@@ -1,6 +1,7 @@
 package com.devindev.congressoemchamas.data.updater;
 
 import com.devindev.congressoemchamas.TestUtils;
+import com.devindev.congressoemchamas.batch.DataUpdaterAPI;
 import com.devindev.congressoemchamas.data.expenses.Expense;
 import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.data.politician.Politician;

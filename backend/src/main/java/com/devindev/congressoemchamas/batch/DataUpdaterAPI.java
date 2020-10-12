@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.data.updater;
+package com.devindev.congressoemchamas.batch;
 
 import com.devindev.congressoemchamas.data.expenses.Expense;
 import com.devindev.congressoemchamas.data.legislature.Legislature;

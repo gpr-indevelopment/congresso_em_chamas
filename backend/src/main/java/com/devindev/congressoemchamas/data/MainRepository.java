@@ -1,6 +1,5 @@
 package com.devindev.congressoemchamas.data;
 
-import com.devindev.congressoemchamas.data.updater.DataUpdaterManager;
 import com.devindev.congressoemchamas.data.accesslog.AccessLog;
 import com.devindev.congressoemchamas.data.accesslog.AccessLogDAO;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
