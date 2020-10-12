@@ -1,5 +1,7 @@
 package com.devindev.congressoemchamas.service;
 
+import com.devindev.congressoemchamas.batch.DataUpdateScheduler;
+import com.devindev.congressoemchamas.batch.DataUpdaterConfig;
 import com.devindev.congressoemchamas.data.MainRepository;
 import com.devindev.congressoemchamas.data.expenses.Expense;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
@@ -10,11 +12,11 @@ import com.devindev.congressoemchamas.data.profile.Profile;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
 import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import com.devindev.congressoemchamas.externalapi.google.GoogleNewsAPI;
-import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -32,8 +34,27 @@ public class MainService {
     @Autowired
     private MonthlyExpenseService monthlyExpenseService;
 
+    @Autowired
+    private DataUpdateScheduler dataUpdateScheduler;
+
+    @Autowired
+    private DataUpdaterConfig dataUpdaterConfig;
+
     public Politician findById(Long politicianId){
-        return politiciansRepository.findById(politicianId).orElseGet(null);
+        Politician politician = politiciansRepository.findById(politicianId).orElseGet(null);
+        if(Objects.nonNull(politician) && isEligibleForUpdate(politician)) {
+            dataUpdateScheduler.queuePolitician(politician);
+        }
+        return politician;
+    }
+
+    private boolean isEligibleForUpdate(Politician politician) {
+        boolean eligibleForUpdate = false;
+        LocalDateTime polUpdatedAt = politician.getUpdatedAt().toLocalDateTime();
+        if(polUpdatedAt.plusDays(dataUpdaterConfig.getPoliticianExpirationTimeDays()).isBefore(LocalDateTime.now())){
+            eligibleForUpdate = true;
+        }
+        return eligibleForUpdate;
     }
 
     public List<Proposition> findPropositionsByPoliticianId(Long politicianId){

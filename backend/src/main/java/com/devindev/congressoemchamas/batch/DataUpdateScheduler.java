@@ -31,7 +31,7 @@ public class DataUpdateScheduler {
 
     @Scheduled(cron = "0 0 3 * * *")
     private void executeJobs() throws Exception {
-        LOGGER.info("Scheduled time has arrived. Updating data from scheduled IDs.");
+        LOGGER.info("Scheduled time has arrived. Updating data from {} scheduled IDs.", scheduledIds.size());
         for (Long id : scheduledIds) {
             JobParametersBuilder parametersBuilder = new JobParametersBuilder();
             parametersBuilder.addLong("politicianId", id);
