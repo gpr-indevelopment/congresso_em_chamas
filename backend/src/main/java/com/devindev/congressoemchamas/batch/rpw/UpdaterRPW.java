@@ -1,8 +1,8 @@
 package com.devindev.congressoemchamas.batch.rpw;
 
 import com.devindev.congressoemchamas.batch.CongressoBatchException;
+import com.devindev.congressoemchamas.batch.DataUpdaterAPI;
 import com.devindev.congressoemchamas.data.MainRepository;
-import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.*;
@@ -13,7 +13,7 @@ import java.util.Objects;
 public abstract class UpdaterRPW <A, B> implements ItemReader<A>, ItemProcessor<A, B>, ItemWriter<B>  {
 
     @Autowired
-    private CamaraAPI camaraAPI;
+    private DataUpdaterAPI dataUpdaterAPI;
 
     @Autowired
     private MainRepository mainRepository;
@@ -44,8 +44,8 @@ public abstract class UpdaterRPW <A, B> implements ItemReader<A>, ItemProcessor<
 
     protected abstract A innerRead();
 
-    public CamaraAPI getCamaraAPI() {
-        return camaraAPI;
+    public DataUpdaterAPI getCamaraAPI() {
+        return dataUpdaterAPI;
     }
 
     public MainRepository getMainRepository() {
