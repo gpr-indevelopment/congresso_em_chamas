@@ -30,19 +30,16 @@ public class DataUpdaterJobManager {
     @Bean
     public Job updatePoliticianData() {
         return factory.get("someJob")
-                .start(dataUpdaterStepsManager.updatePoliticianStep())
-                .next(dataUpdaterStepsManager.loadCamaraPolitician())
-                .next(updateEligibilityDecider).on(INELIGIBLE_STATUS).end()
-                .from(updateEligibilityDecider).on(ELIGIBLE_STATUS).to(politicianDataUpdateFlow())
+                .start(politicianDataUpdateFlow())
                 .end()
                 .build();
     }
 
     private Flow politicianDataUpdateFlow() {
         return new FlowBuilder<SimpleFlow>("politicianDataUpdateFlow")
-                .start(dataUpdaterStepsManager.loadCamaraExpenses())
-                .next(dataUpdaterStepsManager.loadCamaraPropositions())
-                .next(dataUpdaterStepsManager.savePolitician())
+                .start(dataUpdaterStepsManager.updatePoliticianStep())
+                .next(dataUpdaterStepsManager.updateExpensesStep())
+                .next(dataUpdaterStepsManager.updatePropositionsStep())
                 .end();
     }
 }
