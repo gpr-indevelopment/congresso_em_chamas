@@ -48,7 +48,7 @@ public class MainService {
         return politician;
     }
 
-    private boolean isEligibleForUpdate(Politician politician) {
+    public boolean isEligibleForUpdate(Politician politician) {
         boolean eligibleForUpdate = false;
         LocalDateTime polUpdatedAt = politician.getUpdatedAt().toLocalDateTime();
         if(polUpdatedAt.plusDays(dataUpdaterConfig.getPoliticianExpirationTimeDays()).isBefore(LocalDateTime.now())){

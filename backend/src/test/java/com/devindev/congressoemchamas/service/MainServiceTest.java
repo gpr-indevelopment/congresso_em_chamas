@@ -1,6 +1,8 @@
 package com.devindev.congressoemchamas.service;
 
 import com.devindev.congressoemchamas.TestUtils;
+import com.devindev.congressoemchamas.batch.DataUpdateScheduler;
+import com.devindev.congressoemchamas.batch.DataUpdaterConfig;
 import com.devindev.congressoemchamas.data.MainRepository;
 import com.devindev.congressoemchamas.data.expenses.Expense;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
@@ -19,7 +21,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,6 +52,12 @@ public class MainServiceTest {
     @Mock
     private MonthlyExpenseService monthlyExpenseService;
 
+    @Mock
+    private DataUpdaterConfig dataUpdaterConfig;
+
+    @Mock
+    private DataUpdateScheduler dataUpdateScheduler;
+
     @Captor
     private ArgumentCaptor<List<Integer>> monthsCaptor;
 
@@ -55,12 +65,39 @@ public class MainServiceTest {
     private ArgumentCaptor<List<Integer>> yearsCaptor;
 
     @Test
+    public void eligibleForUpdate_politicianIsOlderThan7Days_returnsTrue() {
+        // given
+        Politician pol = TestUtils.generateRandomPolitician();
+        LocalDateTime tenDaysAgo = LocalDateTime.now().minusDays(10);
+        pol.setUpdatedAt(Timestamp.valueOf(tenDaysAgo));
+        // when
+        when(dataUpdaterConfig.getPoliticianExpirationTimeDays()).thenReturn(7);
+        // then
+        assertThat(mainService.isEligibleForUpdate(pol)).isTrue();
+    }
+
+    @Test
+    public void eligibleForUpdate_politicianIsNotOlderThan7Days_returnsTrue() {
+        // given
+        Politician pol = TestUtils.generateRandomPolitician();
+        LocalDateTime sixDaysAgo = LocalDateTime.now().minusDays(6);
+        pol.setUpdatedAt(Timestamp.valueOf(sixDaysAgo));
+        // when
+        when(dataUpdaterConfig.getPoliticianExpirationTimeDays()).thenReturn(7);
+        // then
+        assertThat(mainService.isEligibleForUpdate(pol)).isFalse();
+    }
+
+    @Test
     public void findById_receivedValidPoliticianId_returnsPolitician() {
         // given
         Long validPoliticianId = 1L;
         Politician expectedPol = TestUtils.generateRandomPolitician();
+        LocalDateTime sixDaysAgo = LocalDateTime.now().minusDays(6);
+        expectedPol.setUpdatedAt(Timestamp.valueOf(sixDaysAgo));
         // when
         when(politiciansRepository.findById(validPoliticianId)).thenReturn(Optional.of(expectedPol));
+        doNothing().when(dataUpdateScheduler).queuePolitician(expectedPol);
         // then
         Politician actualResponse = mainService.findById(validPoliticianId);
         assertThat(actualResponse).isEqualToComparingFieldByField(expectedPol);
