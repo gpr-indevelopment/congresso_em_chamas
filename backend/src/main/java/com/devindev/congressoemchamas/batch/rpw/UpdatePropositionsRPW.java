@@ -3,11 +3,15 @@ package com.devindev.congressoemchamas.batch.rpw;
 import com.devindev.congressoemchamas.batch.CongressoBatchException;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
+@StepScope
 public class UpdatePropositionsRPW extends UpdaterRPW<List<Proposition>, Politician> {
 
     @Override

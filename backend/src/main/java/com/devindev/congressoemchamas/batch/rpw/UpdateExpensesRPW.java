@@ -6,12 +6,15 @@ import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.service.MonthlyExpenseService;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
+@Component
+@StepScope
 public class UpdateExpensesRPW extends UpdaterRPW<List<Expense>, Politician> {
 
     @Autowired
