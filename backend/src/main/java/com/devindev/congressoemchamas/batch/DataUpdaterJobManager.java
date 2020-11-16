@@ -20,13 +20,9 @@ public class DataUpdaterJobManager {
     @Autowired
     private DataUpdaterStepsManager dataUpdaterStepsManager;
 
-    public static final String ELIGIBLE_STATUS = "ELIGIBLE";
-
-    public static final String INELIGIBLE_STATUS = "INELIGIBLE";
-
     @Bean
     public Job updatePoliticianData() {
-        return factory.get("someJob")
+        return factory.get("updatePoliticianDataJob")
                 .start(politicianDataUpdateFlow())
                 .end()
                 .build();

@@ -30,7 +30,7 @@ public class Politician extends Profile implements Comparable<Politician>  {
 
     @OneToMany(mappedBy = "politician", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<MonthlyExpense> monthlyExpenses;
+    private List<MonthlyExpense> monthlyExpenses = new ArrayList<>();
 
     @Transient
     private Set<News> news;

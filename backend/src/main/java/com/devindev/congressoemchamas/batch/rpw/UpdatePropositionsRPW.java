@@ -3,6 +3,7 @@ package com.devindev.congressoemchamas.batch.rpw;
 import com.devindev.congressoemchamas.batch.CongressoBatchException;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.data.proposition.Proposition;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@StepScope
+@JobScope
 public class UpdatePropositionsRPW extends UpdaterRPW<List<Proposition>, Politician> {
 
     @Override
@@ -28,7 +29,8 @@ public class UpdatePropositionsRPW extends UpdaterRPW<List<Proposition>, Politic
         Optional<Politician> currentPoliticianOpt = getMainRepository().findById(getPoliticianId());
         if(currentPoliticianOpt.isPresent()) {
             Politician currentPolitician = currentPoliticianOpt.get();
-            currentPolitician.setPropositions(propositions);
+            currentPolitician.getPropositions().clear();
+            currentPolitician.getPropositions().addAll(propositions);
             propositions.forEach(proposition -> proposition.setPolitician(currentPolitician));
             return currentPolitician;
         }

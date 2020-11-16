@@ -6,21 +6,28 @@ import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
 import com.devindev.congressoemchamas.data.legislature.Legislature;
 import com.devindev.congressoemchamas.data.politician.Politician;
 import com.devindev.congressoemchamas.service.MonthlyExpenseService;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
 @Component
-@StepScope
+@JobScope
 public class UpdateExpensesRPW extends UpdaterRPW<List<Expense>, Politician> {
 
     @Autowired
     private MonthlyExpenseService monthlyExpenseService;
 
-    private Legislature currentLegislature = getCamaraAPI().requestCurrentLegislature();
+    private Legislature currentLegislature;
+
+    @PostConstruct
+    private void setLegislature() {
+         currentLegislature = getCamaraAPI().requestCurrentLegislature();
+    }
 
     @Override
     protected List<Expense> innerRead() {
@@ -33,7 +40,8 @@ public class UpdateExpensesRPW extends UpdaterRPW<List<Expense>, Politician> {
         if(currentPoliticianOpt.isPresent()) {
             Politician currentPolitician = currentPoliticianOpt.get();
             List<MonthlyExpense> monthlyExpenses = monthlyExpenseService.computeMonthlyExpenses(expenses);
-            currentPolitician.setMonthlyExpenses(monthlyExpenses);
+            currentPolitician.getMonthlyExpenses().clear();
+            currentPolitician.getMonthlyExpenses().addAll(monthlyExpenses);
             monthlyExpenses.forEach(monthlyExpense -> {
                 monthlyExpense.setPolitician(currentPolitician);
                 monthlyExpense.setLegislature(currentLegislature);
