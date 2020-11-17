@@ -39,7 +39,7 @@ public class BatchDataUpdateScheduler {
         scheduledIds.add(politician.getId());
     }
 
-    @Scheduled(cron = "0 0 3 * * *")
+    //@Scheduled(cron = "0 0 3 * * *")
     private void executeJobs() throws Exception {
         LOGGER.info("Scheduled time has arrived. Updating data from {} scheduled IDs.", scheduledIds.size());
         queueMissingPolitician();
