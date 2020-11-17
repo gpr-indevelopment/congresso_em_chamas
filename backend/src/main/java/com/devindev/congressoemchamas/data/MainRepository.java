@@ -43,4 +43,12 @@ public class MainRepository {
     public AccessLog saveAccessLog(AccessLog accessLog){
         return accessLogDAO.save(accessLog);
     }
+
+    public boolean existsById(Long id) {
+        return politicianDAO.existsById(id);
+    }
+
+    public void delete(Long id) {
+        politicianDAO.deleteById(id);
+    }
 }

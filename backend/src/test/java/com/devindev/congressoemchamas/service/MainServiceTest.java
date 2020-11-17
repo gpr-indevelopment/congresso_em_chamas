@@ -1,7 +1,7 @@
 package com.devindev.congressoemchamas.service;
 
 import com.devindev.congressoemchamas.TestUtils;
-import com.devindev.congressoemchamas.batch.DataUpdateScheduler;
+import com.devindev.congressoemchamas.batch.BatchDataUpdateScheduler;
 import com.devindev.congressoemchamas.batch.DataUpdaterConfig;
 import com.devindev.congressoemchamas.data.MainRepository;
 import com.devindev.congressoemchamas.data.expenses.Expense;
@@ -56,7 +56,7 @@ public class MainServiceTest {
     private DataUpdaterConfig dataUpdaterConfig;
 
     @Mock
-    private DataUpdateScheduler dataUpdateScheduler;
+    private BatchDataUpdateScheduler batchDataUpdateScheduler;
 
     @Captor
     private ArgumentCaptor<List<Integer>> monthsCaptor;
@@ -97,7 +97,7 @@ public class MainServiceTest {
         expectedPol.setUpdatedAt(Timestamp.valueOf(sixDaysAgo));
         // when
         when(politiciansRepository.findById(validPoliticianId)).thenReturn(Optional.of(expectedPol));
-        doNothing().when(dataUpdateScheduler).queuePolitician(expectedPol);
+        doNothing().when(batchDataUpdateScheduler).queuePolitician(expectedPol);
         // then
         Politician actualResponse = mainService.findById(validPoliticianId);
         assertThat(actualResponse).isEqualToComparingFieldByField(expectedPol);

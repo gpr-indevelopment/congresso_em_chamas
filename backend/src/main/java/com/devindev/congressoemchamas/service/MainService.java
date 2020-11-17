@@ -1,7 +1,8 @@
 package com.devindev.congressoemchamas.service;
 
-import com.devindev.congressoemchamas.batch.DataUpdateScheduler;
+import com.devindev.congressoemchamas.batch.BatchDataUpdateScheduler;
 import com.devindev.congressoemchamas.batch.DataUpdaterConfig;
+import com.devindev.congressoemchamas.batch.OnlineDataUpdater;
 import com.devindev.congressoemchamas.data.MainRepository;
 import com.devindev.congressoemchamas.data.expenses.Expense;
 import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
@@ -35,15 +36,18 @@ public class MainService {
     private MonthlyExpenseService monthlyExpenseService;
 
     @Autowired
-    private DataUpdateScheduler dataUpdateScheduler;
+    private BatchDataUpdateScheduler batchDataUpdateScheduler;
 
     @Autowired
     private DataUpdaterConfig dataUpdaterConfig;
 
+    @Autowired
+    private OnlineDataUpdater onlineDataUpdater;
+
     public Politician findById(Long politicianId){
-        Politician politician = politiciansRepository.findById(politicianId).orElseGet(null);
+        Politician politician = politiciansRepository.findById(politicianId).orElseGet(() -> onlineDataUpdater.update(politicianId));
         if(Objects.nonNull(politician) && isEligibleForUpdate(politician)) {
-            dataUpdateScheduler.queuePolitician(politician);
+            batchDataUpdateScheduler.queuePolitician(politician);
         }
         return politician;
     }
@@ -58,13 +62,24 @@ public class MainService {
     }
 
     public List<Proposition> findPropositionsByPoliticianId(Long politicianId){
-        return politiciansRepository.findAllPropositionsByPolitician(politicianId);
+        List<Proposition> dbProps = politiciansRepository.findAllPropositionsByPolitician(politicianId);
+        if(!dbProps.isEmpty()) {
+            return dbProps;
+        } else {
+            List<Proposition> props = new ArrayList<>();
+            camaraAPI.requestPropositionIdsByPoliticianId(politicianId).forEach(propId -> {
+                Proposition prop = camaraAPI.requestPropositionById(propId);
+                prop.getAuthors().addAll(camaraAPI.requestAuthorsByPropositionId(propId));
+                prop.setProcessingHistory(camaraAPI.requestProcessingHistoryByPropositionId(propId));
+                props.add(prop);
+            });
+            return props;
+        }
     }
 
     public List<News> findNewsByPoliticianId(Long politicianId){
-        List<News> news = new ArrayList<>();
-        politiciansRepository.findById(politicianId).ifPresent(politician -> news.addAll(googleNewsAPI.requestNews(politician.getName())));
-        return news;
+        Politician politician = politiciansRepository.findById(politicianId).orElseGet(() -> onlineDataUpdater.update(politicianId));
+        return new ArrayList<>(googleNewsAPI.requestNews(politician.getName()));
     }
 
     public List<MonthlyExpense> findMonthlyExpensesByPoliticianId(Long politicianId, List<Integer> years, Integer lastMonths) {
