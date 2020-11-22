@@ -62,7 +62,7 @@ public class MonthlyExpenseServiceTest {
                         YearMonth.of(2020, 9));
         List<Expense> outputExpenses = new ArrayList<>();
         outputMap.values().forEach(value -> outputExpenses.addAll(value));
-        assertThat(outputExpenses).containsOnly((Expense[]) inputExpenses.toArray());
+        assertThat(outputExpenses).containsOnly((Expense[]) inputExpenses.toArray(new Expense[]{}));
     }
 
     private void assertMonthlyExpenses(List<MonthlyExpense> monthlyExpenses) {
