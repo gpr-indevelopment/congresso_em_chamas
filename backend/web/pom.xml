@@ -12,7 +12,7 @@
 	<artifactId>web</artifactId>
 	<version>1.0</version>
 	<name>CEC Web</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Web application for CEC</description>
 
 	<properties>
 		<java.version>11</java.version>
