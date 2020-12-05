@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas.data.legislature;
+package com.gprindevelopment.cec.externalapi.camara;
 
 import org.junit.Test;
 

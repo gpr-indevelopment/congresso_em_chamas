@@ -13,6 +13,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -22,11 +23,14 @@ import java.util.Objects;
 @Component
 public class CamaraAPI {
 
-    @Autowired
+    @Autowired(required = false)
     private CamaraConfig camaraConfig;
 
     @Autowired
     private RequestsSender requestsSender;
+
+    @Value("${camara.url}")
+    private String baseUrl;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
@@ -35,7 +39,7 @@ public class CamaraAPI {
         try {
             legislatureId = Objects.isNull(legislatureId) ? requestCurrentLegislature().getId() : legislatureId;
             URIBuilder builder = new URIBuilder();
-            builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
+            builder.setScheme("http").setHost(baseUrl)
                     .setPath("deputados")
                     .addParameter("nome", name)
                     .addParameter("idLegislatura", legislatureId.toString());
@@ -54,7 +58,7 @@ public class CamaraAPI {
         if(Objects.nonNull(id)){
             try {
                 URIBuilder builder = new URIBuilder();
-                builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
+                builder.setScheme("http").setHost(baseUrl)
                         .setPathSegments("deputados", id.toString());
                 GetPoliticianById apiFunctionHandler = new GetPoliticianById();
                 return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
@@ -74,7 +78,7 @@ public class CamaraAPI {
     public Legislature requestCurrentLegislature() {
         try {
             URIBuilder builder = new URIBuilder();
-            builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
+            builder.setScheme("http").setHost(baseUrl)
                     .setPath("legislaturas")
                     .addParameter("ordem", "DESC")
                     .addParameter("ordenarPor", "id");
@@ -93,8 +97,8 @@ public class CamaraAPI {
         if(Objects.nonNull(politicianId)){
             try {
                 URIBuilder builder = new URIBuilder();
-                builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPath("proposition")
+                builder.setScheme("http").setHost(baseUrl)
+                        .setPath("proposicoes")
                         .addParameter("idDeputadoAutor", politicianId.toString())
                         .addParameter("ordem", "DESC")
                         .addParameter("ordenarPor", "id");
@@ -116,8 +120,8 @@ public class CamaraAPI {
         if(Objects.nonNull(propositionId)) {
             try {
                 URIBuilder builder = new URIBuilder();
-                builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPathSegments("proposition", propositionId.toString());
+                builder.setScheme("http").setHost(baseUrl)
+                        .setPathSegments("proposicoes", propositionId.toString());
                 GetPropositionsByPolitician apiFunctionHandler = new GetPropositionsByPolitician();
                 return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
             } catch (Exception exception) {
@@ -137,8 +141,8 @@ public class CamaraAPI {
         if(Objects.nonNull(propositionId)){
             try {
                 URIBuilder builder = new URIBuilder();
-                builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPathSegments("proposition", propositionId.toString(), "autores");
+                builder.setScheme("http").setHost(baseUrl)
+                        .setPathSegments("proposicoes", propositionId.toString(), "autores");
                 GetAuthorsByPropositionId apiFunctionHandler = new GetAuthorsByPropositionId();
                 return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
             } catch (Exception exception) {
@@ -157,8 +161,8 @@ public class CamaraAPI {
         if(Objects.nonNull(propositionId)){
             try {
                 URIBuilder builder = new URIBuilder();
-                builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPathSegments("proposition", propositionId.toString(), "tramitacoes");
+                builder.setScheme("http").setHost(baseUrl)
+                        .setPathSegments("proposicoes", propositionId.toString(), "tramitacoes");
                 GetProcessingHistoryByPropisitionId apiFunctionHandler = new GetProcessingHistoryByPropisitionId();
                 return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
             } catch (Exception exception) {
@@ -177,8 +181,8 @@ public class CamaraAPI {
         if(Objects.nonNull(politicianId)) {
             try {
                 CustomURIBuilder builder = new CustomURIBuilder();
-                builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPathSegments("deputados", politicianId.toString(), "expense")
+                builder.setScheme("http").setHost(baseUrl)
+                        .setPathSegments("deputados", politicianId.toString(), "despesas")
                         .addParameter("itens", "100");
                 builder.addListParameter("mes", requestMonths);
                 builder.addListParameter("ano", requestYears);

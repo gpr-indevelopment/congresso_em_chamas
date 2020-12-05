@@ -1,12 +1,12 @@
-package com.devindev.congressoemchamas;
+package com.gprindevelopment.cec.util;
 
-import com.devindev.congressoemchamas.data.expenses.Expense;
-import com.devindev.congressoemchamas.data.legislature.Legislature;
-import com.devindev.congressoemchamas.data.news.News;
-import com.devindev.congressoemchamas.data.politician.Politician;
-import com.devindev.congressoemchamas.data.processing.Processing;
-import com.devindev.congressoemchamas.data.profile.Profile;
-import com.devindev.congressoemchamas.data.proposition.Proposition;
+import com.gprindevelopment.cec.expense.Expense;
+import com.gprindevelopment.cec.externalapi.camara.Legislature;
+import com.gprindevelopment.cec.politician.News;
+import com.gprindevelopment.cec.politician.Politician;
+import com.gprindevelopment.cec.politician.Profile;
+import com.gprindevelopment.cec.proposition.Processing;
+import com.gprindevelopment.cec.proposition.Proposition;
 import net.bytebuddy.utility.RandomString;
 
 import java.sql.Timestamp;

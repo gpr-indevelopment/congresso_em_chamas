@@ -1,13 +1,8 @@
-package com.devindev.congressoemchamas.service;
+package com.devindev.congressoemchamas;
 
-import com.devindev.congressoemchamas.data.MainRepository;
-import com.devindev.congressoemchamas.AccessLog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -22,7 +17,7 @@ public class AccessLogServiceTest {
     private AccessLogService accessLogService;
 
     @Mock
-    private MainRepository mainRepository;
+    private AccessLogRepository accessLogRepository;
 
     @Captor
     private ArgumentCaptor<AccessLog> accessLogCaptor;
@@ -67,7 +62,7 @@ public class AccessLogServiceTest {
         req.setRequestURI("/login");
         Long processingTimeMillis = 5L;
         // when
-        when(mainRepository.saveAccessLog(accessLogCaptor.capture())).thenReturn(new AccessLog());
+        when(accessLogRepository.save(accessLogCaptor.capture())).thenReturn(new AccessLog());
         // then
         accessLogService.logAccess(req, processingTimeMillis);
         AccessLog actualOutput = accessLogCaptor.getValue();

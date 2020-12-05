@@ -1,11 +1,16 @@
-package com.devindev.congressoemchamas.externalapi.camara;
+package com.gprindevelopment.cec.externalapi.camara;
 
-import com.devindev.congressoemchamas.data.politician.Politician;
-import com.devindev.congressoemchamas.data.profile.Profile;
+import com.gprindevelopment.cec.expense.Expense;
+import com.gprindevelopment.cec.politician.Politician;
+import com.gprindevelopment.cec.politician.Profile;
+import com.gprindevelopment.cec.proposition.Processing;
+import com.gprindevelopment.cec.proposition.Proposition;
+import com.gprindevelopment.cec.restclient.RequestsSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -13,7 +18,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {CamaraAPI.class, CamaraConfig.class, RequestsSender.class})
+@TestPropertySource("classpath:application.properties")
+@ContextConfiguration(classes = {CamaraAPI.class, RequestsSender.class})
 public class CamaraAPIIntegrationTest {
 
     @Autowired

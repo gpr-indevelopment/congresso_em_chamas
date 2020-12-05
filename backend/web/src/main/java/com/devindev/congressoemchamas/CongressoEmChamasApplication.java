@@ -6,8 +6,6 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableCaching
-@EnableScheduling
 public class CongressoEmChamasApplication {
 
 	public static void main(String[] args) {

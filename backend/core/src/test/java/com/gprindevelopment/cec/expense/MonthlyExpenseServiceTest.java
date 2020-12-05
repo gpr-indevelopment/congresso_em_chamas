@@ -1,8 +1,7 @@
-package com.devindev.congressoemchamas.service;
+package com.gprindevelopment.cec.expense;
 
-import com.devindev.congressoemchamas.TestUtils;
-import com.devindev.congressoemchamas.data.expenses.Expense;
-import com.devindev.congressoemchamas.data.expenses.MonthlyExpense;
+import com.gprindevelopment.cec.util.TestUtils;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -52,8 +51,8 @@ public class MonthlyExpenseServiceTest {
         // then
         List<Expense> inputExpenses = buildTestExpenses();
         Map<YearMonth, List<Expense>> outputMap = monthlyExpenseService.sortExpensesByYearMonth(inputExpenses);
-        assertThat(outputMap.size()).isEqualTo(5);
-        assertThat(outputMap.keySet())
+        Assertions.assertThat(outputMap.size()).isEqualTo(5);
+        Assertions.assertThat(outputMap.keySet())
                 .contains(
                         YearMonth.of(2020, 1),
                         YearMonth.of(2021, 2),
@@ -62,11 +61,11 @@ public class MonthlyExpenseServiceTest {
                         YearMonth.of(2020, 9));
         List<Expense> outputExpenses = new ArrayList<>();
         outputMap.values().forEach(value -> outputExpenses.addAll(value));
-        assertThat(outputExpenses).containsOnly((Expense[]) inputExpenses.toArray(new Expense[]{}));
+        Assertions.assertThat(outputExpenses).containsOnly((Expense[]) inputExpenses.toArray(new Expense[]{}));
     }
 
     private void assertMonthlyExpenses(List<MonthlyExpense> monthlyExpenses) {
-        assertThat(monthlyExpenses).size().isEqualTo(5);
+        Assertions.assertThat(monthlyExpenses).size().isEqualTo(5);
         monthlyExpenses.forEach(monthlyExpense -> {
             switch ((int) monthlyExpense.getValue()) {
                 case 350: {

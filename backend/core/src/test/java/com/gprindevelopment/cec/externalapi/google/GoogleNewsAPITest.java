@@ -1,9 +1,9 @@
-package com.devindev.congressoemchamas.externalapi.google;
+package com.gprindevelopment.cec.externalapi.google;
 
-import com.devindev.congressoemchamas.TestUtils;
-import com.devindev.congressoemchamas.data.news.News;
-import com.devindev.congressoemchamas.externalapi.RequestsSender;
-import com.devindev.congressoemchamas.externalapi.google.functions.GetNewsByKeyword;
+import com.gprindevelopment.cec.politician.News;
+import com.gprindevelopment.cec.restclient.RequestsSender;
+import com.gprindevelopment.cec.util.TestUtils;
+import com.gprindevelopment.cec.externalapi.google.functions.GetNewsByKeyword;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;

@@ -1,15 +1,13 @@
-package com.devindev.congressoemchamas.batch;
+package com.gprindevelopment.cec;
 
-import com.devindev.congressoemchamas.TestUtils;
-import com.devindev.congressoemchamas.batch.DataUpdaterAPI;
-import com.devindev.congressoemchamas.data.expenses.Expense;
-import com.devindev.congressoemchamas.data.legislature.Legislature;
-import com.devindev.congressoemchamas.data.politician.Politician;
-import com.devindev.congressoemchamas.data.processing.Processing;
-import com.devindev.congressoemchamas.data.profile.Profile;
-import com.devindev.congressoemchamas.data.proposition.Proposition;
-import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
-import com.devindev.congressoemchamas.externalapi.twitter.TwitterAPI;
+import com.gprindevelopment.cec.expense.Expense;
+import com.gprindevelopment.cec.externalapi.camara.CamaraAPI;
+import com.gprindevelopment.cec.externalapi.camara.Legislature;
+import com.gprindevelopment.cec.politician.Politician;
+import com.gprindevelopment.cec.politician.Profile;
+import com.gprindevelopment.cec.proposition.Processing;
+import com.gprindevelopment.cec.proposition.Proposition;
+import com.gprindevelopment.cec.util.TestUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,9 +32,6 @@ public class DataUpdaterAPITest {
 
     @Mock
     private CamaraAPI camaraAPI;
-
-    @Mock
-    private TwitterAPI twitterAPI;
 
     private StopWatch stopWatch;
 
@@ -108,17 +103,6 @@ public class DataUpdaterAPITest {
         when(camaraAPI.requestProcessingHistoryByPropositionId(propId)).thenThrow(new RuntimeException("Expected exception")).thenReturn(processings);
         // then
         assertThat(dataUpdaterAPI.requestProcessingHistoryByPropositionId(propId)).isEqualTo(processings);
-    }
-
-    @Test
-    public void requestTwitterUsernameByName_exceptionThrown_waits5SecondsAndReturns() {
-        // given
-        String name = "testName";
-        String twitterUsername = "twitterUsername";
-        // when
-        when(twitterAPI.requestTwitterUsernameByName(name)).thenThrow(new RuntimeException("Expected exception")).thenReturn(twitterUsername);
-        // then
-        assertThat(dataUpdaterAPI.requestTwitterUsernameByName(name)).isEqualTo(twitterUsername);
     }
 
     @Test

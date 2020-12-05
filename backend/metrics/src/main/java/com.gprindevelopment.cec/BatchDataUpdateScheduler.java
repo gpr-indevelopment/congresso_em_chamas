@@ -1,14 +1,15 @@
 package com.gprindevelopment.cec;
 
-import com.devindev.congressoemchamas.data.MainRepository;
-import com.devindev.congressoemchamas.data.politician.Politician;
-import com.devindev.congressoemchamas.data.profile.Profile;
-import com.devindev.congressoemchamas.externalapi.camara.CamaraAPI;
+import com.gprindevelopment.cec.externalapi.camara.CamaraAPI;
+import com.gprindevelopment.cec.politician.Politician;
+import com.gprindevelopment.cec.politician.PoliticianRepository;
+import com.gprindevelopment.cec.politician.Profile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
+@EnableScheduling
 public class BatchDataUpdateScheduler {
 
     @Autowired
@@ -28,7 +30,7 @@ public class BatchDataUpdateScheduler {
     private CamaraAPI camaraAPI;
 
     @Autowired
-    private MainRepository politiciansRepository;
+    private PoliticianRepository politiciansRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchDataUpdateScheduler.class);
 

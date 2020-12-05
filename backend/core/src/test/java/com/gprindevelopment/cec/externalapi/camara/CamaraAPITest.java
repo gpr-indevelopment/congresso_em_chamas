@@ -1,10 +1,9 @@
-package com.devindev.congressoemchamas.externalapi.camara;
+package com.gprindevelopment.cec.externalapi.camara;
 
-import com.devindev.congressoemchamas.TestUtils;
-import com.devindev.congressoemchamas.data.legislature.Legislature;
-import com.devindev.congressoemchamas.exceptions.InvalidRequestException;
-import com.devindev.congressoemchamas.externalapi.RequestsSender;
-import com.devindev.congressoemchamas.externalapi.camara.functions.GetCurrentLegislature;
+import com.gprindevelopment.cec.restclient.InvalidRequestException;
+import com.gprindevelopment.cec.restclient.RequestsSender;
+import com.gprindevelopment.cec.util.TestUtils;
+import com.gprindevelopment.cec.externalapi.camara.functions.GetCurrentLegislature;
 import org.apache.http.client.ResponseHandler;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,20 +29,10 @@ public class CamaraAPITest {
     private CamaraAPI camaraAPI;
 
     @Mock
-    private CamaraConfig camaraConfig;
-
-    @Mock
     private RequestsSender requestsSender;
 
     @Captor
     private ArgumentCaptor<URI> uriCaptor;
-
-    private final String baseUrl = "baseUrl.com";
-
-    @Before
-    public void mockConfig() {
-        when(camaraConfig.getBaseUrl()).thenReturn(baseUrl);
-    }
 
     @Test
     public void requestProfilesByNameAndLegislatureId_validProfileNameAndLegislature_builtWithAllParameters() throws Exception{
@@ -145,7 +134,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(TestUtils.generateRandomProposition());
         // then
         camaraAPI.requestPropositionById(propId);
-        assertThat(uriCaptor.getValue().toString()).endsWith("/proposition/9");
+        assertThat(uriCaptor.getValue().toString()).endsWith("/proposicoes/9");
     }
 
     @Test
@@ -167,7 +156,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(new ArrayList<>());
         // then
         camaraAPI.requestAuthorsByPropositionId(propId);
-        assertThat(uriCaptor.getValue().toString()).endsWith("/proposition/9/autores");
+        assertThat(uriCaptor.getValue().toString()).endsWith("/proposicoes/9/autores");
     }
 
     @Test
@@ -189,7 +178,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(new ArrayList<>());
         // then
         camaraAPI.requestProcessingHistoryByPropositionId(propositionId);
-        assertThat(uriCaptor.getValue().toString()).endsWith("/proposition/9/tramitacoes");
+        assertThat(uriCaptor.getValue().toString()).endsWith("/proposicoes/9/tramitacoes");
     }
 
     @Test
@@ -211,7 +200,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(new ArrayList<>());
         // then
         camaraAPI.requestAllExpensesByPoliticianId(politicianId, null, null);
-        assertThat(uriCaptor.getValue().toString()).endsWith("/9/expense?itens=100");
+        assertThat(uriCaptor.getValue().toString()).endsWith("/9/despesas?itens=100");
     }
 
     @Test
@@ -223,7 +212,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(new ArrayList<>());
         // then
         camaraAPI.requestAllExpensesByPoliticianId(politicianId, months, null);
-        assertThat(uriCaptor.getValue().toString()).endsWith("/9/expense?itens=100&mes=1&mes=2&mes=3");
+        assertThat(uriCaptor.getValue().toString()).endsWith("/9/despesas?itens=100&mes=1&mes=2&mes=3");
     }
 
     @Test
@@ -235,7 +224,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(new ArrayList<>());
         // then
         camaraAPI.requestAllExpensesByPoliticianId(politicianId, null, years);
-        assertThat(uriCaptor.getValue().toString()).endsWith("/9/expense?itens=100&ano=1&ano=2&ano=3");
+        assertThat(uriCaptor.getValue().toString()).endsWith("/9/despesas?itens=100&ano=1&ano=2&ano=3");
     }
 
     @Test
@@ -248,7 +237,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(new ArrayList<>());
         // then
         camaraAPI.requestAllExpensesByPoliticianId(politicianId, months, years);
-        assertThat(uriCaptor.getValue().toString()).endsWith("/9/expense?itens=100&mes=4&mes=5&mes=6&ano=1&ano=2&ano=3");
+        assertThat(uriCaptor.getValue().toString()).endsWith("/9/despesas?itens=100&mes=4&mes=5&mes=6&ano=1&ano=2&ano=3");
     }
 
     @Test
@@ -259,7 +248,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(new ArrayList<>());
         // then
         camaraAPI.requestAllExpensesByPoliticianId(politicianId, new ArrayList<>(), new ArrayList<>());
-        assertThat(uriCaptor.getValue().toString()).endsWith("/9/expense?itens=100");
+        assertThat(uriCaptor.getValue().toString()).endsWith("/9/despesas?itens=100");
     }
 
     @Test
