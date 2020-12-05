@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gprindevelopment.cec</groupId>
-	<artifactId>Core</artifactId>
+	<artifactId>core</artifactId>
 	<version>1.0</version>
 	<name>CEC Core</name>
 	<description>Core API for CEC</description>
