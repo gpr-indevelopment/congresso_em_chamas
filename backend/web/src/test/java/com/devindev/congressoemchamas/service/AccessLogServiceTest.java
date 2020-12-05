@@ -1,7 +1,7 @@
 package com.devindev.congressoemchamas.service;
 
 import com.devindev.congressoemchamas.data.MainRepository;
-import com.devindev.congressoemchamas.data.accesslog.AccessLog;
+import com.devindev.congressoemchamas.AccessLog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
