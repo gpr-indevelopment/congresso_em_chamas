@@ -1,7 +1,7 @@
 package com.gprindevelopment.cec.externalapi.camara.functions;
 
 import com.google.gson.JsonObject;
-import com.gprindevelopment.cec.politicos.Politician;
+import com.gprindevelopment.cec.politician.Politician;
 import com.gprindevelopment.cec.restclient.CongressoResponseHandler;
 
 import java.sql.Timestamp;

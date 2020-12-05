@@ -1,11 +1,11 @@
 package com.gprindevelopment.cec.externalapi.camara;
 
 import com.gprindevelopment.cec.externalapi.camara.functions.*;
-import com.gprindevelopment.cec.despesas.Expense;
-import com.gprindevelopment.cec.politicos.Politician;
-import com.gprindevelopment.cec.politicos.Profile;
-import com.gprindevelopment.cec.proposicoes.Processing;
-import com.gprindevelopment.cec.proposicoes.Proposition;
+import com.gprindevelopment.cec.expense.Expense;
+import com.gprindevelopment.cec.politician.Politician;
+import com.gprindevelopment.cec.politician.Profile;
+import com.gprindevelopment.cec.proposition.Processing;
+import com.gprindevelopment.cec.proposition.Proposition;
 import com.gprindevelopment.cec.restclient.CustomURIBuilder;
 import com.gprindevelopment.cec.restclient.InvalidRequestException;
 import com.gprindevelopment.cec.restclient.RequestsSender;
@@ -94,7 +94,7 @@ public class CamaraAPI {
             try {
                 URIBuilder builder = new URIBuilder();
                 builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPath("proposicoes")
+                        .setPath("proposition")
                         .addParameter("idDeputadoAutor", politicianId.toString())
                         .addParameter("ordem", "DESC")
                         .addParameter("ordenarPor", "id");
@@ -117,7 +117,7 @@ public class CamaraAPI {
             try {
                 URIBuilder builder = new URIBuilder();
                 builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPathSegments("proposicoes", propositionId.toString());
+                        .setPathSegments("proposition", propositionId.toString());
                 GetPropositionsByPolitician apiFunctionHandler = new GetPropositionsByPolitician();
                 return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
             } catch (Exception exception) {
@@ -138,7 +138,7 @@ public class CamaraAPI {
             try {
                 URIBuilder builder = new URIBuilder();
                 builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPathSegments("proposicoes", propositionId.toString(), "autores");
+                        .setPathSegments("proposition", propositionId.toString(), "autores");
                 GetAuthorsByPropositionId apiFunctionHandler = new GetAuthorsByPropositionId();
                 return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
             } catch (Exception exception) {
@@ -158,7 +158,7 @@ public class CamaraAPI {
             try {
                 URIBuilder builder = new URIBuilder();
                 builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPathSegments("proposicoes", propositionId.toString(), "tramitacoes");
+                        .setPathSegments("proposition", propositionId.toString(), "tramitacoes");
                 GetProcessingHistoryByPropisitionId apiFunctionHandler = new GetProcessingHistoryByPropisitionId();
                 return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
             } catch (Exception exception) {
@@ -178,7 +178,7 @@ public class CamaraAPI {
             try {
                 CustomURIBuilder builder = new CustomURIBuilder();
                 builder.setScheme("http").setHost(camaraConfig.getBaseUrl())
-                        .setPathSegments("deputados", politicianId.toString(), "despesas")
+                        .setPathSegments("deputados", politicianId.toString(), "expense")
                         .addParameter("itens", "100");
                 builder.addListParameter("mes", requestMonths);
                 builder.addListParameter("ano", requestYears);
@@ -186,12 +186,12 @@ public class CamaraAPI {
                 return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
             } catch (Exception exception) {
                 LOGGER.error(exception.getMessage());
-                LOGGER.error("Unable to retrieve the expenses list from CamaraAPI.");
-                LOGGER.error("Returning null instead of a expenses list.");
+                LOGGER.error("Unable to retrieve the expense list from CamaraAPI.");
+                LOGGER.error("Returning null instead of a expense list.");
                 return null;
             }
         } else {
-            throw new InvalidRequestException("Received null ID when building a request of expenses by politician ID.");
+            throw new InvalidRequestException("Received null ID when building a request of expense by politician ID.");
         }
     }
 }

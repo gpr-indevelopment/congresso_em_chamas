@@ -42,7 +42,7 @@ public class DataUpdaterAPI {
             return camaraAPI.requestAllExpensesByPoliticianId(id, months, years);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when updating expenses of politician with id {}. Retrying...", id);
+            LOGGER.error("An error occurred when updating expense of politician with id {}. Retrying...", id);
             doWait(5L);
             return requestAllExpensesByPoliticianId(id, months, years);
         }

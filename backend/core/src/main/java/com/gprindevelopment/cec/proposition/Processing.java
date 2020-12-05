@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.proposicoes;
+package com.gprindevelopment.cec.proposition;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;

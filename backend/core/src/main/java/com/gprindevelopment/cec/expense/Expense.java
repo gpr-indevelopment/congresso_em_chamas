@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.despesas;
+package com.gprindevelopment.cec.expense;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;

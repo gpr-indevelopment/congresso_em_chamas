@@ -1,7 +1,7 @@
 package com.gprindevelopment.cec.externalapi.google;
 
 import com.gprindevelopment.cec.externalapi.google.functions.GetNewsByKeyword;
-import com.gprindevelopment.cec.politicos.News;
+import com.gprindevelopment.cec.politician.News;
 import com.gprindevelopment.cec.restclient.RequestsSender;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;

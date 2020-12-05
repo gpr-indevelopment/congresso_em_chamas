@@ -1,8 +1,8 @@
-package com.gprindevelopment.cec.politicos;
+package com.gprindevelopment.cec.politician;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.gprindevelopment.cec.despesas.MonthlyExpense;
-import com.gprindevelopment.cec.proposicoes.Proposition;
+import com.gprindevelopment.cec.expense.MonthlyExpense;
+import com.gprindevelopment.cec.proposition.Proposition;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -49,7 +49,7 @@ public class UpdateExpensesRPW extends UpdaterRPW<List<Expense>, Politician> {
             return currentPolitician;
         }
         else {
-            throw new CongressoBatchException("Update expenses requires a pre-existing politician in the database.");
+            throw new CongressoBatchException("Update expense requires a pre-existing politician in the database.");
         }
     }
 

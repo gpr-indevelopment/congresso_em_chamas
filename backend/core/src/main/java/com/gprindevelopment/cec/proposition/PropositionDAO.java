@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.proposicoes;
+package com.gprindevelopment.cec.proposition;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

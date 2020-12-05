@@ -1,7 +1,7 @@
 package com.gprindevelopment.cec.externalapi.camara.functions;
 
 import com.google.gson.JsonObject;
-import com.gprindevelopment.cec.proposicoes.Proposition;
+import com.gprindevelopment.cec.proposition.Proposition;
 import com.gprindevelopment.cec.restclient.CongressoResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

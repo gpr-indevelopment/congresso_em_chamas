@@ -1,7 +1,7 @@
 package com.gprindevelopment.cec.externalapi.google.functions;
 
 import com.google.gson.JsonObject;
-import com.gprindevelopment.cec.politicos.News;
+import com.gprindevelopment.cec.politician.News;
 import com.gprindevelopment.cec.restclient.CongressoResponseHandler;
 import org.apache.commons.lang3.StringUtils;
 

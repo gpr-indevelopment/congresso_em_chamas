@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.politicos;
+package com.gprindevelopment.cec.politician;
 
 import lombok.Getter;
 import lombok.Setter;

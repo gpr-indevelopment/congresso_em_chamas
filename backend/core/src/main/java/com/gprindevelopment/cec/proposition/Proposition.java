@@ -1,8 +1,8 @@
-package com.gprindevelopment.cec.proposicoes;
+package com.gprindevelopment.cec.proposition;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.gprindevelopment.cec.politicos.Politician;
+import com.gprindevelopment.cec.politician.Politician;
 import lombok.Getter;
 import lombok.Setter;
 

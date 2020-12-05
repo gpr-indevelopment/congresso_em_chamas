@@ -1,6 +1,6 @@
-package com.gprindevelopment.cec.politicos;
+package com.gprindevelopment.cec.politician;
 
-import com.gprindevelopment.cec.despesas.MonthlyExpense;
+import com.gprindevelopment.cec.expense.MonthlyExpense;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

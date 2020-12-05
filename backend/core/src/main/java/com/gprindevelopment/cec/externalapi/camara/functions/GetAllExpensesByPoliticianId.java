@@ -2,7 +2,7 @@ package com.gprindevelopment.cec.externalapi.camara.functions;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.gprindevelopment.cec.despesas.Expense;
+import com.gprindevelopment.cec.expense.Expense;
 import com.gprindevelopment.cec.restclient.CongressoResponseHandler;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
