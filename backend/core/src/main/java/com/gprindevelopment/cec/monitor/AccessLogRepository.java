@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas;
+package com.gprindevelopment.cec.monitor;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

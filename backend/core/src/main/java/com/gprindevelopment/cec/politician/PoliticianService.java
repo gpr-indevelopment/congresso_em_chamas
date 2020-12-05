@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PoliticianService {
 
-    private CamaraAPI camaraAPI;
+    private final CamaraAPI camaraAPI;
 
-    private GoogleNewsAPI googleNewsAPI;
+    private final GoogleNewsAPI googleNewsAPI;
 
-    private MonthlyExpenseService monthlyExpenseService;
+    private final MonthlyExpenseService monthlyExpenseService;
 
     public Politician findById(Long politicianId) {
         return camaraAPI.requestPoliticianById(politicianId);
@@ -44,7 +44,7 @@ public class PoliticianService {
         return monthlyExpenseService.computeMonthlyExpenses(camaraAPI.requestAllExpensesByPoliticianId(politicianId, months, years));
     }
 
-    public List<Expense> findAllExpensesByYearsMonths(Long politicianId, List<Integer> years, List<Integer> months) {
+    public List<Expense> findAllExpensesByYearsMonths(Long politicianId, List<Integer> months, List<Integer> years) {
         return camaraAPI.requestAllExpensesByPoliticianId(politicianId, months, years);
     }
 

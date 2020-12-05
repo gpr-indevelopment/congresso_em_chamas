@@ -15,12 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 
 @Component
+@PropertySource("classpath:camara.properties")
 public class CamaraAPI {
 
     @Autowired(required = false)

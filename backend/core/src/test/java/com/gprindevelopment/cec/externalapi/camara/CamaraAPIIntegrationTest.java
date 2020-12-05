@@ -18,7 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@TestPropertySource("classpath:application.properties")
+@TestPropertySource("classpath:camara.properties")
 @ContextConfiguration(classes = {CamaraAPI.class, RequestsSender.class})
 public class CamaraAPIIntegrationTest {
 

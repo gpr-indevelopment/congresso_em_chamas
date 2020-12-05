@@ -1,4 +1,4 @@
-package com.devindev.congressoemchamas;
+package com.gprindevelopment.cec.monitor;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,7 @@
 package com.devindev.congressoemchamas;
 
+import com.gprindevelopment.cec.monitor.AccessLog;
+import com.gprindevelopment.cec.monitor.AccessLogRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;

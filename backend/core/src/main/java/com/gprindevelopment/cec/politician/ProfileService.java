@@ -10,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProfileService {
 
-    private CamaraAPI camaraAPI;
+    private final CamaraAPI camaraAPI;
 
     public List<Profile> findAllOnCurrentLegislatureByPoliticianName(String name) {
         return camaraAPI.requestProfilesByNameAndLegislatureId(name, camaraAPI.requestCurrentLegislature().getId());

@@ -1,5 +1,7 @@
 package com.devindev.congressoemchamas;
 
+import com.gprindevelopment.cec.monitor.AccessLog;
+import com.gprindevelopment.cec.monitor.AccessLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
