@@ -45,6 +45,8 @@ jobs:
         command: |
           export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
           export PGADMIN_PASSWORD=${{ secrets.PGADMIN_PASSWORD }}
+          export POSTGRES_USERNAME=${{secrets.POSTGRES_USERNAME}}
+          export POSTGRES_URL=${{secrets.POSTGRES_URL}}
           sh deploy.sh
         host: ${{ secrets.CONGRESSO_SERVER_IP }}
         key: ${{ secrets.CONGRESSO_SERVER_SSH }}

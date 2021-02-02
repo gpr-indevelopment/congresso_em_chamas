@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.metrics;
+package com.gprindevelopment.cec.core.batch;
 
 import com.gprindevelopment.cec.core.expense.Expense;
 import com.gprindevelopment.cec.core.expense.MonthlyExpense;

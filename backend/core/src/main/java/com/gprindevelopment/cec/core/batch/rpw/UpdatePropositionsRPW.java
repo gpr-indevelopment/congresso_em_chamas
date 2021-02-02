@@ -1,7 +1,7 @@
-package com.gprindevelopment.cec.metrics.rpw;
+package com.gprindevelopment.cec.core.batch.rpw;
 
-import com.gprindevelopment.cec.metrics.CongressoBatchException;
-import com.gprindevelopment.cec.metrics.DataUpdaterAPI;
+import com.gprindevelopment.cec.core.batch.CongressoBatchException;
+import com.gprindevelopment.cec.core.batch.DataUpdaterAPI;
 import com.gprindevelopment.cec.core.politician.Politician;
 import com.gprindevelopment.cec.core.politician.PoliticianRepository;
 import com.gprindevelopment.cec.core.proposition.Proposition;

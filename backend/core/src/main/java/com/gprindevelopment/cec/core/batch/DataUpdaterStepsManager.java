@@ -1,11 +1,11 @@
-package com.gprindevelopment.cec.metrics;
+package com.gprindevelopment.cec.core.batch;
 
 import com.gprindevelopment.cec.core.expense.Expense;
 import com.gprindevelopment.cec.core.politician.Politician;
 import com.gprindevelopment.cec.core.proposition.Proposition;
-import com.gprindevelopment.cec.metrics.rpw.UpdateExpensesRPW;
-import com.gprindevelopment.cec.metrics.rpw.UpdatePoliticianRPW;
-import com.gprindevelopment.cec.metrics.rpw.UpdatePropositionsRPW;
+import com.gprindevelopment.cec.core.batch.rpw.UpdateExpensesRPW;
+import com.gprindevelopment.cec.core.batch.rpw.UpdatePoliticianRPW;
+import com.gprindevelopment.cec.core.batch.rpw.UpdatePropositionsRPW;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.beans.factory.annotation.Autowired;

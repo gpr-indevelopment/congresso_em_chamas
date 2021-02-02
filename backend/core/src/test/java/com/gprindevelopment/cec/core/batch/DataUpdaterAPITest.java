@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.metrics;
+package com.gprindevelopment.cec.core.batch;
 
 import com.gprindevelopment.cec.core.expense.Expense;
 import com.gprindevelopment.cec.core.externalapi.camara.CamaraAPI;
@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DataUpdaterAPITest {

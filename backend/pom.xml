@@ -20,7 +20,6 @@
 	</properties>
 
 	<modules>
-		<module>metrics</module>
 		<module>core</module>
 		<module>web</module>
 	</modules>

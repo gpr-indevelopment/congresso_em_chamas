@@ -1,7 +1,7 @@
-package com.gprindevelopment.cec.metrics.rpw;
+package com.gprindevelopment.cec.core.batch.rpw;
 
-import com.gprindevelopment.cec.metrics.CongressoBatchException;
-import com.gprindevelopment.cec.metrics.DataUpdaterAPI;
+import com.gprindevelopment.cec.core.batch.CongressoBatchException;
+import com.gprindevelopment.cec.core.batch.DataUpdaterAPI;
 import com.gprindevelopment.cec.core.expense.Expense;
 import com.gprindevelopment.cec.core.expense.MonthlyExpense;
 import com.gprindevelopment.cec.core.expense.MonthlyExpenseService;
@@ -49,6 +49,7 @@ public class UpdateExpensesRPW extends UpdaterRPW<List<Expense>, Politician> {
             monthlyExpenses.forEach(monthlyExpense -> {
                 monthlyExpense.setPolitician(currentPolitician);
                 monthlyExpense.setLegislature(currentLegislature);
+                monthlyExpense.getExpenses().forEach(expense -> expense.setMonthlyExpense(monthlyExpense));
             });
             return currentPolitician;
         }

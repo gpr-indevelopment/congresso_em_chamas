@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.metrics;
+package com.gprindevelopment.cec.core.batch;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;

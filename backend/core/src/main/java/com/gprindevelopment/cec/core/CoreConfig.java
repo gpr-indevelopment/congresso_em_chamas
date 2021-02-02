@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.gprindevelopment.cec"})
-@EntityScan(basePackages = {"com.gprindevelopment.cec"})
-@ComponentScan(basePackages = {"com.gprindevelopment.cec"})
+@EnableJpaRepositories(basePackages = {"com.gprindevelopment.cec.core"})
+@EntityScan(basePackages = {"com.gprindevelopment.cec.core"})
+@ComponentScan(basePackages = {"com.gprindevelopment.cec.core"})
 public class CoreConfig {
 }

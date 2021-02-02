@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.metrics;
+package com.gprindevelopment.cec.core.batch;
 
 public class CongressoBatchException extends RuntimeException {
 
