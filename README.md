@@ -72,3 +72,4 @@ A code base com HTML, CSS e JS puros já estava difícil de ser mantida. Decidi 
 
 # Contribua
 Pull requests são bem-vindos. Esse é um projeto pessoal para aprendizado de tecnologia, e serei grato por qualquer dica ou sugestão de escrita de código, arquitetura, padrões de projeto, etc.
+
