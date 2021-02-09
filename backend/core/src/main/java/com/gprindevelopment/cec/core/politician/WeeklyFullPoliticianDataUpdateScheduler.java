@@ -33,7 +33,7 @@ public class WeeklyFullPoliticianDataUpdateScheduler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeeklyFullPoliticianDataUpdateScheduler.class);
 
-    @Scheduled(cron = "0 0 3 * * SUN")
+    //@Scheduled(cron = "0 0 3 * * SUN")
     private void executeJobs() throws Exception {
         LOGGER.info("Scheduled time has arrived. Database full update.");
         for (Long id : enlistIdsEligibleToUpdate()) {

@@ -20,7 +20,7 @@ public class DailyAccessedPoliticianDataUpdateScheduler {
         return queueIds.add(politicianId);
     }
 
-    @Scheduled(cron = "0 0 1 * * MON-SAT")
+    //@Scheduled(cron = "0 0 1 * * MON-SAT")
     public void executeJobs() throws Exception {
         Iterator<Long> iterator = queueIds.iterator();
         while(iterator.hasNext()) {
