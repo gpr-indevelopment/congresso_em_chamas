@@ -29,7 +29,7 @@ public class PoliticianService {
     private final DailyAccessedPoliticianDataUpdateScheduler dailyAccessedPoliticianDataUpdateScheduler;
 
     public Politician findById(Long politicianId) {
-        //dailyAccessedPoliticianDataUpdateScheduler.addToQueue(politicianId);
+        dailyAccessedPoliticianDataUpdateScheduler.addToQueue(politicianId);
         return camaraAPI.requestPoliticianById(politicianId);
     }
 
