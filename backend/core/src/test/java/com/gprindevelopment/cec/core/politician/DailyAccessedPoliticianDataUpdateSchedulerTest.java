@@ -1,6 +1,7 @@
 package com.gprindevelopment.cec.core.politician;
 
 import com.gprindevelopment.cec.core.batch.PoliticianDataUpdater;
+import com.gprindevelopment.cec.core.externalapi.ExternalAPICacheManager;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
@@ -13,7 +14,7 @@ public class DailyAccessedPoliticianDataUpdateSchedulerTest {
 
     public DailyAccessedPoliticianDataUpdateSchedulerTest() {
         politicianDataUpdater = mock(PoliticianDataUpdater.class);
-        scheduler = new DailyAccessedPoliticianDataUpdateScheduler(politicianDataUpdater);
+        scheduler = new DailyAccessedPoliticianDataUpdateScheduler(politicianDataUpdater, new ExternalAPICacheManager());
     }
 
     @Test
