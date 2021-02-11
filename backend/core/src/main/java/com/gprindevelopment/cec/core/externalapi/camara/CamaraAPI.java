@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +35,7 @@ public class CamaraAPI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
-    @Cacheable(cacheNames = "politicianIdsByNameAndLegislatureId")
+    //@Cacheable(cacheNames = "politicianIdsByNameAndLegislatureId")
     public List<Profile> requestProfilesByNameAndLegislatureId(String name, Long legislatureId) {
         try {
             legislatureId = Objects.isNull(legislatureId) ? requestCurrentLegislature().getId() : legislatureId;
@@ -55,7 +54,7 @@ public class CamaraAPI {
         }
     }
 
-    @Cacheable(cacheNames = "politicianById")
+    //@Cacheable(cacheNames = "politicianById")
     public Politician requestPoliticianById(Long id) {
         if(Objects.nonNull(id)){
             try {
@@ -76,7 +75,7 @@ public class CamaraAPI {
 
     }
 
-    @Cacheable(cacheNames = "currentLegislatureId")
+    //@Cacheable(cacheNames = "currentLegislatureId")
     public Legislature requestCurrentLegislature() {
         try {
             URIBuilder builder = new URIBuilder();
@@ -94,7 +93,7 @@ public class CamaraAPI {
         }
     }
 
-    @Cacheable(cacheNames = "propositionIdsByPoliticianId")
+    //@Cacheable(cacheNames = "propositionIdsByPoliticianId")
     public List<Long> requestPropositionIdsByPoliticianId(Long politicianId) {
         if(Objects.nonNull(politicianId)){
             try {
@@ -117,7 +116,7 @@ public class CamaraAPI {
         }
     }
 
-    @Cacheable(cacheNames = "propositionById")
+    //@Cacheable(cacheNames = "propositionById")
     public Proposition requestPropositionById(Long propositionId) {
         if(Objects.nonNull(propositionId)) {
             try {
@@ -138,7 +137,7 @@ public class CamaraAPI {
 
     }
 
-    @Cacheable(cacheNames = "authorsByPropositionId")
+    //@Cacheable(cacheNames = "authorsByPropositionId")
     public List<String> requestAuthorsByPropositionId(Long propositionId) {
         if(Objects.nonNull(propositionId)){
             try {
@@ -158,7 +157,7 @@ public class CamaraAPI {
         }
     }
 
-    @Cacheable(cacheNames = "processingHistoryByPropositionId")
+    //@Cacheable(cacheNames = "processingHistoryByPropositionId")
     public List<Processing> requestProcessingHistoryByPropositionId(Long propositionId) {
         if(Objects.nonNull(propositionId)){
             try {
@@ -178,7 +177,7 @@ public class CamaraAPI {
         }
     }
 
-    @Cacheable(cacheNames = "expensesByPropositionId")
+    //@Cacheable(cacheNames = "expensesByPropositionId")
     public List<Expense> requestAllExpensesByPoliticianId(Long politicianId, List<Integer> requestMonths, List<Integer> requestYears) {
         if(Objects.nonNull(politicianId)) {
             try {
