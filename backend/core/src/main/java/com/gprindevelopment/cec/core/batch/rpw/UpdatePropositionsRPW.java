@@ -9,6 +9,7 @@ import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,12 @@ public class UpdatePropositionsRPW extends UpdaterRPW<List<Proposition>, Politic
         List<Proposition> propositions = new ArrayList<>();
         getCamaraAPI()
                 .requestPropositionIdsByPoliticianId(getPoliticianId())
-                .forEach(propositionId -> propositions.add(getCamaraAPI().requestPropositionById(propositionId)));
+                .forEach(propositionId -> {
+                    Proposition proposition = getCamaraAPI().requestPropositionById(propositionId);
+                    proposition.setAuthors(new HashSet<>(getCamaraAPI().requestAuthorsByPropositionId(propositionId)));
+                    proposition.setProcessingHistory(getCamaraAPI().requestProcessingHistoryByPropositionId(propositionId));
+                    propositions.add(proposition);
+                });
         return propositions;
     }
 

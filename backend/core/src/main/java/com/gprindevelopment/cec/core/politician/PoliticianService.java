@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,12 @@ public class PoliticianService {
         return camaraAPI
                 .requestPropositionIdsByPoliticianId(politicianId)
                 .stream()
-                .map(propositionId -> camaraAPI.requestPropositionById(propositionId))
+                .map(propositionId -> {
+                    Proposition proposition = camaraAPI.requestPropositionById(propositionId);
+                    proposition.setAuthors(new HashSet<>(camaraAPI.requestAuthorsByPropositionId(propositionId)));
+                    proposition.setProcessingHistory(camaraAPI.requestProcessingHistoryByPropositionId(propositionId));
+                    return proposition;
+                })
                 .collect(Collectors.toList());
     }
 
