@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +32,7 @@ public class WeeklyFullPoliticianDataUpdateScheduler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeeklyFullPoliticianDataUpdateScheduler.class);
 
-    //@Scheduled(cron = "0 0 3 * * SUN")
+    @Scheduled(cron = "0 0 3 * * FRI")
     private void executeJobs() throws Exception {
         LOGGER.info("Scheduled time has arrived. Database full update.");
         for (Long id : enlistIdsEligibleToUpdate()) {
@@ -54,7 +53,7 @@ public class WeeklyFullPoliticianDataUpdateScheduler {
     }
 
     private boolean hasExpired(Politician politician) {
-        LocalDateTime nowTimestamp = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
+        LocalDateTime nowTimestamp = LocalDateTime.now();
         LocalDateTime lastUpdatedTimestamp = politician.getUpdatedAt().toLocalDateTime();
         return nowTimestamp.minusDays(batchConfig.getPoliticianExpirationDays()).isAfter(lastUpdatedTimestamp);
     }
