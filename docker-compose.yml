@@ -4,11 +4,7 @@ services:
         image: pimentgabriel/congressoemchamas
         environment: 
             - PORT=80
-            - GOOGLE_NEWS_API_KEY=d97966c338b44bffbeb4957480bd0d74
+            - GOOGLE_NEWS_API_KEY=${GOOGLE_NEWS_API_KEY}
             - JDBC_DATABASE_URL=jdbc:postgresql://${POSTGRES_URL}?user=${POSTGRES_USERNAME}&password=${POSTGRES_PASSWORD}
-            - TWITTER_ACCESS_TOKEN=42526425-BCMdBupTQ2E2RP6L8aKTsc2uP6FyPLMAubn9mznJv
-            - TWITTER_ACCESS_TOKEN_SECRET=VFZaLSeDXSAgOLoWih8NBdHGiX5BDRVgaUMPs4HKouNxT
-            - TWITTER_CONSUMER_KEY=mZPuiaSORinju4bY2QBQUhNJC
-            - TWITTER_CONSUMER_SECRET=tYyofsR3zIWAirCKYc8CzZlwFCoHhmF5CFWH8T5s1dTH01IGId
         ports:
             - "80:80"
