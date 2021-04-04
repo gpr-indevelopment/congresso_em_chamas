@@ -15,7 +15,7 @@ function JarbasSuspicionsCounter(props) {
   return (
     <div>
       {suspicionsCount > 0 ? (
-        <Tag color="#CC0000">
+        <Tag color="#ff4d4f">
           Despesas suspeitas: {suspicionsCount}
         </Tag>
       ) : null}

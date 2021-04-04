@@ -59,6 +59,7 @@ function JarbasReimbursementTag(props) {
                       type="primary"
                       size="small"
                       onClick={handleDetailsClick}
+                      danger
                     >
                       Detalhes
                     </Button>
@@ -71,7 +72,7 @@ function JarbasReimbursementTag(props) {
             );
           }}
         >
-          <Tag color="#CC0000">Suspeito</Tag>
+          <Button type="primary" danger>Suspeito</Button>
         </Popover>
       );
     } else {
