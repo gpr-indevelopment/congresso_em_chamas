@@ -39,6 +39,7 @@ public class GetAllExpensesByPoliticianId extends CongressoResponseHandler<List<
             JsonObject dataObject = data.getAsJsonObject();
             Expense expense = new Expense();
             expense.setYearMonth(YearMonth.of(dataObject.get("ano").getAsInt(), dataObject.get("mes").getAsInt()));
+            expense.setDocumentCode(dataObject.get("codDocumento").getAsLong());
             expense.setDocumentNumber(nullCheckRetrievedStringValue(dataObject.get("numDocumento")));
             expense.setDocumentUrl(nullCheckRetrievedStringValue(dataObject.get("urlDocumento")));
             expense.setProvider(nullCheckRetrievedStringValue(dataObject.get("nomeFornecedor")));

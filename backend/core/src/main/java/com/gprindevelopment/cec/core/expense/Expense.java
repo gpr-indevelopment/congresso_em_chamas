@@ -15,6 +15,8 @@ public class Expense {
     @GeneratedValue
     private Long id;
 
+    private Long documentCode;
+
     private String documentNumber;
 
     private double value;
