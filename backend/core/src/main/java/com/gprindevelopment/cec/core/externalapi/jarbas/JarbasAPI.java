@@ -26,7 +26,6 @@ public class JarbasAPI {
             String url = String.format("%s/chamber_of_deputies/reimbursement/%s", jarbasConfig.getJarbasUrl(), documentCode);
             try {
                 jarbasReimbursementOpt = Optional.ofNullable(restTemplate.getForObject(url, JarbasReimbursement.class));
-                LOGGER.info("Achei alguma coisa!");
             } catch (HttpClientErrorException.NotFound ignored) {
             } catch (Exception ex) {
                 LOGGER.error("An error was found while requesting a reimbursement from Jarbas API for code {}. Returning empty.", documentCode);

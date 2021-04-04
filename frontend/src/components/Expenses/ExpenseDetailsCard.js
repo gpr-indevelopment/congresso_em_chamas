@@ -10,7 +10,20 @@ import JarbasReimbursementTag from "./JarbasReimbursementTag";
 function ExpenseDetails(props) {
   let { documentCode } = props.data;
   let { onLoad } = props;
-  useEffect(() => onLoad(documentCode), [documentCode, onLoad]);
+  useEffect(() => {
+    if(documentCode && documentCode > 0) {
+      onLoad(documentCode);
+    }
+  }, [documentCode, onLoad]);
+
+  let resolveReimbursement = () => {
+    let documentCode = props.data.documentCode;
+    if(documentCode && documentCode > 0 && props.jarbasReimbursements.get(documentCode)) {
+      return props.jarbasReimbursements.get(documentCode).reimbursement
+    } else {
+      return null;
+    }
+  }
 
   return (
     <Card
@@ -68,12 +81,7 @@ function ExpenseDetails(props) {
                     .loading
                 : true
             }
-            reimbursement={
-              props.jarbasReimbursements.get(props.data.documentCode)
-                ? props.jarbasReimbursements.get(props.data.documentCode)
-                    .reimbursement
-                : null
-            }
+            reimbursement={resolveReimbursement()}
           />
         </div>
       </div>
