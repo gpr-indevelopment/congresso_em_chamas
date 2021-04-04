@@ -1,5 +1,5 @@
 import React from "react";
-import { Spin, Tag, Popover, List, Typography, Button } from "antd";
+import { Spin, Popover, List, Typography, Button } from "antd";
 import styles from "./JarbasReimbursementTag.module.css";
 import { config } from "../../constants";
 
