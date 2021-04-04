@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class GetAllExpensesByPoliticianId extends CongressoResponseHandler<List<Expense>> {
 
@@ -42,7 +43,7 @@ public class GetAllExpensesByPoliticianId extends CongressoResponseHandler<List<
             expense.setDocumentCode(dataObject.get("codDocumento").getAsLong());
             expense.setDocumentNumber(nullCheckRetrievedStringValue(dataObject.get("numDocumento")));
             expense.setDocumentUrl(nullCheckRetrievedStringValue(dataObject.get("urlDocumento")));
-            expense.setProvider(nullCheckRetrievedStringValue(dataObject.get("nomeFornecedor")));
+            expense.setProvider(nullCheckRetrievedStringValue(dataObject.get("nomeFornecedor")).toUpperCase());
             expense.setType(nullCheckRetrievedStringValue(dataObject.get("tipoDespesa")));
             expense.setValue(dataObject.get("valorDocumento").getAsDouble());
             expenses.add(expense);

@@ -1,5 +1,6 @@
 package com.gprindevelopment.cec.core.externalapi.jarbas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class JarbasSuspicions {
 
     private JarbasSuspicion irregularCompaniesClassifier = new JarbasSuspicion("irregular_companies_classifier", "CNPJ irregular");
 
+    @JsonIgnore
     private Map<String, JarbasSuspicion> keyToSuspicion = Map.of(
             "meal_price_outlier", mealPriceOutlier,
             "over_monthly_subquota_limit", overMonthlySubquotaLimit,

@@ -3,6 +3,8 @@ package com.gprindevelopment.cec.web;
 import com.gprindevelopment.cec.core.expense.Expense;
 import com.gprindevelopment.cec.core.expense.MonthlyExpense;
 import com.gprindevelopment.cec.core.expense.MonthlyExpenseService;
+import com.gprindevelopment.cec.core.externalapi.jarbas.JarbasAPI;
+import com.gprindevelopment.cec.core.externalapi.jarbas.model.JarbasReimbursement;
 import com.gprindevelopment.cec.core.politician.*;
 import com.gprindevelopment.cec.core.proposition.Proposition;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,8 @@ public class WebService {
     private final ProfileService profileService;
 
     private final MonthlyExpenseService monthlyExpenseService;
+
+    private final JarbasAPI jarbasAPI;
 
     public Politician findPoliticianById(Long politicianId) {
         return politicianService.findById(politicianId);
@@ -59,5 +63,9 @@ public class WebService {
 
     public List<Profile> findProfilesByName(String name) {
         return profileService.findAllOnCurrentLegislatureByPoliticianName(name);
+    }
+
+    public JarbasReimbursement findJarbasReimbursement(Long documentCode) {
+        return jarbasAPI.requestReimbursement(documentCode).orElse(null);
     }
 }

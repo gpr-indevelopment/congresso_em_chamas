@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(EXPENSES_ACTIONS.showDetails(index)),
     handleRadioChanged: (value) =>
       dispatch(EXPENSES_ACTIONS.radioChanged(value)),
+    handleJarbasReimbursementRequest: (documentCode) => 
+      dispatch(THUNK.requestJarbasReimbursement(documentCode)),
+    resetJarbasReimbursement: () => dispatch(EXPENSES_ACTIONS.resetJarbasReimbursement()),
   };
 };
 

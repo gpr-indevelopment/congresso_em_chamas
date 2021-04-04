@@ -20,3 +20,15 @@
 .icon {
     margin-right: 0.5rem;
 }
+
+.detailsContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.jarbasReimbursementContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 120px;
+}

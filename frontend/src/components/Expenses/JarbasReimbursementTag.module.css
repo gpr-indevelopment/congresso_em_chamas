@@ -1,0 +1,5 @@
+.footerContainer {
+    display: flex;
+    justify-content: space-between;
+    min-width: 200px;
+}

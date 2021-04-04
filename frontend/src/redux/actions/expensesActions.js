@@ -36,3 +36,36 @@ export function radioChanged(value) {
     value: value
   }
 }
+
+export const REQUEST_JARBAS_REIMBURSEMENT = "EXPENSES_ACTIONS.REQUEST_JARBAS_REIMBURSEMENT";
+export function requestJarbasReimbursement(documentCode) {
+  return {
+    type: REQUEST_JARBAS_REIMBURSEMENT,
+    documentCode: documentCode
+  };
+}
+
+export const RECEIVE_JARBAS_REIMBURSEMENT = "EXPENSES_ACTIONS.RECEIVE_JARBAS_REIMBURSEMENT";
+export function receiveJarbasReimbursement(documentCode, response) {
+  return {
+    type: RECEIVE_JARBAS_REIMBURSEMENT,
+    documentCode: documentCode,
+    response: response
+  };
+}
+
+export const FAILED_JARBAS_REIMBURSEMENT = "EXPENSES_ACTIONS.FAILED_JARBAS_REIMBURSEMENT";
+export function failedJarbasReimbursement(documentCode, error) {
+  return {
+    type: FAILED_JARBAS_REIMBURSEMENT,
+    documentCode: documentCode,
+    error: error
+  };
+}
+
+export const RESET_JARBAS_REIMBURSEMENT = "EXPENSES_ACTIONS.RESET_JARBAS_REIMBURSEMENT";
+export function resetJarbasReimbursement() {
+  return {
+    type: RESET_JARBAS_REIMBURSEMENT,
+  };
+}

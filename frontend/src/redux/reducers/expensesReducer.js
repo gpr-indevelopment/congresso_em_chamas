@@ -6,6 +6,8 @@ const initialState = {
   expenseData: {},
   detailsData: [],
   activeRadio: 1,
+  jarbasReimbursements: new Map(),
+  jarbasSuspicionsCount: 0,
 };
 
 export default function expensesReducer(state = initialState, action) {
@@ -32,6 +34,39 @@ export default function expensesReducer(state = initialState, action) {
     case EXPENSES_ACTIONS.RADIO_CHANGED:
       return Object.assign({}, state, {
         activeRadio: action.value,
+      });
+    case EXPENSES_ACTIONS.REQUEST_JARBAS_REIMBURSEMENT:
+      return Object.assign({}, state, {
+        jarbasReimbursements: new Map(state.jarbasReimbursements).set(
+          action.documentCode,
+          {
+            loading: true,
+          }
+        ),
+      });
+    case EXPENSES_ACTIONS.RECEIVE_JARBAS_REIMBURSEMENT:
+      return Object.assign({}, state, {
+        jarbasReimbursements: new Map(state.jarbasReimbursements).set(
+          action.documentCode,
+          {
+            loading: false,
+            reimbursement: action.response,
+          }
+        ),
+      });
+    case EXPENSES_ACTIONS.FAILED_JARBAS_REIMBURSEMENT:
+      return Object.assign({}, state, {
+        jarbasReimbursements: new Map(state.jarbasReimbursements).set(
+          action.documentCode,
+          {
+            loading: false,
+            reimbursement: null,
+          }
+        ),
+      });
+    case EXPENSES_ACTIONS.RESET_JARBAS_REIMBURSEMENT:
+      return Object.assign({}, state, {
+        jarbasReimbursements: new Map(),
       });
     default:
       return Object.assign({}, state);

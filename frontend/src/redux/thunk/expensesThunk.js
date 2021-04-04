@@ -20,3 +20,19 @@ export function requestExpenses(politicianId, query) {
       });
   };
 }
+
+export function requestJarbasReimbursement(documentCode) {
+  return (dispatch) => {
+    dispatch(EXPENSES_ACTIONS.requestJarbasReimbursement(documentCode));
+    let url = `${config.url}/expenses/${documentCode}`;
+    fetch(url).then((response) => {
+      if(response.ok) {
+        return response.json();
+      } else {
+        dispatch(EXPENSES_ACTIONS.failedJarbasReimbursement(documentCode, response));
+      }
+    })
+    .then(body => dispatch(EXPENSES_ACTIONS.receiveJarbasReimbursement(documentCode, body)))
+    .catch(error => dispatch(EXPENSES_ACTIONS.failedJarbasReimbursement(documentCode, error)))
+  }
+}
