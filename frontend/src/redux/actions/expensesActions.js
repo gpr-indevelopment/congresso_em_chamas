@@ -37,35 +37,16 @@ export function radioChanged(value) {
   }
 }
 
-export const REQUEST_JARBAS_REIMBURSEMENT = "EXPENSES_ACTIONS.REQUEST_JARBAS_REIMBURSEMENT";
-export function requestJarbasReimbursement(documentCode) {
+export const INCREMENT_JARBAS_SUSPICIONS = "EXPENSES_ACTIONS.INCREMENT_JARBAS_SUSPICIONS";
+export function incrementJarbasSuspicions() {
   return {
-    type: REQUEST_JARBAS_REIMBURSEMENT,
-    documentCode: documentCode
+    type: INCREMENT_JARBAS_SUSPICIONS,
   };
 }
 
-export const RECEIVE_JARBAS_REIMBURSEMENT = "EXPENSES_ACTIONS.RECEIVE_JARBAS_REIMBURSEMENT";
-export function receiveJarbasReimbursement(documentCode, response) {
+export const RESET_JARBAS_SUSPICIONS = "EXPENSES_ACTIONS.RESET_JARBAS_SUSPICIONS";
+export function resetJarbasSuspicions() {
   return {
-    type: RECEIVE_JARBAS_REIMBURSEMENT,
-    documentCode: documentCode,
-    response: response
-  };
-}
-
-export const FAILED_JARBAS_REIMBURSEMENT = "EXPENSES_ACTIONS.FAILED_JARBAS_REIMBURSEMENT";
-export function failedJarbasReimbursement(documentCode, error) {
-  return {
-    type: FAILED_JARBAS_REIMBURSEMENT,
-    documentCode: documentCode,
-    error: error
-  };
-}
-
-export const RESET_JARBAS_REIMBURSEMENT = "EXPENSES_ACTIONS.RESET_JARBAS_REIMBURSEMENT";
-export function resetJarbasReimbursement() {
-  return {
-    type: RESET_JARBAS_REIMBURSEMENT,
+    type: RESET_JARBAS_SUSPICIONS,
   };
 }

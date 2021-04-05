@@ -2,21 +2,11 @@ import React from "react";
 import {Tag} from "antd";
 
 function JarbasSuspicionsCounter(props) {
-  let calculateSuspicionsCount = (jarbasReimbursementsMap) => {
-    let count = 0;
-    jarbasReimbursementsMap.forEach((value, key) => {
-      if (value.reimbursement && value.reimbursement.suspicions) {
-        count++;
-      }
-    });
-    return count;
-  };
-  let suspicionsCount = calculateSuspicionsCount(props.jarbasReimbursementsMap);
   return (
     <div>
-      {suspicionsCount > 0 ? (
+      {props.count > 0 ? (
         <Tag color="#ff4d4f">
-          Despesas suspeitas: {suspicionsCount}
+          Despesas suspeitas: {props.count}
         </Tag>
       ) : null}
     </div>

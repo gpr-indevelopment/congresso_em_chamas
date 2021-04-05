@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Tooltip } from "antd";
 import styles from "./ExpenseDetailsCard.module.css";
 import { WarningOutlined } from "@ant-design/icons";
@@ -6,24 +6,45 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarAlt, faFileAlt } from "@fortawesome/free-regular-svg-icons";
 import JarbasReimbursementTag from "./JarbasReimbursementTag";
+import { config } from "../../constants";
 
 function ExpenseDetails(props) {
-  let { documentCode } = props.data;
-  let { onLoad } = props;
-  useEffect(() => {
-    if(documentCode && documentCode > 0) {
-      onLoad(documentCode);
-    }
-  }, [documentCode, onLoad]);
+  const [reimbursement, setReimbursement] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  let resolveReimbursement = () => {
-    let documentCode = props.data.documentCode;
-    if(documentCode && documentCode > 0 && props.jarbasReimbursements.get(documentCode)) {
-      return props.jarbasReimbursements.get(documentCode).reimbursement
-    } else {
-      return null;
+  let { documentCode } = props.data;
+  useEffect(() => {
+    if (documentCode && documentCode > 0) {
+      let url = `${config.url}/expenses/${documentCode}`;
+      setLoading(true);
+      fetch(url)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            setLoading(false);
+            setReimbursement(null);
+          }
+        })
+        .then((body) => {
+          setLoading(false);
+          setReimbursement(body);
+          if (body.suspicions) {
+            props.onFindSuspicion(body.suspicions);
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setReimbursement(null);
+        });
+      async function loadingTimeout() {
+        await new Promise((resolve) => setTimeout(resolve, 60000));
+        setLoading(false);
+      }
+      loadingTimeout();
     }
-  }
+    // eslint-disable-next-line
+  }, [documentCode]);
 
   return (
     <Card
@@ -75,13 +96,8 @@ function ExpenseDetails(props) {
         </div>
         <div className={styles.jarbasReimbursementContainer}>
           <JarbasReimbursementTag
-            isLoading={
-              props.jarbasReimbursements.get(props.data.documentCode)
-                ? props.jarbasReimbursements.get(props.data.documentCode)
-                    .loading
-                : true
-            }
-            reimbursement={resolveReimbursement()}
+            isLoading={loading}
+            reimbursement={reimbursement}
           />
         </div>
       </div>

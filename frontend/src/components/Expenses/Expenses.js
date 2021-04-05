@@ -11,13 +11,13 @@ function Expenses(props) {
   const {
     handleExpensesRequest,
     activeRadio,
-    resetJarbasReimbursement,
+    resetJarbasSuspicions
   } = props;
   const politicianId = new URLSearchParams(window.location.search).get(
     "politician"
   );
   useEffect(() => {
-    resetJarbasReimbursement();
+    resetJarbasSuspicions();
     switch (activeRadio) {
       case 2:
         handleExpensesRequest(politicianId, {
@@ -37,7 +37,7 @@ function Expenses(props) {
     handleExpensesRequest,
     politicianId,
     activeRadio,
-    resetJarbasReimbursement,
+    resetJarbasSuspicions,
   ]);
 
   return (
@@ -56,8 +56,8 @@ function Expenses(props) {
                 <ExpensesGraph
                   data={props.expenseData}
                   onDataClick={(event, array) => {
-                    if(array.length > 0) {
-                      resetJarbasReimbursement();
+                    if (array.length > 0) {
+                      props.resetJarbasSuspicions();
                       return props.handleDetailsClick(array[0]._index);
                     }
                   }}
@@ -66,8 +66,8 @@ function Expenses(props) {
             </Space>
             <ExpensesDetailsSection
               data={props.detailsData}
-              onCardLoad={props.handleJarbasReimbursementRequest}
-              jarbasReimbursements={props.jarbasReimbursements}
+              suspicionsCount={props.jarbasSuspicionsCount}
+              incrementSuspicions={() => props.incrementJarbasSuspicions()}
             />
           </div>
         ) : (

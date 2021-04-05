@@ -7,6 +7,7 @@ import com.gprindevelopment.cec.core.politician.Politician;
 import com.gprindevelopment.cec.core.politician.Profile;
 import com.gprindevelopment.cec.core.proposition.Proposition;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -49,6 +50,7 @@ public class WebController {
     }
 
     @RequestMapping(path = "/expenses/{documentCode}", method = RequestMethod.GET)
+    @Cacheable(cacheNames = "jarbasReimbursementByDocumentCode")
     public JarbasReimbursement getJarbasReimbursement(@PathVariable Long documentCode) {
         return webService.findJarbasReimbursement(documentCode);
     }

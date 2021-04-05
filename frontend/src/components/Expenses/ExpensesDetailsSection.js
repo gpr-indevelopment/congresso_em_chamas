@@ -8,10 +8,9 @@ function ExpensesDetails(props) {
   props.data.forEach((dataElement) => {
     detailsList.push(
       <ExpenseDetailsCard
+        onFindSuspicion={props.incrementSuspicions}
         data={dataElement}
-        key={dataElement.documentNumber}
-        onLoad={props.onCardLoad}
-        jarbasReimbursements={props.jarbasReimbursements}
+        key={dataElement.documentNumber + "-" + dataElement.documentCode}
       />
     );
   });
@@ -19,9 +18,7 @@ function ExpensesDetails(props) {
   return (
     <div className={styles.container}>
       <div className={styles.counterContainer}>
-        <JarbasSuspicionsCounter
-          jarbasReimbursementsMap={props.jarbasReimbursements}
-        />
+        <JarbasSuspicionsCounter count={props.suspicionsCount} />
       </div>
       {props.data.length > 0 ? (
         detailsList
