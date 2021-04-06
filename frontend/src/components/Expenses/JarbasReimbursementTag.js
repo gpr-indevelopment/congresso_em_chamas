@@ -40,7 +40,6 @@ function JarbasReimbursementTag(props) {
       return (
         <Popover
           title="Suspeitas"
-          trigger="click"
           content={() => {
             let listData = [];
             for (var key in suspicions) {

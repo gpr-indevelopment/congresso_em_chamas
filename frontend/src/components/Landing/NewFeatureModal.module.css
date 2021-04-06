@@ -1,0 +1,21 @@
+.imagesContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.imagesContainer > img {
+    margin-bottom: 15px;
+    width: 360px;
+    max-width: 80vw
+}
+
+.paragraph {
+    text-align: justify;
+    font-size: 1rem;
+}
+
+.bold {
+    font-weight: bold;
+}
