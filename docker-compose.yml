@@ -5,7 +5,7 @@ services:
         environment: 
             - PORT=80
             - GOOGLE_NEWS_API_KEY=${GOOGLE_NEWS_API_KEY}
-            - KEYSTORE_PATH=/cert
+            - KEYSTORE_PATH=/cert.p12
             - KEYSTORE_PASSWORD=${KEYSTORE_PASSWORD}
             - JDBC_DATABASE_URL=jdbc:postgresql://${POSTGRES_URL}?user=${POSTGRES_USERNAME}&password=${POSTGRES_PASSWORD}
         ports:
