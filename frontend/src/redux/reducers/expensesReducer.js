@@ -15,6 +15,7 @@ export default function expensesReducer(state = initialState, action) {
       return Object.assign({}, state, {
         loading: true,
         detailsData: [],
+        jarbasSuspicionsCount: 0
       });
     case EXPENSES_ACTIONS.RECEIVE_EXPENSES:
       return Object.assign({}, state, {
