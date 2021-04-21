@@ -11,4 +11,4 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ${KEYSTORE_PATH}:/cert
+            - ${KEYSTORE_PATH}:/cert.p12
