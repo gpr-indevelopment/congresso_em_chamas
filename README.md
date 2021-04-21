@@ -21,7 +21,7 @@ Assim, construí uma aplicação web, nomeada "Congresso em chamas", com Spring 
  2. [Camara API](https://dadosabertos.camara.leg.br/swagger/api.html)
  3. [Twitter API](https://developer.twitter.com/en/docs/api-reference-index)
 
-## Requisitos  
+## Requisitos   
 
 O requisito inicial da aplicação era apresentar, por parlamentar:
 
