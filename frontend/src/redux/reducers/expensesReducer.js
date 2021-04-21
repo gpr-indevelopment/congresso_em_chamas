@@ -22,10 +22,12 @@ export default function expensesReducer(state = initialState, action) {
         loading: false,
         rawData: action.response,
         expenseData: buildExpenseData(action.response),
+        jarbasSuspicionsCount: 0
       });
     case EXPENSES_ACTIONS.FAILED_EXPENSES:
       return Object.assign({}, state, {
         loading: false,
+        jarbasSuspicionsCount: 0
       });
     case EXPENSES_ACTIONS.SHOW_DETAILS:
       return Object.assign({}, state, {
