@@ -47,8 +47,8 @@ jobs:
           export POSTGRES_USERNAME=${{secrets.POSTGRES_USERNAME}}
           export POSTGRES_URL=${{secrets.POSTGRES_URL}}
           export GOOGLE_NEWS_API_KEY=${{secrets.GOOGLE_NEWS_API_KEY}}
-          export KEYSTORE_PATH=${{KEYSTORE_PATH}}
-          export KEYSTORE_PASSWORD=${{KEYSTORE_PASSWORD}}
+          export KEYSTORE_PATH=${{secrets.KEYSTORE_PATH}}
+          export KEYSTORE_PASSWORD=${{secrets.KEYSTORE_PASSWORD}}
           sh deploy.sh
         host: ${{ secrets.CONGRESSO_SERVER_IP }}
         key: ${{ secrets.CONGRESSO_SERVER_SSH }}
