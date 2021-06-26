@@ -50,6 +50,7 @@ jobs:
           export KEYSTORE_PATH=${{secrets.KEYSTORE_PATH}}
           export KEYSTORE_PASSWORD=${{secrets.KEYSTORE_PASSWORD}}
           sh deploy.sh
+        user: ${{ secrets.CONGRESSO_SERVER_USER }}
         host: ${{ secrets.CONGRESSO_SERVER_IP_2 }}
         key: ${{ secrets.CONGRESSO_SERVER_SSH_2 }}
     
