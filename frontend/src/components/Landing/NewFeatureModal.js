@@ -5,7 +5,7 @@ import SuspicionCard from "../../assets/Suspicion-card.png";
 import styles from "./NewFeatureModal.module.css";
 
 function NewFeatureModal(props) {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const handleOk = () => {
     setIsModalVisible(false);
   };
