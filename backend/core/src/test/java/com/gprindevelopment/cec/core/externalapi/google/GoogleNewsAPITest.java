@@ -36,16 +36,32 @@ public class GoogleNewsAPITest {
     private ArgumentCaptor<URI> uriCaptor;
 
     @Test
-    public void requestNews_validKeyword_buildsRequestSuccessfully() throws IOException {
+    public void requestNews_validKeywordAndApiEnabled_buildsRequestSuccessfully() throws IOException {
         // given
         String keyword = "Eduardo Bolsonaro";
         News news1 = TestUtils.generateRandomNews();
         News news2 = TestUtils.generateRandomNews();
         // when
+        when(googleNewsConfig.isGoogleNewsEnabled()).thenReturn(true);
         when(requestsSender.sendRequest(uriCaptor.capture(), any(GetNewsByKeyword.class))).thenReturn(Arrays.asList(news1, news2));
         // then
         List<News> actualOutput = googleNewsAPI.requestNews(keyword);
         assertThat(actualOutput).containsExactly(news1, news2);
         assertThat(uriCaptor.getValue().toString()).endsWith("https:?apiKey&language=pt&q=Deputado+Eduardo+Bolsonaro&sortBy=publishedAt");
+        verify(googleNewsConfig).isGoogleNewsEnabled();
+        verify(requestsSender).sendRequest(uriCaptor.capture(), any(GetNewsByKeyword.class));
+    }
+
+    @Test
+    public void requestNews_validKeywordAndApiDisabled_ReturnsEmptyList() throws IOException {
+        // given
+        String keyword = "Eduardo Bolsonaro";
+        // when
+        when(googleNewsConfig.isGoogleNewsEnabled()).thenReturn(false);
+        // then
+        List<News> actualOutput = googleNewsAPI.requestNews(keyword);
+        assertThat(actualOutput).isEmpty();
+        verify(googleNewsConfig).isGoogleNewsEnabled();
+        verify(requestsSender, never()).sendRequest(uriCaptor.capture(), any(GetNewsByKeyword.class));
     }
 }

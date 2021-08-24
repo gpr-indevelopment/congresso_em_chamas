@@ -24,6 +24,16 @@ public class GoogleNewsAPI {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleNewsAPI.class);
 
     public List<News> requestNews(String keyword){
+        List<News> result = new ArrayList<>();
+        if (googleNewsConfig.isGoogleNewsEnabled()) {
+            return callGoogleNewsApi(keyword);
+        } else {
+            LOGGER.warn("Google news API is not enabled. Please check the environment config.");
+        }
+        return result;
+    }
+
+    private List<News> callGoogleNewsApi(String keyword) {
         try {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("https").setHost(googleNewsConfig.getBaseUrl())
