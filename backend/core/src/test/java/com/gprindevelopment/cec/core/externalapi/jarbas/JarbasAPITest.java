@@ -20,12 +20,12 @@ public class JarbasAPITest {
 
     @Test
     public void requestReimbursement_validDocumentCode_returnsSuspicions() {
-        Long documentCode = 7121351L;
+        Long documentCode = 7303763L;
         Optional<JarbasReimbursement> reimbursementOpt = jarbasAPI.requestReimbursement(documentCode);
         assertThat(reimbursementOpt.isPresent());
         JarbasReimbursement reimbursement = reimbursementOpt.get();
         assertThat(reimbursement.getDocumentCode()).isEqualTo(documentCode);
-        assertThat(reimbursement.getSuspicions().getInvalidCnpjOrCpf().getValue()).isTrue();
+        assertThat(reimbursement.getSuspicions().getMealPriceOutlier().getValue()).isTrue();
     }
 
     @Test
