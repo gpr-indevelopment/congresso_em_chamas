@@ -65,12 +65,7 @@ Não passei o fonte do projeto por uma análise estática de código, nem escrev
 
 A code base com HTML, CSS e JS puros já estava difícil de ser mantida. Decidi migrar a UI para ReactJS para avançar meus conhecimentos em um framework moderno de frontend. Diante disso, consegui migrar tudo usando meu tempo livre em cerca de 2 semanas. Tive muita agilidade nessa migração já que o design já estava bem definido. **Isso comprova a diferença que um protótipo faz na assertividade e velocidade de um desenvolvimento de frontend.** Ainda, optei por utilizar componentes da biblioteca [Antd](https://ant.design/) por terem um design moderno e uma API robusta e flexível. Adaptei o tema de cores desses componentes para a paleta do site e a UI ganhou um aspecto mais moderno. Os usuários também relataram que o site parece mais rápido e responsivo.
 
-# Trabalhos futuros
-
-1. **Requisitos incompletos**: Como citado anteriormente, o dashboard de indicadores de desempenho e o compilado de redes sociais dos deputados não foram totalmente implementados.
-2. **Testes automatizados e refatoração de code smells**: Como citado anteriormente, as refatorações de code smells e o desenvolvimento de testes automatizados serão necessárias uma vez que a aplicação tiver algum aumento no volume de acessos. (Atualização 04/08/2020) Os testes de backend foram concluídos com uma cobertura de 70% dos métodos. Os testes de frontend ainda são um WIP.
-
 # Contribua
-Pull requests são bem-vindos. Esse é um projeto pessoal para aprendizado de tecnologia, e serei grato por qualquer dica ou sugestão de escrita de código, arquitetura, padrões de projeto, etc.
+Pull requests são bem-vindos. Uma lista de melhorias foi construída nas issues do repositório.
 
 
