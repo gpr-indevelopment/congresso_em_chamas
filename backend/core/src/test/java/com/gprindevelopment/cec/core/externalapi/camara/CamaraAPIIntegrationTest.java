@@ -34,7 +34,7 @@ public class CamaraAPIIntegrationTest {
         List<Profile> outputs = camaraAPI.requestProfilesByNameAndLegislatureId(politicianName, legislatureId);
         assertThat(outputs.size()).isEqualTo(1);
         assertThat(outputs.get(0).getName()).isEqualTo("Eduardo Bolsonaro");
-        assertThat(outputs.get(0).getParty()).isEqualTo("PSL");
+        assertThat(outputs.get(0).getParty()).isEqualTo("PL");
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CamaraAPIIntegrationTest {
         // then
         Politician politician = camaraAPI.requestPoliticianById(politicianId);
         assertThat(politician.getName()).isEqualTo("Eduardo Bolsonaro");
-        assertThat(politician.getParty()).isEqualTo("PSL");
+        assertThat(politician.getParty()).isEqualTo("PL");
         assertThat(politician.getId()).isEqualTo(politicianId);
     }
 
