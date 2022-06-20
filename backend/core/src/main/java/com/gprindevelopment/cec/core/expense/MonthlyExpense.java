@@ -23,6 +23,7 @@ public class MonthlyExpense {
 
     private YearMonth yearMonth;
 
+    @Column(name = "monthly_expense_value")
     private double value = 0;
 
     @ManyToOne

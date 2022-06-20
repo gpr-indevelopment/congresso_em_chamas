@@ -6,20 +6,15 @@ import com.gprindevelopment.cec.core.politician.Profile;
 import com.gprindevelopment.cec.core.proposition.Processing;
 import com.gprindevelopment.cec.core.proposition.Proposition;
 import com.gprindevelopment.cec.core.restclient.RequestsSender;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-@TestPropertySource("classpath:camara.properties")
-@ContextConfiguration(classes = {CamaraAPI.class, RequestsSender.class})
+@SpringBootTest(classes = {CamaraAPI.class, RequestsSender.class})
 public class CamaraAPIIntegrationTest {
 
     @Autowired

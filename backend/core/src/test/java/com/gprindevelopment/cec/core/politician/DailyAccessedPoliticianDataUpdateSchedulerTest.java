@@ -1,7 +1,7 @@
 package com.gprindevelopment.cec.core.politician;
 
 import com.gprindevelopment.cec.core.batch.PoliticianDataUpdater;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 

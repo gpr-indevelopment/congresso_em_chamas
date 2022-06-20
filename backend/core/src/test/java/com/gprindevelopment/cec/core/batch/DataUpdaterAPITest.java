@@ -8,13 +8,13 @@ import com.gprindevelopment.cec.core.politician.Profile;
 import com.gprindevelopment.cec.core.proposition.Processing;
 import com.gprindevelopment.cec.core.proposition.Proposition;
 import com.gprindevelopment.cec.core.util.TestUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.util.StopWatch;
 
 import java.util.Arrays;
@@ -24,7 +24,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DataUpdaterAPITest {
 
     @InjectMocks
@@ -35,13 +35,13 @@ public class DataUpdaterAPITest {
 
     private StopWatch stopWatch;
 
-    @Before
+    @BeforeEach
     public void startStopWatch() {
         stopWatch = new StopWatch();
         stopWatch.start();
     }
 
-    @After
+    @AfterEach
     public void stopAndAssertStopWatch() {
         stopWatch.stop();
         assertThat(stopWatch.getLastTaskTimeMillis()).isGreaterThan(4995);

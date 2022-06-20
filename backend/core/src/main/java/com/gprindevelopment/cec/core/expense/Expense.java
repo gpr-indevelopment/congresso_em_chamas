@@ -19,6 +19,7 @@ public class Expense {
 
     private String documentNumber;
 
+    @Column(name = "expense_value")
     private double value;
 
     private YearMonth yearMonth;
