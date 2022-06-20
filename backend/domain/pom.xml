@@ -7,6 +7,7 @@
         <groupId>com.gprindevelopment.cec</groupId>
         <version>1.0</version>
     </parent>
+    <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>domain</artifactId>
