@@ -22,9 +22,8 @@
 	<modules>
 		<module>core</module>
 		<module>web</module>
-	</modules>
-
-	<dependencies></dependencies>
+        <module>domain</module>
+    </modules>
 
 	<build>
 		<plugins>
