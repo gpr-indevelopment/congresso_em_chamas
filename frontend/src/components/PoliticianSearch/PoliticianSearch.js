@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Select, Form, Button, Col, Row } from "antd";
+import { Input, Select, Form, Button } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -12,34 +12,34 @@ function PoliticianSearch(props) {
   return (
     <Form
       name="basic"
-      onFinish={(inputs) => props.handleSearchSubmit(inputs)}
+      onFinish={(inputs) => props.handleSearchSubmit({nome: inputs.nome === undefined ? "" : inputs.nome, uf: inputs.uf === undefined ? "" : inputs.uf})}
       autoComplete="off"
-      labelCol={{ span: 24 }}
-      wrapperCol={{ span: 24 }}
-      initialValues={{
-        nome: "",
-        uf: ""
-      }}
+      style={{width: "100%", textAlign: "center"}}
     >
-    <Row>
-      <Col span={12}>
-        <Form.Item name="nome"  style={{ margin: "2%", marginTop: "1.3%" }}>
-          <Input placeholder="Deputado federal"/>
-        </Form.Item>
-      </Col>
-      <Col span={8}>
-      <Form.Item name="uf" style={{ margin: "2%" }}>
-        <Select placeholder={"UF"}>
-          {estados.map(item => (
-            <Option key={item}>{item}</Option>
-          ))}
-        </Select>
+      <Form.Item>
+        <Input.Group compact>
+          <Form.Item
+            name={"uf"}
+            noStyle
+          >
+            <Select placeholder="UF" style={{ width: '30%' }}>
+              {estados.map(item => (
+                <Option key={item}>{item}</Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name={"nome"}
+            noStyle
+          >
+            <Input placeholder="Deputado federal" style={{ width: '50%' }}/>
+          </Form.Item>
+          <Form.Item>
+          <Button type="primary" shape="circle" icon={<SearchOutlined />} style={{ marginLeft: 5 }} htmlType="submit"/>
+          </Form.Item>
+        </Input.Group>
+        
       </Form.Item>
-      </Col>
-      <Col span={4}>
-        <Button type="primary" shape="circle" icon={<SearchOutlined />}  style={{ margin: "2%" }} htmlType="submit"/>
-      </Col>
-    </Row>
   </Form>
   );
 }

@@ -33,9 +33,10 @@ function Search(props) {
   return (
     <Spin tip="Carregando..." spinning={props.loading}>
       <Header>
+        <div style={{paddingTop: 30}}>
         <PoliticianSearch
           handleSearchSubmit={(input) => props.handleSearchRequest(input)}
-        />
+        /></div>
       </Header>
       <MainContent>
         <div className={styles.container}>{props.profiles.length > 0 ? buildDataCards(props.profiles) : buildEmptyProfiles()}</div>
