@@ -23,7 +23,7 @@ function PoliticianSearch(props) {
     >
     <Row>
       <Col span={12}>
-        <Form.Item name="nome"  style={{ margin: "2%" }}>
+        <Form.Item name="nome"  style={{ margin: "2%", marginTop: "1.3%" }}>
           <Input placeholder="Deputado federal"/>
         </Form.Item>
       </Col>

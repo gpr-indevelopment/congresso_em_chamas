@@ -15,7 +15,7 @@ export default function Profile(props) {
         />
         <div>
           <h4 className={styles.name}>{props.profile.name}</h4>
-          <h5 className={styles.party}>{props.profile.party}</h5>
+          <h5 className={styles.party}>{props.profile.party + "-" + props.profile.stateInitials}</h5>
         </div>
       </Skeleton>
     </div>
