@@ -7,12 +7,13 @@ import styles from "./Search.module.css";
 function Search(props) {
   let { handleSearchRequest } = props;
   useEffect(() => {
-    let politicianName = new URLSearchParams(window.location.search).get(
+    let nome = new URLSearchParams(window.location.search).get(
       "politicianName"
     );
-    if (politicianName) {
-      handleSearchRequest(politicianName);
-    }
+    let uf = new URLSearchParams(window.location.search).get(
+      "uf"
+    );
+      handleSearchRequest({ nome, uf });
   }, [handleSearchRequest]);
 
   let buildDataCards = (profiles) => {

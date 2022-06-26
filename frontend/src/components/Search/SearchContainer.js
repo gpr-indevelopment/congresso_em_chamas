@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSearchRequest: (input) => dispatch(THUNK.requestSearch(input)),
+    handleSearchRequest: (input) => dispatch(THUNK.requestSearch(input.nome, input.uf)),
   };
 };
 
