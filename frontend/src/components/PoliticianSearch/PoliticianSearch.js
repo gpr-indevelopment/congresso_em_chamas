@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Select, Form, Button } from "antd";
+import { Input, Select, Form, Button, Col, Row } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -14,23 +14,32 @@ function PoliticianSearch(props) {
       name="basic"
       onFinish={(inputs) => props.handleSearchSubmit(inputs)}
       autoComplete="off"
+      labelCol={{ span: 24 }}
+      wrapperCol={{ span: 24 }}
       initialValues={{
         nome: "",
         uf: ""
       }}
     >
-    <Input
-      placeholder="Deputado federal"
-      enterButton
-      style={{ width: "60%", margin: "1%" }}
-      name="nome"
-    />
-    <Select placeholder={"UF"} style={{ width: "20%", margin: "1%" }} name="uf">
-      {estados.map(item => (
-        <Option key={item}>{item}</Option>
-      ))}
-    </Select>
-    <Button type="primary" shape="circle" icon={<SearchOutlined />}  style={{ margin: "1%" }} htmlType="submit"/>
+    <Row>
+      <Col span={12}>
+        <Form.Item name="nome"  style={{ margin: "2%" }}>
+          <Input placeholder="Deputado federal"/>
+        </Form.Item>
+      </Col>
+      <Col span={8}>
+      <Form.Item name="uf" style={{ margin: "2%" }}>
+        <Select placeholder={"UF"}>
+          {estados.map(item => (
+            <Option key={item}>{item}</Option>
+          ))}
+        </Select>
+      </Form.Item>
+      </Col>
+      <Col span={4}>
+        <Button type="primary" shape="circle" icon={<SearchOutlined />}  style={{ margin: "2%" }} htmlType="submit"/>
+      </Col>
+    </Row>
   </Form>
   );
 }

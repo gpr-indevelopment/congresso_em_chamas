@@ -9,7 +9,7 @@ const initialState = {
 export default function landingReducer(state = initialState, action) {
   switch (action.type) {
     case SEARCH_ACTIONS.REQUEST_SEARCH: 
-      history.push(`/search?politicianName=${action.politicianName}&uf=${action.initialState}`);
+      history.push(`/search?politicianName=${action.politicianName}&uf=${action.stateInitials}`);
       return Object.assign({}, state, {
         loading: true
       });
