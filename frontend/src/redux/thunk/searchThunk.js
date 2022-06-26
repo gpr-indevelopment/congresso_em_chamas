@@ -1,10 +1,10 @@
 import * as SEARCH_ACTIONS from "../actions/searchActions";
 import { config } from "../../constants";
 
-export function requestSearch(politicianName) {
+export function requestSearch(name, state) {
     return (dispatch) => {
-        dispatch(SEARCH_ACTIONS.requestSearch(politicianName));
-        fetch(`${config.url}/profiles?name=${politicianName}`).then((response) => {
+        dispatch(SEARCH_ACTIONS.requestSearch(name, state));
+        fetch(`${config.url}/profiles?name=${name}&stateInitials=${state}`).then((response) => {
             if(response.ok){
                 return response.json();
             } else {

@@ -1,8 +1,9 @@
 export const REQUEST_SEARCH = "SEARCH_ACTIONS.REQUEST_SEARCH";
-export function requestSearch(politicianName) {
+export function requestSearch(name, state) {
   return {
     type: REQUEST_SEARCH,
-    politicianName: politicianName
+    politicianName: name,
+    stateInitials: state
   };
 }
 
