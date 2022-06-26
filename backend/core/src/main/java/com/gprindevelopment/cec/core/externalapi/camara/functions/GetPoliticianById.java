@@ -26,6 +26,7 @@ public class GetPoliticianById extends CongressoResponseHandler<Politician> {
         politician.setParty(nullCheckRetrievedStringValue(data.get("siglaPartido")));
         politician.setPicture(nullCheckRetrievedStringValue(data.get("urlFoto")));
         politician.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        politician.setStateInitials(nullCheckRetrievedStringValue(data.get("siglaUf")));
         return politician;
     }
 }
