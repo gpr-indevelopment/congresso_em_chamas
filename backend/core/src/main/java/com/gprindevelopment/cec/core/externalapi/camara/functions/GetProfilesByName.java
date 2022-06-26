@@ -18,6 +18,7 @@ public class GetProfilesByName extends CongressoResponseHandler<List<Profile>> {
                     Profile profile = new Profile();
                     JsonObject internalObject = data.getAsJsonObject();
                     profile.setId(internalObject.get("id").getAsLong());
+                    profile.setStateInitials(internalObject.get("siglaUf").getAsString());
                     profile.setName(internalObject.get("nome").getAsString());
                     profile.setParty(internalObject.get("siglaPartido").getAsString());
                     profile.setLegislatureId(internalObject.get("idLegislatura").getAsLong());

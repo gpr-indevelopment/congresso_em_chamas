@@ -21,4 +21,6 @@ public class Profile {
 
     private Long legislatureId;
 
+    private String stateInitials;
+
 }

@@ -61,8 +61,8 @@ public class WebService {
         }
     }
 
-    public List<Profile> findProfilesByName(String name) {
-        return profileService.findAllOnCurrentLegislatureByPoliticianName(name);
+    public List<Profile> findProfilesByName(String name, String stateInitials) {
+        return profileService.findAllOnCurrentLegislatureByPoliticianName(name, stateInitials);
     }
 
     public JarbasReimbursement findJarbasReimbursement(Long documentCode) {

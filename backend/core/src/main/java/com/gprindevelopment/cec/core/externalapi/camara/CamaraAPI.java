@@ -36,14 +36,23 @@ public class CamaraAPI {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamaraAPI.class);
 
     //@Cacheable(cacheNames = "politicianIdsByNameAndLegislatureId")
-    public List<Profile> requestProfilesByNameAndLegislatureId(String name, Long legislatureId) {
+    public List<Profile> requestProfilesByNameAndLegislatureId(String name, Long legislatureId, String... stateInitials) {
         try {
             legislatureId = Objects.isNull(legislatureId) ? requestCurrentLegislature().getId() : legislatureId;
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http").setHost(baseUrl)
                     .setPath("deputados")
-                    .addParameter("nome", name)
                     .addParameter("idLegislatura", legislatureId.toString());
+            if (name != null && !name.isBlank()) {
+                builder.addParameter("nome", name);
+            }
+            if (stateInitials != null) {
+                for (String state : stateInitials) {
+                    if (state != null && !state.isBlank()) {
+                        builder.addParameter("siglaUf", state);
+                    }
+                }
+            }
             GetProfilesByName apiFunctionHandler = new GetProfilesByName();
             return requestsSender.sendRequest(builder.build(), apiFunctionHandler);
         } catch (Exception exception) {

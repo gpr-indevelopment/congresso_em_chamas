@@ -43,7 +43,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(uriCaptor.capture(), any(ResponseHandler.class))).thenReturn(new ArrayList<>());
         // then
         camaraAPI.requestProfilesByNameAndLegislatureId(name, legislatureId);
-        assertThat(uriCaptor.getValue().toString()).endsWith("?nome=SampleName&idLegislatura=2");
+        assertThat(uriCaptor.getValue().toString()).endsWith("?idLegislatura=2&nome=SampleName");
     }
 
     @Test
@@ -57,7 +57,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(any(URI.class), any(GetCurrentLegislature.class))).thenReturn(currentLegislature);
         // then
         camaraAPI.requestProfilesByNameAndLegislatureId(name, null);
-        assertThat(uriCaptor.getValue().toString()).endsWith("?nome=&idLegislatura=9");
+        assertThat(uriCaptor.getValue().toString()).endsWith("?idLegislatura=9");
     }
 
     @Test
@@ -70,7 +70,7 @@ public class CamaraAPITest {
         when(requestsSender.sendRequest(any(URI.class), any(GetCurrentLegislature.class))).thenReturn(currentLegislature);
         // then
         camaraAPI.requestProfilesByNameAndLegislatureId(null, null);
-        assertThat(uriCaptor.getValue().toString()).endsWith("?nome&idLegislatura=9");
+        assertThat(uriCaptor.getValue().toString()).endsWith("idLegislatura=9");
     }
 
     @Test

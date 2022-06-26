@@ -12,8 +12,8 @@ public class ProfileService {
 
     private final CamaraAPI camaraAPI;
 
-    public List<Profile> findAllOnCurrentLegislatureByPoliticianName(String name) {
-        return camaraAPI.requestProfilesByNameAndLegislatureId(name, camaraAPI.requestCurrentLegislature().getId());
+    public List<Profile> findAllOnCurrentLegislatureByPoliticianName(String name, String stateInitials) {
+        return camaraAPI.requestProfilesByNameAndLegislatureId(name, camaraAPI.requestCurrentLegislature().getId(), stateInitials);
     }
 
     public List<Profile> findAllByPoliticianName(String name, Long legislatureId) {
