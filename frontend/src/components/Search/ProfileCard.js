@@ -43,7 +43,7 @@ function ProfileCard(props) {
         title={
           <Tooltip title={props.profile.name}>{props.profile.name}</Tooltip>
         }
-        description={props.profile.party}
+        description={props.profile.party + "-" + props.profile.stateInitials}
       />
     </Card>
   );
