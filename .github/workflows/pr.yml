@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-
+    name: pr
     runs-on: ubuntu-latest
 
     steps:
