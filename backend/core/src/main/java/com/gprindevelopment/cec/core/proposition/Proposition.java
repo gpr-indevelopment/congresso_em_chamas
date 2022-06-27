@@ -3,6 +3,8 @@ package com.gprindevelopment.cec.core.proposition;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gprindevelopment.cec.core.politician.Politician;
+import io.github.gprindevelopment.dominio.DetalhesProposicao;
+import io.github.gprindevelopment.dominio.Proposicao;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,4 +46,15 @@ public class Proposition {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "proposition", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Processing> processingHistory = new ArrayList<>();
+
+    public Proposition() {
+    }
+
+    public Proposition(DetalhesProposicao proposicao) {
+        this.id = proposicao.getId();
+        this.link = proposicao.getUrlInteiroTeor().toString();
+        this.presentationTimestamp = Timestamp.valueOf(proposicao.getDataApresentacao());
+        this.title = proposicao.getEmenta();
+        this.typeDescription = proposicao.getDescricaoTipo();
+    }
 }

@@ -2,7 +2,7 @@ package com.gprindevelopment.cec.core.expense;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.gprindevelopment.cec.core.externalapi.camara.Legislature;
+import com.gprindevelopment.cec.core.politician.Legislature;
 import com.gprindevelopment.cec.core.politician.Politician;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,7 @@
 package com.gprindevelopment.cec.core.proposition;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.github.gprindevelopment.dominio.TramitacaoProposicao;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,17 @@ public class Processing implements Comparable<Processing>{
     @JoinColumn(referencedColumnName = "id")
     @JsonBackReference
     private Proposition proposition;
+
+    public Processing() {
+    }
+
+    public Processing(TramitacaoProposicao tramitacao) {
+        this.description = tramitacao.getDespacho();
+        this.sequence = tramitacao.getSequencia();
+        this.timestamp = Timestamp.valueOf(tramitacao.getDataHora());
+        this.title = tramitacao.getDescricaoTramitacao();
+        this.entityInitials = tramitacao.getSiglaOrgao();
+    }
 
     @Override
     public int compareTo(Processing o) {

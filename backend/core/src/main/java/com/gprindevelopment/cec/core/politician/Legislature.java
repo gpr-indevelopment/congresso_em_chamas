@@ -1,5 +1,6 @@
-package com.gprindevelopment.cec.core.externalapi.camara;
+package com.gprindevelopment.cec.core.politician;
 
+import io.github.gprindevelopment.dominio.Legislatura;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,15 @@ public class Legislature implements Serializable {
     private YearMonth startDate;
 
     private YearMonth endDate;
+
+    public Legislature() {
+    }
+
+    public Legislature(Legislatura legislatura) {
+        this.id = (long) legislatura.getId();
+        this.endDate = YearMonth.from(legislatura.getDataFim());
+        this.startDate = YearMonth.from(legislatura.getDataInicio());
+    }
 
     public List<Integer> getValidityYears() {
         List<Integer> years = new ArrayList<>();

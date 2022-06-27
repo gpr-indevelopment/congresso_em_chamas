@@ -25,4 +25,14 @@
         <module>domain</module>
     </modules>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.github.gpr-indevelopment</groupId>
+				<artifactId>camara-api-java-client</artifactId>
+				<version>1.0.2-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 </project>

@@ -3,6 +3,7 @@ package com.gprindevelopment.cec.core.politician;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gprindevelopment.cec.core.expense.MonthlyExpense;
 import com.gprindevelopment.cec.core.proposition.Proposition;
+import io.github.gprindevelopment.dominio.Deputado;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,6 +36,13 @@ public class Politician extends Profile implements Comparable<Politician>  {
 
     @Transient
     private Set<News> news;
+
+    public Politician() {
+    }
+
+    public Politician(Deputado deputado) {
+        super(deputado);
+    }
 
     @Override
     public int compareTo(Politician o) {
