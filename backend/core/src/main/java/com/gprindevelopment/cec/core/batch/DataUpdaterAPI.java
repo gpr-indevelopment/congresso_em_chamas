@@ -11,7 +11,9 @@ import io.github.gprindevelopment.deputados.DeputadoClient;
 import io.github.gprindevelopment.despesas.ConsultaDespesa;
 import io.github.gprindevelopment.despesas.DespesaClient;
 import io.github.gprindevelopment.dominio.Autor;
+import io.github.gprindevelopment.dominio.Despesa;
 import io.github.gprindevelopment.dominio.Proposicao;
+import io.github.gprindevelopment.http.Pagina;
 import io.github.gprindevelopment.legislaturas.LegislaturaClient;
 import io.github.gprindevelopment.proposicoes.ConsultaProposicao;
 import io.github.gprindevelopment.proposicoes.ConsultaTramitacao;
@@ -21,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +54,9 @@ public class DataUpdaterAPI {
 
     public List<Expense> requestAllExpensesByPoliticianId(Long id, List<Integer> months, List<Integer> years) {
         try {
-            ConsultaDespesa.Builder builder = new ConsultaDespesa.Builder(id.intValue());
+            int paginaAtual = 1;
+            ConsultaDespesa.Builder builder = new ConsultaDespesa.Builder(id.intValue())
+                    .pagina(paginaAtual);
             if (months != null) {
                 builder.meses(months);
             }
@@ -59,7 +64,14 @@ public class DataUpdaterAPI {
             if (years != null) {
                 builder.anos(years);
             }
-            return despesaClient.consultar(builder.build()).stream().map(Expense::new).collect(Collectors.toList());
+            Pagina<Despesa> pagina = despesaClient.consultar(builder.build());
+            List<Expense> result = pagina.stream().map(Expense::new).collect(Collectors.toList());
+            while (pagina.temProxima()) {
+                builder.pagina(++paginaAtual);
+                pagina = despesaClient.consultar(builder.build());
+                result.addAll(pagina.stream().map(Expense::new).collect(Collectors.toList()));
+            }
+            return result;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             LOGGER.error("An error occurred when updating expense of politician with id {}. Retrying...", id);
