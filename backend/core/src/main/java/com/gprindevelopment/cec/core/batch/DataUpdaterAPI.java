@@ -1,5 +1,6 @@
 package com.gprindevelopment.cec.core.batch;
 
+import com.gprindevelopment.cec.core.exception.CECException;
 import com.gprindevelopment.cec.core.expense.Expense;
 import com.gprindevelopment.cec.core.politician.Legislature;
 import com.gprindevelopment.cec.core.politician.Politician;
@@ -23,10 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Component
@@ -42,15 +40,6 @@ public class DataUpdaterAPI {
     private final LegislaturaClient legislaturaClient;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataUpdaterAPI.class);
-
-    private void doWait(Long delaySeconds) {
-        try {
-            delaySeconds = Objects.nonNull(delaySeconds) ? delaySeconds : 0;
-            TimeUnit.SECONDS.sleep(delaySeconds);
-        } catch (InterruptedException e) {
-            LOGGER.error("An error was thrown when waiting in between API requests.");
-        }
-    }
 
     public List<Expense> requestAllExpensesByPoliticianId(Long id, List<Integer> months, List<Integer> years) {
         try {
@@ -73,10 +62,9 @@ public class DataUpdaterAPI {
             }
             return result;
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when updating expense of politician with id {}. Retrying...", id);
-            doWait(5L);
-            return requestAllExpensesByPoliticianId(id, months, years);
+            String message = String.format("An error occurred when updating expense of politician with id %d.", id);
+            LOGGER.error(message, e);
+            throw new CECException(message, e);
         }
     }
 
@@ -87,10 +75,9 @@ public class DataUpdaterAPI {
                     .build();
             return proposicaoClient.consultar(consulta).stream().map(Proposicao::getId).collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when requesting proposition ids of politician with id {}. Retrying...", id);
-            doWait(5L);
-            return requestPropositionIdsByPoliticianId(id);
+            String message = String.format("An error occurred when requesting proposition ids of politician with id %d", id);
+            LOGGER.error(message, e);
+            throw new CECException(message, e);
         }
     }
 
@@ -98,10 +85,9 @@ public class DataUpdaterAPI {
         try {
             return new Proposition(proposicaoClient.consultarDetalhes(id).get());
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when requesting propositions by its id: {}. Retrying...", id);
-            doWait(5L);
-            return requestPropositionById(id);
+            String message = String.format("An error occurred when requesting propositions by its id: %d.", id);
+            LOGGER.error(message, e);
+            throw new CECException(message, e);
         }
     }
 
@@ -109,10 +95,9 @@ public class DataUpdaterAPI {
         try {
             return proposicaoClient.consultarAutores(id).stream().map(Autor::getNome).collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when requesting a list of authors by a proposition id: {}. Retrying...", id);
-            doWait(5L);
-            return requestAuthorsByPropositionId(id);
+            String message = String.format("An error occurred when requesting a list of authors by a proposition id: %d", id);
+            LOGGER.error(message, e);
+            throw new CECException(message, e);
         }
     }
 
@@ -122,10 +107,9 @@ public class DataUpdaterAPI {
                     .build();
             return proposicaoClient.consultarTramitacoes(consulta).stream().map(Processing::new).collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when requesting a list of processing history by a proposition id: {}. Retrying...", id);
-            doWait(5L);
-            return requestProcessingHistoryByPropositionId(id);
+            String message = String.format("An error occurred when requesting a list of processing history by a proposition id: %d", id);
+            LOGGER.error(message, e);
+            throw new CECException(message, e);
         }
     }
 
@@ -133,10 +117,9 @@ public class DataUpdaterAPI {
         try {
             return new Politician(deputadoClient.consultarDeputadoPorId(id.intValue()).get());
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when requesting politician with id {}. Retrying...", id);
-            doWait(5L);
-            return requestPoliticianById(id);
+            String message = String.format("An error occurred when requesting politician with id %d", id);
+            LOGGER.error(message, e);
+            throw new CECException(message, e);
         }
     }
 
@@ -144,10 +127,8 @@ public class DataUpdaterAPI {
         try {
             return new Legislature(legislaturaClient.consultarLegislaturaAtual());
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when requesting the current legislature. Retrying...");
-            doWait(5L);
-            return requestCurrentLegislature();
+            LOGGER.error("An error occurred when requesting the current legislature.");
+            throw new CECException(e);
         }
     }
 
@@ -160,10 +141,9 @@ public class DataUpdaterAPI {
                     .build();
             return deputadoClient.consultar(consulta).stream().map(Profile::new).collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error("An error occurred when requesting profiles by name and legislature id. Retrying...");
-            doWait(5L);
-            return requestProfilesByNameAndLegislatureId(name, legislatureId);
+            String message = String.format("An error occurred when requesting profiles by name %s and legislature id %d.", name, legislatureId);
+            LOGGER.error(message, e);
+            throw new CECException(message, e);
         }
     }
 }
