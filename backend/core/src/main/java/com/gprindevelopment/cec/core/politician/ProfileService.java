@@ -25,7 +25,7 @@ public class ProfileService {
                     .itens(1000)
                     .legislaturas(legislaturaClient.consultarLegislaturaAtual().getId());
             if (stateInitials != null && !stateInitials.isEmpty()) {
-                consultaBuilder.estados(Estado.valueOf(name));
+                consultaBuilder.estados(Estado.valueOf(stateInitials));
             }
             return deputadoClient.consultar(consultaBuilder.build()).stream().map(Profile::new).collect(Collectors.toList());
         } catch (Exception e) {
