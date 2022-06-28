@@ -1,5 +1,6 @@
 package com.gprindevelopment.cec.core.politician;
 
+import io.github.gprindevelopment.dominio.Deputado;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +24,14 @@ public class Profile {
 
     private String stateInitials;
 
+    public Profile() {
+    }
+
+    public Profile(Deputado deputado) {
+        this.id = (long) deputado.getId();
+        this.name = deputado.getNome();
+        this.party = deputado.getSiglaPartido();
+        this.picture = deputado.getUrlFoto().toString();
+        this.legislatureId = (long) deputado.getIdLegislatura();
+    }
 }

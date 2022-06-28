@@ -14,6 +14,9 @@ function ProfileCard(props) {
     <Card
       hoverable={true}
       className={styles.card}
+      style={{
+        cursor: "default"
+      }}
       actions={[
         <Tooltip title="Despesas">
           <Link to={`/expenses?politician=${props.profile.id}`}>
