@@ -20,13 +20,14 @@ public class ProfileService {
 
     public List<Profile> findAllOnCurrentLegislatureByPoliticianName(String name, String stateInitials) {
         try {
-            ConsultaDeputado consulta = new ConsultaDeputado.Builder()
+            ConsultaDeputado.Builder consultaBuilder = new ConsultaDeputado.Builder()
                     .nome(name)
                     .itens(1000)
-                    .estados(Estado.valueOf(stateInitials))
-                    .legislaturas(legislaturaClient.consultarLegislaturaAtual().getId())
-                    .build();
-            return deputadoClient.consultar(consulta).stream().map(Profile::new).collect(Collectors.toList());
+                    .legislaturas(legislaturaClient.consultarLegislaturaAtual().getId());
+            if (stateInitials != null && !stateInitials.isEmpty()) {
+                consultaBuilder.estados(Estado.valueOf(name));
+            }
+            return deputadoClient.consultar(consultaBuilder.build()).stream().map(Profile::new).collect(Collectors.toList());
         } catch (Exception e) {
             throw new IllegalStateException("Excecao ainda nao tratada. Tratar no futuro.");
         }
