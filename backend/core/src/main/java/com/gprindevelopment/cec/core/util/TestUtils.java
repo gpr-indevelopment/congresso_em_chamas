@@ -1,7 +1,7 @@
 package com.gprindevelopment.cec.core.util;
 
 import com.gprindevelopment.cec.core.expense.Expense;
-import com.gprindevelopment.cec.core.externalapi.camara.Legislature;
+import com.gprindevelopment.cec.core.politician.Legislature;
 import com.gprindevelopment.cec.core.politician.News;
 import com.gprindevelopment.cec.core.politician.Politician;
 import com.gprindevelopment.cec.core.politician.Profile;
