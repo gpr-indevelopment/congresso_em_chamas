@@ -31,7 +31,7 @@ function HeaderDrawer(props) {
         <div className={styles.search}>
           <PoliticianSearch
             handleSearchSubmit={(input) =>
-              history.push(`/search?politicianName=${input}`)
+              history.push(`/search?politicianName=${input.nome}&uf=${input.uf}`)
             }
           />
         </div>

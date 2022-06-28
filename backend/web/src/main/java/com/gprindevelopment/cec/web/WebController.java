@@ -45,8 +45,8 @@ public class WebController {
     }
 
     @RequestMapping(path = "/profiles", method = RequestMethod.GET)
-    public List<Profile> getProfilesByName(@RequestParam String name) {
-        return webService.findProfilesByName(name);
+    public List<Profile> getProfilesByName(@RequestParam(required = false) String name, @RequestParam(required = false) String stateInitials) {
+        return webService.findProfilesByName(name, stateInitials);
     }
 
     @RequestMapping(path = "/expenses/{documentCode}", method = RequestMethod.GET)

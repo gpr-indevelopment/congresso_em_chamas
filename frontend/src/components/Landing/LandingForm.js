@@ -11,7 +11,7 @@ function LandingForm(props) {
       <h1 className={styles.title}>Congresso em chamas</h1>
       <PoliticianSearch
         handleSearchSubmit={(input) =>
-          history.push(`/search?politicianName=${input}`)
+          history.push(`/search?politicianName=${input.nome}&uf=${input.uf}`)
         }
       />
     </div>

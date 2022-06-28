@@ -2,7 +2,7 @@ package com.gprindevelopment.cec.core.politician;
 
 import io.github.gprindevelopment.deputados.ConsultaDeputado;
 import io.github.gprindevelopment.deputados.DeputadoClient;
-import io.github.gprindevelopment.dominio.Deputado;
+import io.github.gprindevelopment.dominio.Estado;
 import io.github.gprindevelopment.legislaturas.LegislaturaClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,11 +18,12 @@ public class ProfileService {
 
     private final LegislaturaClient legislaturaClient;
 
-    public List<Profile> findAllOnCurrentLegislatureByPoliticianName(String name) {
+    public List<Profile> findAllOnCurrentLegislatureByPoliticianName(String name, String stateInitials) {
         try {
             ConsultaDeputado consulta = new ConsultaDeputado.Builder()
                     .nome(name)
                     .itens(1000)
+                    .estados(Estado.valueOf(stateInitials))
                     .legislaturas(legislaturaClient.consultarLegislaturaAtual().getId())
                     .build();
             return deputadoClient.consultar(consulta).stream().map(Profile::new).collect(Collectors.toList());
