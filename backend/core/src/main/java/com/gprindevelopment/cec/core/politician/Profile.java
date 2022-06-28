@@ -33,5 +33,6 @@ public class Profile {
         this.party = deputado.getSiglaPartido();
         this.picture = deputado.getUrlFoto().toString();
         this.legislatureId = (long) deputado.getIdLegislatura();
+        this.stateInitials = deputado.getSiglaUf().name();
     }
 }
