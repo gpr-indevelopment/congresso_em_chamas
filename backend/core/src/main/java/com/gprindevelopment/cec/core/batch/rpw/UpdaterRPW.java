@@ -1,7 +1,7 @@
 package com.gprindevelopment.cec.core.batch.rpw;
 
 import com.gprindevelopment.cec.core.batch.CongressoBatchException;
-import com.gprindevelopment.cec.core.batch.DataUpdaterAPI;
+import com.gprindevelopment.cec.core.externalapi.camara.CamaraClientFacade;
 import com.gprindevelopment.cec.core.politician.PoliticianRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepExecution;
@@ -13,7 +13,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public abstract class UpdaterRPW <A, B> implements ItemReader<A>, ItemProcessor<A, B>, ItemWriter<B>  {
 
-    private final DataUpdaterAPI dataUpdaterAPI;
+    private final CamaraClientFacade camaraClientFacade;
 
     private final PoliticianRepository mainRepository;
 
@@ -43,8 +43,8 @@ public abstract class UpdaterRPW <A, B> implements ItemReader<A>, ItemProcessor<
 
     protected abstract A innerRead();
 
-    public DataUpdaterAPI getCamaraAPI() {
-        return dataUpdaterAPI;
+    public CamaraClientFacade getCamaraAPI() {
+        return camaraClientFacade;
     }
 
     public PoliticianRepository getMainRepository() {

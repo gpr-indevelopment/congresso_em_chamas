@@ -1,8 +1,8 @@
 package com.gprindevelopment.cec.core.politician;
 
 import com.gprindevelopment.cec.core.batch.BatchConfig;
-import com.gprindevelopment.cec.core.batch.DataUpdaterAPI;
 import com.gprindevelopment.cec.core.batch.PoliticianDataUpdater;
+import com.gprindevelopment.cec.core.externalapi.camara.CamaraClientFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.Set;
 public class WeeklyFullPoliticianDataUpdateScheduler {
 
     @Autowired
-    private DataUpdaterAPI camaraAPI;
+    private CamaraClientFacade camaraAPI;
 
     @Autowired
     private PoliticianRepository politiciansRepository;

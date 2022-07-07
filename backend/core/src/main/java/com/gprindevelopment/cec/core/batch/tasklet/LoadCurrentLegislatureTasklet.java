@@ -1,6 +1,6 @@
 package com.gprindevelopment.cec.core.batch.tasklet;
 
-import com.gprindevelopment.cec.core.batch.DataUpdaterAPI;
+import com.gprindevelopment.cec.core.externalapi.camara.CamaraClientFacade;
 import com.gprindevelopment.cec.core.politician.Legislature;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class LoadCurrentLegislatureTasklet implements Tasklet {
 
     @Autowired
-    private DataUpdaterAPI camaraAPI;
+    private CamaraClientFacade camaraAPI;
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {

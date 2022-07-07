@@ -1,36 +1,25 @@
 package com.gprindevelopment.cec.core.batch;
 
-import com.gprindevelopment.cec.core.expense.Expense;
-import com.gprindevelopment.cec.core.politician.Politician;
-import com.gprindevelopment.cec.core.politician.Profile;
-import com.gprindevelopment.cec.core.proposition.Processing;
-import com.gprindevelopment.cec.core.proposition.Proposition;
-import com.gprindevelopment.cec.core.util.TestUtils;
+import com.gprindevelopment.cec.core.externalapi.camara.CamaraClientFacade;
 import io.github.gprindevelopment.deputados.DeputadoClient;
 import io.github.gprindevelopment.despesas.DespesaClient;
 import io.github.gprindevelopment.legislaturas.LegislaturaClient;
 import io.github.gprindevelopment.proposicoes.ProposicaoClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.util.StopWatch;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class DataUpdaterAPITest {
 
     @InjectMocks
-    private DataUpdaterAPI dataUpdaterAPI;
+    private CamaraClientFacade camaraClientFacade;
 
     @Mock
     private DespesaClient despesaClient;

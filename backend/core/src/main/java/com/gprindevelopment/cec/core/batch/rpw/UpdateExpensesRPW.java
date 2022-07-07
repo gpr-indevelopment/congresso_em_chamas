@@ -1,10 +1,10 @@
 package com.gprindevelopment.cec.core.batch.rpw;
 
 import com.gprindevelopment.cec.core.batch.CongressoBatchException;
-import com.gprindevelopment.cec.core.batch.DataUpdaterAPI;
 import com.gprindevelopment.cec.core.expense.Expense;
 import com.gprindevelopment.cec.core.expense.MonthlyExpense;
 import com.gprindevelopment.cec.core.expense.MonthlyExpenseService;
+import com.gprindevelopment.cec.core.externalapi.camara.CamaraClientFacade;
 import com.gprindevelopment.cec.core.politician.Legislature;
 import com.gprindevelopment.cec.core.politician.Politician;
 import com.gprindevelopment.cec.core.politician.PoliticianRepository;
@@ -30,8 +30,8 @@ public class UpdateExpensesRPW extends UpdaterRPW<List<Expense>, Politician> {
 
     private Legislature currentLegislature;
 
-    public UpdateExpensesRPW(DataUpdaterAPI dataUpdaterAPI, PoliticianRepository mainRepository, MonthlyExpenseService monthlyExpenseService, LegislaturaClient legislaturaClient) {
-        super(dataUpdaterAPI, mainRepository);
+    public UpdateExpensesRPW(CamaraClientFacade camaraClientFacade, PoliticianRepository mainRepository, MonthlyExpenseService monthlyExpenseService, LegislaturaClient legislaturaClient) {
+        super(camaraClientFacade, mainRepository);
         this.monthlyExpenseService = monthlyExpenseService;
         this.legislaturaClient = legislaturaClient;
     }

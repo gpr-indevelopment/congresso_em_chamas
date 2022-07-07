@@ -1,7 +1,7 @@
 package com.gprindevelopment.cec.core.batch.rpw;
 
 import com.gprindevelopment.cec.core.batch.CongressoBatchException;
-import com.gprindevelopment.cec.core.batch.DataUpdaterAPI;
+import com.gprindevelopment.cec.core.externalapi.camara.CamaraClientFacade;
 import com.gprindevelopment.cec.core.politician.Politician;
 import com.gprindevelopment.cec.core.politician.PoliticianRepository;
 import com.gprindevelopment.cec.core.proposition.Proposition;
@@ -17,8 +17,8 @@ import java.util.Optional;
 @JobScope
 public class UpdatePropositionsRPW extends UpdaterRPW<List<Proposition>, Politician> {
 
-    public UpdatePropositionsRPW(DataUpdaterAPI dataUpdaterAPI, PoliticianRepository mainRepository) {
-        super(dataUpdaterAPI, mainRepository);
+    public UpdatePropositionsRPW(CamaraClientFacade camaraClientFacade, PoliticianRepository mainRepository) {
+        super(camaraClientFacade, mainRepository);
     }
 
     @Override

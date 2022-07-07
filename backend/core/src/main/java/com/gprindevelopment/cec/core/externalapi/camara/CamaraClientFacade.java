@@ -1,4 +1,4 @@
-package com.gprindevelopment.cec.core.batch;
+package com.gprindevelopment.cec.core.externalapi.camara;
 
 import com.gprindevelopment.cec.core.exception.CECException;
 import com.gprindevelopment.cec.core.expense.Expense;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class DataUpdaterAPI {
+public class CamaraClientFacade {
 
     private final DespesaClient despesaClient;
 
@@ -39,20 +39,15 @@ public class DataUpdaterAPI {
 
     private final LegislaturaClient legislaturaClient;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataUpdaterAPI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamaraClientFacade.class);
 
     public List<Expense> requestAllExpensesByPoliticianId(Long id, List<Integer> months, List<Integer> years) {
         try {
             int paginaAtual = 1;
             ConsultaDespesa.Builder builder = new ConsultaDespesa.Builder(id.intValue())
-                    .pagina(paginaAtual);
-            if (months != null) {
-                builder.meses(months);
-            }
-
-            if (years != null) {
-                builder.anos(years);
-            }
+                    .pagina(paginaAtual)
+                    .meses(months)
+                    .anos(years);
             Pagina<Despesa> pagina = despesaClient.consultar(builder.build());
             List<Expense> result = pagina.stream().map(Expense::new).collect(Collectors.toList());
             while (pagina.temProxima()) {

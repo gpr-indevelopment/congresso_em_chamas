@@ -1,6 +1,6 @@
 package com.gprindevelopment.cec.core.batch.rpw;
 
-import com.gprindevelopment.cec.core.batch.DataUpdaterAPI;
+import com.gprindevelopment.cec.core.externalapi.camara.CamaraClientFacade;
 import com.gprindevelopment.cec.core.politician.Politician;
 import com.gprindevelopment.cec.core.politician.PoliticianRepository;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -13,8 +13,8 @@ import java.util.Optional;
 @JobScope
 public class UpdatePoliticianRPW extends UpdaterRPW<Politician, Politician>{
 
-    public UpdatePoliticianRPW(DataUpdaterAPI dataUpdaterAPI, PoliticianRepository mainRepository) {
-        super(dataUpdaterAPI, mainRepository);
+    public UpdatePoliticianRPW(CamaraClientFacade camaraClientFacade, PoliticianRepository mainRepository) {
+        super(camaraClientFacade, mainRepository);
     }
 
     @Override
