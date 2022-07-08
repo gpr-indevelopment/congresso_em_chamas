@@ -26,10 +26,7 @@ public class PoliticianService {
 
     private final PoliticianRepository politicianRepository;
 
-    private final DailyAccessedPoliticianDataUpdateScheduler dailyAccessedPoliticianDataUpdateScheduler;
-
     public Politician findById(Long politicianId) {
-        dailyAccessedPoliticianDataUpdateScheduler.addToQueue(politicianId);
         return camaraClientFacade.requestPoliticianById(politicianId);
     }
 

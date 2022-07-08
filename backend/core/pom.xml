@@ -7,7 +7,6 @@
 		<groupId>com.gprindevelopment.cec</groupId>
 		<version>1.0</version>
 	</parent>
-	<groupId>com.gprindevelopment.cec</groupId>
 	<artifactId>core</artifactId>
 	<version>1.0</version>
 	<name>CEC Core</name>
@@ -55,21 +54,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-batch</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.batch</groupId>
-			<artifactId>spring-batch-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 </project>
