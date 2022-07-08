@@ -22,7 +22,6 @@
 	<modules>
 		<module>core</module>
 		<module>web</module>
-        <module>domain</module>
     </modules>
 
 	<dependencyManagement>
