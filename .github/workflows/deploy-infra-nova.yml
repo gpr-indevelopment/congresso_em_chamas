@@ -1,0 +1,41 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: CEC CI/CD
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build with Maven
+      run: mvn -B package --file ./api/pom.xml
+    - name: Build and push image to Docker Hub
+      uses: docker/build-push-action@v1.1.0
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        repository: pimentgabriel/congressoemchamas
+        tags: latest
+        path: /home/runner/work/congresso_em_chamas/congresso_em_chamas/
+    - name: Restart server
+      uses: fifsky/ssh-action@v0.0.4
+      with:
+        command: |
+          export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD_2 }}
+          export POSTGRES_USERNAME=${{secrets.POSTGRES_USERNAME_2}}
+          export POSTGRES_URL=${{secrets.POSTGRES_URL_2}}
+          export GOOGLE_NEWS_API_KEY=${{secrets.GOOGLE_NEWS_API_KEY}}
+          export KEYSTORE_PATH=${{secrets.KEYSTORE_PATH}}
+          export KEYSTORE_PASSWORD=${{secrets.KEYSTORE_PASSWORD}}
+          sh deploy.sh
+        user: ${{ secrets.CONGRESSO_SERVER_USER_3 }}
+        host: ${{ secrets.CONGRESSO_SERVER_IP_3 }}
+        key: ${{ secrets.CONGRESSO_SERVER_SSH_3 }}
+    
