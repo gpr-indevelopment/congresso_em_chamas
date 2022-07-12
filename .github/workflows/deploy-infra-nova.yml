@@ -5,7 +5,7 @@ name: CEC CI/CD Infra nova
 
 on:
   push:
-    branches: [ infra-nova ]
+    branches: [ master ]
 
 jobs:
   build:
