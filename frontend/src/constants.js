@@ -1,5 +1,5 @@
 const prod = {
-    url: "http://api.congressoemchamas.com.br",
+    url: "https://api.congressoemchamas.com.br",
   };
   const dev = {
     url: "http://localhost:8080",
