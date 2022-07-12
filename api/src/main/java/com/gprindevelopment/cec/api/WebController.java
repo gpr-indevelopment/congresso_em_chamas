@@ -19,7 +19,7 @@ import java.util.*;
  */
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://infra-nova.d36zges3o1v9or.amplifyapp.com")
 public class WebController {
 
     private final WebService webService;
