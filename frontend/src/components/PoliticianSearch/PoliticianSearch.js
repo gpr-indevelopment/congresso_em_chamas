@@ -23,6 +23,7 @@ function PoliticianSearch(props) {
             noStyle
           >
             <Select placeholder="UF" style={{ width: '30%' }}>
+              <Option key={""}>{"Todos"}</Option>
               {estados.map(item => (
                 <Option key={item}>{item}</Option>
               ))}
