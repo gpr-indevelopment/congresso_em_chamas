@@ -5,7 +5,7 @@
 
 O projeto Congresso em Chamas foi descontinuado em 12/09/2022. Obrigado a todo mundo que divulgou e acessou o site.
 
-![Arquitetura](./Architecture.JPG.png "Arquitetura")
+![Arquitetura](./Architecture.JPG "Arquitetura")
 
 [Congresso em chamas](https://www.congressoemchamas.com.br/) é uma aplicação web, com código aberto, que entrega ferramentas para o acompanhamento do trabalho dos deputados federais atualmente em mandato. 
 
