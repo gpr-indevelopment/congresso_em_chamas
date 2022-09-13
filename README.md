@@ -1,6 +1,12 @@
 # Congresso em chamas
 ![Build - Maven](https://github.com/gpr-indevelopment/congresso_em_chamas/workflows/Java%20CI%20with%20Maven/badge.svg?event=push)
 
+# Descontinuado!
+
+O projeto Congresso em Chamas foi descontinuado em 12/09/2022. Obrigado a todo mundo que divulgou e acessou o site.
+
+![Arquitetura](./Architecture.JPG.png "Arquitetura")
+
 [Congresso em chamas](https://www.congressoemchamas.com.br/) é uma aplicação web, com código aberto, que entrega ferramentas para o acompanhamento do trabalho dos deputados federais atualmente em mandato. 
 
 Foi concebido como um projeto pessoal, visando o aprimoramento dos meus conhecimentos práticos de frontend.
